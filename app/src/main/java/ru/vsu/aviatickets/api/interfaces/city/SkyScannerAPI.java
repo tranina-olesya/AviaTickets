@@ -1,4 +1,4 @@
-package ru.vsu.aviatickets.api.interfaces;
+package ru.vsu.aviatickets.api.interfaces.city;
 
 import java.util.List;
 
@@ -7,6 +7,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -23,8 +24,7 @@ public interface SkyScannerAPI {
                                       @Field("destinationPlace") String destinationPlace, @Field("outboundDate") String outboundDate,
                                       @Field("adults") int adults);
 
-    @GET("/apiservices/autosuggest/v1.0/{country}/{currency}/{locale}/")
-    Call<SkyScannerPlaces> listPlaces(@Header("X-RapidAPI-Key") String xRapidAPIKey, @Path("country") String country,
-                                      @Path("currency") String currency, @Path("locale") String locale,
-                                      @Query("query") String query);
+    @Headers({"X-RapidAPI-Key: 5218bbef51msh474a4c05a0b5196p1fd9c4jsn18c6c2615b8d"})
+    @GET("/apiservices/autosuggest/v1.0/RU/RUB/ru-RU/")
+    Call<SkyScannerPlaces> listPlaces(@Query("query") String query);
 }

@@ -10,7 +10,7 @@ import okhttp3.Headers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import ru.vsu.aviatickets.api.SkyScannerApiService;
+import ru.vsu.aviatickets.api.model.Route;
 import ru.vsu.aviatickets.api.model.SkyScannerPlaces;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,11 +25,21 @@ public class MainActivity extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.textView);
         editText = (EditText) findViewById(R.id.editText);
         buttonSubmit = (Button) findViewById(R.id.buttonSubmit);
-        editText.setText("Из лондона в берлин");
+        App.getIATACodeAPI().getRoute("Из москвы в нью-йорк")
+                .enqueue(new Callback<Route>() {
+                    @Override
+                    public void onResponse(Call<Route> call, Response<Route> response) {
+                        Route route = response.body();
+                        Headers headers = response.headers();
+                    }
 
-        SkyScannerApiService.createApi()
-                .listPlaces("5218bbef51msh474a4c05a0b5196p1fd9c4jsn18c6c2615b8d", "RU",
-                        "RUB", "ru-RU", "Воронеж")
+                    @Override
+                    public void onFailure(Call<Route> call, Throwable t) {
+
+                    }
+                });
+
+        App.getSkyScannerAPI().listPlaces("Воронеж")
                 .enqueue(new Callback<SkyScannerPlaces>() {
                     @Override
                     public void onResponse(Call<SkyScannerPlaces> call, Response<SkyScannerPlaces> response) {
@@ -39,8 +49,6 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<SkyScannerPlaces> call, Throwable t) {
-                        int a = 2;
-                        a++;
                     }
                 });
     }
