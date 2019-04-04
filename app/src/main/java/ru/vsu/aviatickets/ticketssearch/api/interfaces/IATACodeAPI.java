@@ -1,10 +1,9 @@
-package ru.vsu.aviatickets.api.interfaces.city;
+package ru.vsu.aviatickets.ticketssearch.api.interfaces;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-import ru.vsu.aviatickets.api.interfaces.tickets.TicketsApi;
-import ru.vsu.aviatickets.api.model.Route;
+import ru.vsu.aviatickets.ticketssearch.models.Route;
 
 public interface IATACodeAPI {
     @GET("/widgets_suggest_params")
