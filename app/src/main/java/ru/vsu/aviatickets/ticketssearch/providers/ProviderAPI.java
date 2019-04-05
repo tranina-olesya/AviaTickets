@@ -7,7 +7,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import ru.vsu.aviatickets.BuildConfig;
-import ru.vsu.aviatickets.ticketssearch.models.Ticket;
+import ru.vsu.aviatickets.ticketssearch.models.Trip;
 
 public abstract class ProviderAPI<T> {
     private T ticketsApi;
@@ -19,13 +19,14 @@ public abstract class ProviderAPI<T> {
     protected void init(){
         ticketsApi = createApiClass(buildRetrofit(buildOkHttp()));
     }
+
     protected T getTicketsApi(){
         return ticketsApi;
     }
 
-    public abstract List<Ticket> getTickets();
+    public abstract void getTickets(SkyScannerProviderAPI.TicketsCallback callback);
 
-    public abstract List<Ticket> sortTickets();
+    public abstract List<Trip> sortTickets();
 
     private OkHttpClient buildOkHttp() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
@@ -49,4 +50,13 @@ public abstract class ProviderAPI<T> {
 
     protected abstract T createApiClass(Retrofit retrofit);
 
+    public interface TicketsCallback {
+        void onGet(List<Trip> trips);
+        void onFail();
+    }
+
+    protected interface SessionKeyCallback {
+        void onGet(String sessionKey);
+        void onFail();
+    }
 }
