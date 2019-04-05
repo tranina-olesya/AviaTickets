@@ -1,5 +1,8 @@
 package ru.vsu.aviatickets.ticketssearch.providers;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.List;
 
 import okhttp3.OkHttpClient;
@@ -41,10 +44,13 @@ public abstract class ProviderAPI<T> {
     }
 
     private Retrofit buildRetrofit(OkHttpClient okHttpClient) {
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                .create();
         return new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
     }
 

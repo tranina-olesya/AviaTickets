@@ -54,7 +54,7 @@ public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> {
     }
 
     private void getSessionKey(final SessionKeyCallback callback) {
-        getTicketsApi().createSession("2019-04-08", null, "business", 0, 0, "RU", "RUB", "ru-RU", "VOZ-sky", "MOSC-sky", 1).enqueue(new Callback<ResponseBody>() {
+        getTicketsApi().createSession("2019-04-08", "2019-04-10", "business", 0, 0, "RU", "RUB", "ru-RU", "VOZ-sky", "MOSC-sky", 1).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (callback != null) {
