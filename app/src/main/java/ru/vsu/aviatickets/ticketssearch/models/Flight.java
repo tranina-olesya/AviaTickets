@@ -5,23 +5,23 @@ import java.util.Date;
 import java.util.List;
 
 public class Flight {
-    private String origin;
-    private String destination;
+    private Place origin;
+    private Place destination;
     private Date outboundDate;
     private Date inboundDate;
-    private Integer flightLength;
+    private Integer duration;
     private int adultsCount;
     private int childrenCount;
     private int infantsCount;
     private List<Ticket> flightParts;
 
-    public Flight(String origin, String destination, Date outboundDate, Date inboundDate, Integer flightLength, int adultsCount, int childrenCount, int infantsCount, List<Ticket> flightParts) {
+    public Flight(Place origin, Place destination, Date outboundDate, Date inboundDate, Integer duration, int adultsCount, int childrenCount, int infantsCount, List<Ticket> flightParts) {
         this();
         this.origin = origin;
         this.destination = destination;
         this.outboundDate = outboundDate;
         this.inboundDate = inboundDate;
-        this.flightLength = flightLength;
+        this.duration = duration;
         this.adultsCount = adultsCount;
         this.childrenCount = childrenCount;
         this.infantsCount = infantsCount;
@@ -32,19 +32,19 @@ public class Flight {
         flightParts = new ArrayList<>();
     }
 
-    public String getOrigin() {
+    public Place getOrigin() {
         return origin;
     }
 
-    public void setOrigin(String origin) {
+    public void setOrigin(Place origin) {
         this.origin = origin;
     }
 
-    public String getDestination() {
+    public Place getDestination() {
         return destination;
     }
 
-    public void setDestination(String destination) {
+    public void setDestination(Place destination) {
         this.destination = destination;
     }
 
@@ -64,12 +64,12 @@ public class Flight {
         this.inboundDate = inboundDate;
     }
 
-    public Integer getFlightLength() {
-        return flightLength;
+    public Integer getDuration() {
+        return duration;
     }
 
-    public void setFlightLength(Integer flightLength) {
-        this.flightLength = flightLength;
+    public void setDuration(Integer duration) {
+        this.duration = duration;
     }
 
     public int getAdultsCount() {

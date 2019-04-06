@@ -3,13 +3,19 @@ package ru.vsu.aviatickets.ticketssearch.models.skyscanner;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import ru.vsu.aviatickets.ticketssearch.models.Carrier;
+import ru.vsu.aviatickets.ticketssearch.models.Place;
 
 public class SkyScannerResponse {
     @SerializedName("SessionKey")
     @Expose
     private String sessionKey;
+
+    @SerializedName("Query")
+    @Expose
+    private SkyScannerQuery query;
 
     @SerializedName("Segments")
     @Expose
@@ -35,8 +41,9 @@ public class SkyScannerResponse {
     @Expose
     private List<Agent> agents;
 
-    public SkyScannerResponse(String sessionKey, List<Segment> segments, List<Leg> legs, List<Place> places, List<Itinerary> itineraries, List<Carrier> carriers, List<Agent> agents) {
+    public SkyScannerResponse(String sessionKey, SkyScannerQuery query, List<Segment> segments, List<Leg> legs, List<Place> places, List<Itinerary> itineraries, List<Carrier> carriers, List<Agent> agents) {
         this.sessionKey = sessionKey;
+        this.query = query;
         this.segments = segments;
         this.legs = legs;
         this.places = places;
@@ -102,5 +109,13 @@ public class SkyScannerResponse {
 
     public void setAgents(List<Agent> agents) {
         this.agents = agents;
+    }
+
+    public SkyScannerQuery getQuery() {
+        return query;
+    }
+
+    public void setQuery(SkyScannerQuery query) {
+        this.query = query;
     }
 }

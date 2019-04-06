@@ -12,11 +12,11 @@ public class Segment {
 
     @SerializedName("OriginStation")
     @Expose
-    private String originStation;
+    private Integer originStation;
 
     @SerializedName("DestinationStation")
     @Expose
-    private String destinationStation;
+    private Integer destinationStation;
 
     @SerializedName("DepartureDateTime")
     @Expose
@@ -42,7 +42,7 @@ public class Segment {
     @Expose
     private String directionality;
 
-    public Segment(Integer id, String originStation, String destinationStation, Date departureDateTime, Date arrivalDateTime, Integer carrier, Integer duration, String flightNumber, String directionality) {
+    public Segment(Integer id, Integer originStation, Integer destinationStation, Date departureDateTime, Date arrivalDateTime, Integer carrier, Integer duration, String flightNumber, String directionality) {
         this.id = id;
         this.originStation = originStation;
         this.destinationStation = destinationStation;
@@ -65,19 +65,19 @@ public class Segment {
         this.id = id;
     }
 
-    public String getOriginStation() {
+    public Integer getOriginStation() {
         return originStation;
     }
 
-    public void setOriginStation(String originStation) {
+    public void setOriginStation(Integer originStation) {
         this.originStation = originStation;
     }
 
-    public String getDestinationStation() {
+    public Integer getDestinationStation() {
         return destinationStation;
     }
 
-    public void setDestinationStation(String destinationStation) {
+    public void setDestinationStation(Integer destinationStation) {
         this.destinationStation = destinationStation;
     }
 
