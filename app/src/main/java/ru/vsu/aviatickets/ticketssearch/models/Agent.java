@@ -1,8 +1,5 @@
 package ru.vsu.aviatickets.ticketssearch.models;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 public class Agent {
 
     private String name;
