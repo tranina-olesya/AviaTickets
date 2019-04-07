@@ -10,14 +10,18 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import ru.vsu.aviatickets.ticketssearch.api.interfaces.SkyScannerAPI;
+import ru.vsu.aviatickets.ticketssearch.models.Agent;
 import ru.vsu.aviatickets.ticketssearch.models.Carrier;
 import ru.vsu.aviatickets.ticketssearch.models.Flight;
+import ru.vsu.aviatickets.ticketssearch.models.PriceLink;
 import ru.vsu.aviatickets.ticketssearch.models.Ticket;
 import ru.vsu.aviatickets.ticketssearch.models.Trip;
 import ru.vsu.aviatickets.ticketssearch.models.skyscanner.Itinerary;
 import ru.vsu.aviatickets.ticketssearch.models.skyscanner.Leg;
 import ru.vsu.aviatickets.ticketssearch.models.Place;
+import ru.vsu.aviatickets.ticketssearch.models.skyscanner.PricingOption;
 import ru.vsu.aviatickets.ticketssearch.models.skyscanner.Segment;
+import ru.vsu.aviatickets.ticketssearch.models.skyscanner.SkyScannerAgent;
 import ru.vsu.aviatickets.ticketssearch.models.skyscanner.SkyScannerResponse;
 
 public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> {
@@ -97,6 +101,20 @@ public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> {
             Flight inbound = formFlight(response, inboundLeg);
             trip.setOutbound(outbound);
             trip.setInbound(inbound);
+            List<PriceLink> priceLinks = new ArrayList<>();
+            for (PricingOption pricingOption : itinerary.getPricingOptions()) {
+                PriceLink priceLink = new PriceLink();
+                List<Agent> agents = new ArrayList<>();
+                for (Integer agentId : pricingOption.getAgents()) {
+                    SkyScannerAgent agent = findAgentById(response.getSkyScannerAgents(), agentId);
+                    agents.add(new Agent(agent.getName(), agent.getImageUrl()));
+                }
+                priceLink.setAgents(agents);
+                priceLink.setDeepLink(pricingOption.getDeeplinkUrl());
+                priceLink.setPrice(pricingOption.getPrice());
+                priceLinks.add(priceLink);
+            }
+            trip.setPriceLinks(priceLinks);
             trips.add(trip);
         }
         return trips;
@@ -105,7 +123,7 @@ public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> {
     private Place findPlaceById(List<Place> places, Integer id) {
         if (id == null)
             return null;
-        for(Place place : places){
+        for (Place place : places) {
             if (place.getId().equals(id))
                 return place;
         }
@@ -115,7 +133,7 @@ public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> {
     private Leg findLegById(List<Leg> legs, String id) {
         if (id == null)
             return null;
-        for (Leg leg: legs){
+        for (Leg leg : legs) {
             if (leg.getId().equals(id))
                 return leg;
         }
@@ -125,9 +143,19 @@ public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> {
     private Carrier findCarrierById(List<Carrier> carriers, Integer id) {
         if (id == null)
             return null;
-        for (Carrier carrier: carriers){
+        for (Carrier carrier : carriers) {
             if (carrier.getId().equals(id))
                 return carrier;
+        }
+        return null;
+    }
+
+    private SkyScannerAgent findAgentById(List<SkyScannerAgent> agents, Integer id) {
+        if (id == null)
+            return null;
+        for (SkyScannerAgent agent : agents) {
+            if (agent.getId().equals(id))
+                return agent;
         }
         return null;
     }
@@ -135,7 +163,7 @@ public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> {
     private Segment findSegmentById(List<Segment> segments, Integer id) {
         if (id == null)
             return null;
-        for (Segment segment: segments){
+        for (Segment segment : segments) {
             if (segment.getId().equals(id))
                 return segment;
         }
@@ -168,6 +196,8 @@ public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> {
         }
         return flight;
     }
+
+
 }
 
 

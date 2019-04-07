@@ -14,6 +14,10 @@ public class PricingOption {
     @Expose
     private Double price;
 
+    @SerializedName("QuoteAgeInMinutes")
+    @Expose
+    private Integer quoteAgeInMinutes;
+
     @SerializedName("DeeplinkUrl")
     @Expose
     private String deeplinkUrl;

@@ -39,9 +39,9 @@ public class SkyScannerResponse {
 
     @SerializedName("Agents")
     @Expose
-    private List<Agent> agents;
+    private List<SkyScannerAgent> skyScannerAgents;
 
-    public SkyScannerResponse(String sessionKey, SkyScannerQuery query, List<Segment> segments, List<Leg> legs, List<Place> places, List<Itinerary> itineraries, List<Carrier> carriers, List<Agent> agents) {
+    public SkyScannerResponse(String sessionKey, SkyScannerQuery query, List<Segment> segments, List<Leg> legs, List<Place> places, List<Itinerary> itineraries, List<Carrier> carriers, List<SkyScannerAgent> skyScannerAgents) {
         this.sessionKey = sessionKey;
         this.query = query;
         this.segments = segments;
@@ -49,7 +49,7 @@ public class SkyScannerResponse {
         this.places = places;
         this.itineraries = itineraries;
         this.carriers = carriers;
-        this.agents = agents;
+        this.skyScannerAgents = skyScannerAgents;
     }
 
     public SkyScannerResponse() {
@@ -103,12 +103,12 @@ public class SkyScannerResponse {
         this.carriers = carriers;
     }
 
-    public List<Agent> getAgents() {
-        return agents;
+    public List<SkyScannerAgent> getSkyScannerAgents() {
+        return skyScannerAgents;
     }
 
-    public void setAgents(List<Agent> agents) {
-        this.agents = agents;
+    public void setSkyScannerAgents(List<SkyScannerAgent> skyScannerAgents) {
+        this.skyScannerAgents = skyScannerAgents;
     }
 
     public SkyScannerQuery getQuery() {

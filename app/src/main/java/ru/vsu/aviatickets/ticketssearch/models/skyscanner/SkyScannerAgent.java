@@ -3,7 +3,7 @@ package ru.vsu.aviatickets.ticketssearch.models.skyscanner;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Agent {
+public class SkyScannerAgent {
     @SerializedName("Id")
     @Expose
     private Integer id;
@@ -16,13 +16,13 @@ public class Agent {
     @Expose
     private String imageUrl;
 
-    public Agent(Integer id, String name, String imageUrl) {
+    public SkyScannerAgent(Integer id, String name, String imageUrl) {
         this.id = id;
         this.name = name;
         this.imageUrl = imageUrl;
     }
 
-    public Agent() {
+    public SkyScannerAgent() {
     }
 
     public Integer getId() {
