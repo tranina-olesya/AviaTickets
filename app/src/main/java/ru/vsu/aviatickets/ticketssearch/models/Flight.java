@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import ru.vsu.aviatickets.ticketssearch.models.skyscanner.SkyScannerPlace;
+
 public class Flight {
     private Place origin;
     private Place destination;

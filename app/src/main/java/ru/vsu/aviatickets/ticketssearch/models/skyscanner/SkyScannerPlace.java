@@ -3,74 +3,26 @@ package ru.vsu.aviatickets.ticketssearch.models.skyscanner;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class SkyScannerPlace {
-    @SerializedName("PlaceId")
+import ru.vsu.aviatickets.ticketssearch.models.Place;
+
+public class SkyScannerPlace extends Place {
+    @SerializedName("Id")
     @Expose
-    private String placeId;
-    @SerializedName("PlaceName")
-    @Expose
-    private String placeName;
-    @SerializedName("CountryId")
-    @Expose
-    private String countryId;
-    @SerializedName("RegionId")
-    @Expose
-    private String regionId;
-    @SerializedName("CityId")
-    @Expose
-    private String cityId;
-    @SerializedName("CountryName")
-    @Expose
-    private String countryName;
+    private Integer id;
+
+    public SkyScannerPlace(Integer id, String code, String type, String name) {
+        super(code, type, name);
+        this.id = id;
+    }
 
     public SkyScannerPlace() {
     }
 
-    public String getPlaceId() {
-        return placeId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setPlaceId(String placeId) {
-        this.placeId = placeId;
-    }
-
-    public String getPlaceName() {
-        return placeName;
-    }
-
-    public void setPlaceName(String placeName) {
-        this.placeName = placeName;
-    }
-
-    public String getCountryId() {
-        return countryId;
-    }
-
-    public void setCountryId(String countryId) {
-        this.countryId = countryId;
-    }
-
-    public String getRegionId() {
-        return regionId;
-    }
-
-    public void setRegionId(String regionId) {
-        this.regionId = regionId;
-    }
-
-    public String getCityId() {
-        return cityId;
-    }
-
-    public void setCityId(String cityId) {
-        this.cityId = cityId;
-    }
-
-    public String getCountryName() {
-        return countryName;
-    }
-
-    public void setCountryName(String countryName) {
-        this.countryName = countryName;
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

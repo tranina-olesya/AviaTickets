@@ -1,9 +1,15 @@
 package ru.vsu.aviatickets.ticketssearch.models;
 
-public class Agent {
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
+public class Agent {
+    @SerializedName("Name")
+    @Expose
     private String name;
 
+    @SerializedName("ImageUrl")
+    @Expose
     private String imageUrl;
 
     public Agent(String name, String imageUrl) {

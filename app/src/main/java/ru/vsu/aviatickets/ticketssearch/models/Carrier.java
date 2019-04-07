@@ -4,10 +4,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Carrier {
-    @SerializedName("Id")
-    @Expose
-    private Integer id;
-
     @SerializedName("Code")
     @Expose
     private String code;
@@ -20,22 +16,13 @@ public class Carrier {
     @Expose
     private String imageUrl;
 
-    public Carrier(Integer id, String code, String name, String imageUrl) {
-        this.id = id;
+    public Carrier(String code, String name, String imageUrl) {
         this.code = code;
         this.name = name;
         this.imageUrl = imageUrl;
     }
 
     public Carrier() {
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getCode() {

@@ -2,7 +2,6 @@ package ru.vsu.aviatickets.ticketssearch.providers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -18,10 +17,11 @@ import ru.vsu.aviatickets.ticketssearch.models.Ticket;
 import ru.vsu.aviatickets.ticketssearch.models.Trip;
 import ru.vsu.aviatickets.ticketssearch.models.skyscanner.Itinerary;
 import ru.vsu.aviatickets.ticketssearch.models.skyscanner.Leg;
-import ru.vsu.aviatickets.ticketssearch.models.Place;
+import ru.vsu.aviatickets.ticketssearch.models.skyscanner.SkyScannerPlace;
 import ru.vsu.aviatickets.ticketssearch.models.skyscanner.PricingOption;
 import ru.vsu.aviatickets.ticketssearch.models.skyscanner.Segment;
 import ru.vsu.aviatickets.ticketssearch.models.skyscanner.SkyScannerAgent;
+import ru.vsu.aviatickets.ticketssearch.models.skyscanner.SkyScannerCarrier;
 import ru.vsu.aviatickets.ticketssearch.models.skyscanner.SkyScannerResponse;
 
 public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> {
@@ -71,7 +71,7 @@ public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> {
     }
 
     private void getSessionKey(final SessionKeyCallback callback) {
-        getTicketsApi().createSession("2019-04-08", null, "business", 0, 0, "RU", "RUB", "ru-RU", "VOZ-sky", "MOSC-sky", 1).enqueue(new Callback<ResponseBody>() {
+        getTicketsApi().createSession("2019-04-18", null, "business", 0, 0, "RU", "RUB", "ru-RU", "VOZ-sky", "MOSC-sky", 1).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (callback != null) {
@@ -120,10 +120,10 @@ public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> {
         return trips;
     }
 
-    private Place findPlaceById(List<Place> places, Integer id) {
+    private SkyScannerPlace findPlaceById(List<SkyScannerPlace> places, Integer id) {
         if (id == null)
             return null;
-        for (Place place : places) {
+        for (SkyScannerPlace place : places) {
             if (place.getId().equals(id))
                 return place;
         }
@@ -140,10 +140,10 @@ public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> {
         return null;
     }
 
-    private Carrier findCarrierById(List<Carrier> carriers, Integer id) {
+    private Carrier findCarrierById(List<SkyScannerCarrier> carriers, Integer id) {
         if (id == null)
             return null;
-        for (Carrier carrier : carriers) {
+        for (SkyScannerCarrier carrier : carriers) {
             if (carrier.getId().equals(id))
                 return carrier;
         }

@@ -4,10 +4,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Place {
-    @SerializedName("Id")
-    @Expose
-    private Integer id;
-
     @SerializedName("Code")
     @Expose
     private String code;
@@ -20,8 +16,7 @@ public class Place {
     @Expose
     private String name;
 
-    public Place(Integer id, String code, String type, String name) {
-        this.id = id;
+    public Place(String code, String type, String name) {
         this.code = code;
         this.type = type;
         this.name = name;
@@ -30,13 +25,6 @@ public class Place {
     public Place() {
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getCode() {
         return code;

@@ -2,6 +2,8 @@ package ru.vsu.aviatickets.ticketssearch.models;
 
 import java.util.Date;
 
+import ru.vsu.aviatickets.ticketssearch.models.skyscanner.SkyScannerPlace;
+
 public class Ticket {
     private Carrier carrier;
     private Place origin;

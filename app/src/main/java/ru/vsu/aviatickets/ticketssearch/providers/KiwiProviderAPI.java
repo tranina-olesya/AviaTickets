@@ -18,7 +18,7 @@ public class KiwiProviderAPI extends ProviderAPI<KiwiAPI> {
 
     @Override
     public void getTickets(TicketsCallback callback) {
-        getTicketsApi().getTickets("VOZ", "MOW", "08/08/2019", "08/08/2019", "oneway").enqueue(new Callback<KiwiResponse>() {
+        getTicketsApi().getTickets("VOZ", "MOW", "18/04/2019", "18/04/2019", "20/04/2019", "20/04/2019","oneway").enqueue(new Callback<KiwiResponse>() {
             @Override
             public void onResponse(Call<KiwiResponse> call, Response<KiwiResponse> response) {
 

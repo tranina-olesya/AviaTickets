@@ -5,9 +5,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import ru.vsu.aviatickets.ticketssearch.models.Carrier;
-import ru.vsu.aviatickets.ticketssearch.models.Place;
-
 public class SkyScannerResponse {
     @SerializedName("SessionKey")
     @Expose
@@ -27,7 +24,7 @@ public class SkyScannerResponse {
 
     @SerializedName("Places")
     @Expose
-    private List<Place> places;
+    private List<SkyScannerPlace> places;
 
     @SerializedName("Itineraries")
     @Expose
@@ -35,13 +32,13 @@ public class SkyScannerResponse {
 
     @SerializedName("Carriers")
     @Expose
-    private List<Carrier> carriers;
+    private List<SkyScannerCarrier> carriers;
 
     @SerializedName("Agents")
     @Expose
     private List<SkyScannerAgent> skyScannerAgents;
 
-    public SkyScannerResponse(String sessionKey, SkyScannerQuery query, List<Segment> segments, List<Leg> legs, List<Place> places, List<Itinerary> itineraries, List<Carrier> carriers, List<SkyScannerAgent> skyScannerAgents) {
+    public SkyScannerResponse(String sessionKey, SkyScannerQuery query, List<Segment> segments, List<Leg> legs, List<SkyScannerPlace> places, List<Itinerary> itineraries, List<SkyScannerCarrier> carriers, List<SkyScannerAgent> skyScannerAgents) {
         this.sessionKey = sessionKey;
         this.query = query;
         this.segments = segments;
@@ -79,11 +76,11 @@ public class SkyScannerResponse {
         this.legs = legs;
     }
 
-    public List<Place> getPlaces() {
+    public List<SkyScannerPlace> getPlaces() {
         return places;
     }
 
-    public void setPlaces(List<Place> places) {
+    public void setPlaces(List<SkyScannerPlace> places) {
         this.places = places;
     }
 
@@ -95,11 +92,11 @@ public class SkyScannerResponse {
         this.itineraries = itineraries;
     }
 
-    public List<Carrier> getCarriers() {
+    public List<SkyScannerCarrier> getCarriers() {
         return carriers;
     }
 
-    public void setCarriers(List<Carrier> carriers) {
+    public void setCarriers(List<SkyScannerCarrier> carriers) {
         this.carriers = carriers;
     }
 
