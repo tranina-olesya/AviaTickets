@@ -26,8 +26,7 @@ import ru.vsu.aviatickets.ticketssearch.models.skyscanner.SkyScannerResponse;
 
 public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> {
     public SkyScannerProviderAPI() {
-        baseUrl = "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com";
-        init();
+        super("https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com");
     }
 
     @Override
@@ -101,19 +100,7 @@ public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> {
             Flight inbound = formFlight(response, inboundLeg);
             trip.setOutbound(outbound);
             trip.setInbound(inbound);
-            List<PriceLink> priceLinks = new ArrayList<>();
-            for (PricingOption pricingOption : itinerary.getPricingOptions()) {
-                PriceLink priceLink = new PriceLink();
-                List<Agent> agents = new ArrayList<>();
-                for (Integer agentId : pricingOption.getAgents()) {
-                    SkyScannerAgent agent = findAgentById(response.getSkyScannerAgents(), agentId);
-                    agents.add(new Agent(agent.getName(), agent.getImageUrl()));
-                }
-                priceLink.setAgents(agents);
-                priceLink.setDeepLink(pricingOption.getDeeplinkUrl());
-                priceLink.setPrice(pricingOption.getPrice());
-                priceLinks.add(priceLink);
-            }
+            List<PriceLink> priceLinks = formPriceLinks(response.getSkyScannerAgents(), itinerary);
             trip.setPriceLinks(priceLinks);
             trips.add(trip);
         }
@@ -197,6 +184,22 @@ public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> {
         return flight;
     }
 
+    private List<PriceLink> formPriceLinks(List<SkyScannerAgent> skyScannerAgents, Itinerary itinerary){
+        List<PriceLink> priceLinks = new ArrayList<>();
+        for (PricingOption pricingOption : itinerary.getPricingOptions()) {
+            PriceLink priceLink = new PriceLink();
+            List<Agent> agents = new ArrayList<>();
+            for (Integer agentId : pricingOption.getAgents()) {
+                SkyScannerAgent agent = findAgentById(skyScannerAgents, agentId);
+                agents.add(new Agent(agent.getName(), agent.getImageUrl()));
+            }
+            priceLink.setAgents(agents);
+            priceLink.setDeepLink(pricingOption.getDeeplinkUrl());
+            priceLink.setPrice(pricingOption.getPrice());
+            priceLinks.add(priceLink);
+        }
+        return priceLinks;
+    }
 
 }
 

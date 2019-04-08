@@ -19,20 +19,9 @@ public class Seats {
     @Expose
     private Integer children;
 
-    /**
-     * No args constructor for use in serialization
-     * 
-     */
     public Seats() {
     }
 
-    /**
-     * 
-     * @param passengers
-     * @param adults
-     * @param children
-     * @param infants
-     */
     public Seats(Integer infants, Integer passengers, Integer adults, Integer children) {
         super();
         this.infants = infants;

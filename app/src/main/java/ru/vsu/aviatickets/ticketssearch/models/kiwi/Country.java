@@ -13,18 +13,9 @@ public class Country {
     @Expose
     private String name;
 
-    /**
-     * No args constructor for use in serialization
-     * 
-     */
     public Country() {
     }
 
-    /**
-     * 
-     * @param name
-     * @param code
-     */
     public Country(String code, String name) {
         super();
         this.code = code;

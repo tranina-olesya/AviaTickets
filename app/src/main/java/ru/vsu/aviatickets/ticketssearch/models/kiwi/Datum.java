@@ -25,6 +25,9 @@ public class Datum {
     @SerializedName("fly_duration")
     @Expose
     private String flyDuration;
+    @SerializedName("return_duration")
+    @Expose
+    private String returnDuration;
     @SerializedName("has_airport_change")
     @Expose
     private Boolean hasAirportChange;
@@ -38,12 +41,9 @@ public class Datum {
     @SerializedName("flyFrom")
     @Expose
     private String flyFrom;
-    @SerializedName("dTimeUTC")
-    @Expose
-    private Integer dTimeUTC;
     @SerializedName("dTime")
     @Expose
-    private Integer dTime;
+    private Long dTime;
     @SerializedName("cityFrom")
     @Expose
     private String cityFrom;
@@ -57,12 +57,9 @@ public class Datum {
     @SerializedName("countryTo")
     @Expose
     private Country countryTo;
-    @SerializedName("aTimeUTC")
-    @Expose
-    private Integer aTimeUTC;
     @SerializedName("price")
     @Expose
-    private Integer price;
+    private Double price;
     @SerializedName("routes")
     @Expose
     private List<List<String>> routes = null;
@@ -77,7 +74,7 @@ public class Datum {
     private List<Route> route = null;
     @SerializedName("aTime")
     @Expose
-    private Integer aTime;
+    private Long aTime;
     @SerializedName("countryFrom")
     @Expose
     private Country countryFrom;
@@ -86,24 +83,23 @@ public class Datum {
     public Datum() {
     }
 
-    public Datum(Double quality, String flyTo, String deepLink, List<String> airlines, Integer pnrCount, String flyDuration, Boolean hasAirportChange, Double distance, List<String> typeFlights, String flyFrom, Integer dTimeUTC, Integer dTime, String cityFrom, Duration duration, String id, Country countryTo, Integer aTimeUTC, Integer price, List<List<String>> routes, String cityTo, List<Object> transfers, List<Route> route, Integer aTime, Country countryFrom) {
+    public Datum(Double quality, String flyTo, String deepLink, List<String> airlines, Integer pnrCount, String flyDuration, String returnDuration, Boolean hasAirportChange, Double distance, List<String> typeFlights, String flyFrom, Long dTime, String cityFrom, Duration duration, String id, Country countryTo, Double price, List<List<String>> routes, String cityTo, List<Object> transfers, List<Route> route, Long aTime, Country countryFrom) {
         this.quality = quality;
         this.flyTo = flyTo;
         this.deepLink = deepLink;
         this.airlines = airlines;
         this.pnrCount = pnrCount;
         this.flyDuration = flyDuration;
+        this.returnDuration = returnDuration;
         this.hasAirportChange = hasAirportChange;
         this.distance = distance;
         this.typeFlights = typeFlights;
         this.flyFrom = flyFrom;
-        this.dTimeUTC = dTimeUTC;
         this.dTime = dTime;
         this.cityFrom = cityFrom;
         this.duration = duration;
         this.id = id;
         this.countryTo = countryTo;
-        this.aTimeUTC = aTimeUTC;
         this.price = price;
         this.routes = routes;
         this.cityTo = cityTo;
@@ -193,19 +189,11 @@ public class Datum {
         this.flyFrom = flyFrom;
     }
 
-    public Integer getdTimeUTC() {
-        return dTimeUTC;
-    }
-
-    public void setdTimeUTC(Integer dTimeUTC) {
-        this.dTimeUTC = dTimeUTC;
-    }
-
-    public Integer getdTime() {
+    public Long getDTime() {
         return dTime;
     }
 
-    public void setdTime(Integer dTime) {
+    public void setDTime(Long dTime) {
         this.dTime = dTime;
     }
 
@@ -241,19 +229,11 @@ public class Datum {
         this.countryTo = countryTo;
     }
 
-    public Integer getaTimeUTC() {
-        return aTimeUTC;
-    }
-
-    public void setaTimeUTC(Integer aTimeUTC) {
-        this.aTimeUTC = aTimeUTC;
-    }
-
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -289,11 +269,11 @@ public class Datum {
         this.route = route;
     }
 
-    public Integer getaTime() {
+    public Long getATime() {
         return aTime;
     }
 
-    public void setaTime(Integer aTime) {
+    public void setATime(Long aTime) {
         this.aTime = aTime;
     }
 
@@ -303,5 +283,13 @@ public class Datum {
 
     public void setCountryFrom(Country countryFrom) {
         this.countryFrom = countryFrom;
+    }
+
+    public String getReturnDuration() {
+        return returnDuration;
+    }
+
+    public void setReturnDuration(String returnDuration) {
+        this.returnDuration = returnDuration;
     }
 }

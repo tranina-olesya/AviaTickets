@@ -10,9 +10,6 @@ public class KiwiResponse {
     @SerializedName("search_params")
     @Expose
     private SearchParams searchParams;
-//    @SerializedName("time")
-//    @Expose
-//    private Integer time;
     @SerializedName("data")
     @Expose
     private List<Datum> data = null;
@@ -20,19 +17,9 @@ public class KiwiResponse {
     @Expose
     private String searchId;
 
-    /**
-     * No args constructor for use in serialization
-     * 
-     */
     public KiwiResponse() {
     }
 
-    /**
-     *
-     * @param searchParams
-     * @param data
-     * @param searchId
-     */
     public KiwiResponse(SearchParams searchParams, List<Datum> data, String searchId) {
         super();
         this.searchParams = searchParams;

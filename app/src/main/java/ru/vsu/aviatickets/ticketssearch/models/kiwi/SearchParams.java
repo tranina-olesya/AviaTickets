@@ -16,19 +16,9 @@ public class SearchParams {
     @Expose
     private Seats seats;
 
-    /**
-     * No args constructor for use in serialization
-     * 
-     */
     public SearchParams() {
     }
 
-    /**
-     * 
-     * @param flyFromType
-     * @param seats
-     * @param toType
-     */
     public SearchParams(String toType, String flyFromType, Seats seats) {
         super();
         this.toType = toType;

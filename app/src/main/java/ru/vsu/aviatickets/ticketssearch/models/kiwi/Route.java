@@ -6,15 +6,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class Route {
 
-    @SerializedName("aTimeUTC")
-    @Expose
-    private Integer aTimeUTC;
-    @SerializedName("refresh_timestamp")
-    @Expose
-    private Integer refreshTimestamp;
-    @SerializedName("bags_recheck_required")
-    @Expose
-    private Boolean bagsRecheckRequired;
     @SerializedName("return")
     @Expose
     private Integer _return;
@@ -37,13 +28,9 @@ public class Route {
     @SerializedName("flyFrom")
     @Expose
     private String flyFrom;
-    @SerializedName("dTimeUTC")
-    @Expose
-    private Integer dTimeUTC;
-
     @SerializedName("dTime")
     @Expose
-    private Integer dTime;
+    private Long dTime;
     @SerializedName("flyTo")
     @Expose
     private String flyTo;
@@ -58,16 +45,13 @@ public class Route {
 
     @SerializedName("aTime")
     @Expose
-    private Integer aTime;
+    private Long aTime;
 
     public Route() {
     }
 
-    public Route(Integer aTimeUTC, Integer refreshTimestamp, Boolean bagsRecheckRequired, Integer _return, Integer flightNo, Integer price, Integer originalReturn, String operatingCarrier, String cityTo, String flyFrom, Integer dTimeUTC, Integer dTime,  String flyTo, String airline, String cityFrom, Integer aTime) {
+    public Route(Integer _return, Integer flightNo, Integer price, Integer originalReturn, String operatingCarrier, String cityTo, String flyFrom, Long dTime,  String flyTo, String airline, String cityFrom, Long aTime) {
         super();
-        this.aTimeUTC = aTimeUTC;
-        this.refreshTimestamp = refreshTimestamp;
-        this.bagsRecheckRequired = bagsRecheckRequired;
         this._return = _return;
         this.flightNo = flightNo;
         this.price = price;
@@ -75,7 +59,6 @@ public class Route {
         this.operatingCarrier = operatingCarrier;
         this.cityTo = cityTo;
         this.flyFrom = flyFrom;
-        this.dTimeUTC = dTimeUTC;
         this.dTime = dTime;
         this.flyTo = flyTo;
         this.airline = airline;
@@ -83,35 +66,11 @@ public class Route {
         this.aTime = aTime;
     }
 
-    public Integer getaTimeUTC() {
-        return aTimeUTC;
-    }
-
-    public void setaTimeUTC(Integer aTimeUTC) {
-        this.aTimeUTC = aTimeUTC;
-    }
-
-    public Integer getRefreshTimestamp() {
-        return refreshTimestamp;
-    }
-
-    public void setRefreshTimestamp(Integer refreshTimestamp) {
-        this.refreshTimestamp = refreshTimestamp;
-    }
-
-    public Boolean getBagsRecheckRequired() {
-        return bagsRecheckRequired;
-    }
-
-    public void setBagsRecheckRequired(Boolean bagsRecheckRequired) {
-        this.bagsRecheckRequired = bagsRecheckRequired;
-    }
-
-    public Integer get_return() {
+    public Integer getReturn() {
         return _return;
     }
 
-    public void set_return(Integer _return) {
+    public void setReturn(Integer _return) {
         this._return = _return;
     }
 
@@ -163,19 +122,11 @@ public class Route {
         this.flyFrom = flyFrom;
     }
 
-    public Integer getdTimeUTC() {
-        return dTimeUTC;
-    }
-
-    public void setdTimeUTC(Integer dTimeUTC) {
-        this.dTimeUTC = dTimeUTC;
-    }
-
-    public Integer getdTime() {
+    public Long getDTime() {
         return dTime;
     }
 
-    public void setdTime(Integer dTime) {
+    public void setDTime(Long dTime) {
         this.dTime = dTime;
     }
 
@@ -203,11 +154,11 @@ public class Route {
         this.cityFrom = cityFrom;
     }
 
-    public Integer getaTime() {
+    public Long getATime() {
         return aTime;
     }
 
-    public void setaTime(Integer aTime) {
+    public void setATime(Long aTime) {
         this.aTime = aTime;
     }
 }

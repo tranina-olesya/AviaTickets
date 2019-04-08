@@ -14,9 +14,11 @@ import ru.vsu.aviatickets.ticketssearch.models.Trip;
 
 public abstract class ProviderAPI<T> {
     private T ticketsApi;
-    protected String baseUrl;
+    private String baseUrl;
 
-    public ProviderAPI(){
+    public ProviderAPI(String baseUrl){
+        this.baseUrl = baseUrl;
+        init();
     }
 
     protected void init(){

@@ -16,19 +16,9 @@ public class Duration {
     @Expose
     private Integer departure;
 
-    /**
-     * No args constructor for use in serialization
-     * 
-     */
     public Duration() {
     }
 
-    /**
-     * 
-     * @param total
-     * @param departure
-     * @param _return
-     */
     public Duration(Integer total, Integer _return, Integer departure) {
         super();
         this.total = total;
