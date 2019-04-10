@@ -35,8 +35,7 @@ public class AviaDBHelper extends SQLiteOpenHelper {
                 + COLUMN_CHILD_COUNT + " INTEGER, "
                 + COLUMN_INFANT_COUNT + " INTEGER, "
                 + COLUMN_CLASS_TYPE + " INTEGER);";
-
-        // Запускаем создание таблицы
+        
         db.execSQL(SQL_CREATE_BOOKMARKS_TABLE);
     }
 
