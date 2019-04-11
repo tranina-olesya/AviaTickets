@@ -9,13 +9,12 @@ import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import ru.vsu.aviatickets.ticketssearch.models.skyscanner.SkyScannerPlaces;
+import ru.vsu.aviatickets.ticketssearch.models.skyscanner.SkyScannerCities;
 import ru.vsu.aviatickets.ticketssearch.models.skyscanner.SkyScannerResponse;
 
 public interface SkyScannerAPI {
     @FormUrlEncoded
     @Headers({"X-RapidAPI-Key: 5218bbef51msh474a4c05a0b5196p1fd9c4jsn18c6c2615b8d",
-            "Content-Type: application/x-www-form-urlencoded",
             "X-RapidAPI-Host: skyscanner-skyscanner-flight-search-v1.p.rapidapi.com"})
     @POST("/apiservices/pricing/v1.0")
     Call<ResponseBody> createSession(@Field("outboundDate") String outboundDate, @Field("inboundDate") String inboundDate,
@@ -26,7 +25,7 @@ public interface SkyScannerAPI {
 
     @Headers({"X-RapidAPI-Key: 5218bbef51msh474a4c05a0b5196p1fd9c4jsn18c6c2615b8d"})
     @GET("/apiservices/autosuggest/v1.0/RU/RUB/ru-RU/")
-    Call<SkyScannerPlaces> listPlaces(@Query("query") String query);
+    Call<SkyScannerCities> listPlaces(@Query("query") String query);
 
     @Headers({"X-RapidAPI-Key: 5218bbef51msh474a4c05a0b5196p1fd9c4jsn18c6c2615b8d",
               "X-RapidAPI-Host: skyscanner-skyscanner-flight-search-v1.p.rapidapi.com"})
