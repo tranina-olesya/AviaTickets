@@ -21,7 +21,6 @@ import ru.vsu.aviatickets.ticketssearch.models.kiwi.Datum;
 import ru.vsu.aviatickets.ticketssearch.models.kiwi.KiwiResponse;
 import ru.vsu.aviatickets.ticketssearch.models.kiwi.Route;
 import ru.vsu.aviatickets.ticketssearch.models.kiwi.SearchParams;
-import ru.vsu.aviatickets.ticketssearch.models.kiwi.Seats;
 
 public class KiwiProviderAPI extends ProviderAPI<KiwiAPI> {
     public KiwiProviderAPI() {

@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">AviaTickets</string>
+    <string name="textFlightTo">Туда:</string>
+    <string name="textFlightFrom">Обратно:</string>
+    <string name="buttonTrips">Поиск билетов</string>
 </resources>

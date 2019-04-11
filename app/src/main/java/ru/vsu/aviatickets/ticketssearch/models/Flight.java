@@ -3,6 +3,7 @@ package ru.vsu.aviatickets.ticketssearch.models;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import ru.vsu.aviatickets.ticketssearch.models.skyscanner.SkyScannerPlace;
 
@@ -108,5 +109,25 @@ public class Flight {
 
     public Integer getPrice(){
         return null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Flight flight = (Flight) o;
+        return adultsCount == flight.adultsCount &&
+                childrenCount == flight.childrenCount &&
+                infantsCount == flight.infantsCount &&
+                Objects.equals(origin, flight.origin) &&
+                Objects.equals(destination, flight.destination) &&
+                Objects.equals(outboundDate, flight.outboundDate) &&
+                Objects.equals(inboundDate, flight.inboundDate) &&
+                Objects.equals(flightParts, flight.flightParts);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(origin, destination, outboundDate, inboundDate, adultsCount, childrenCount, infantsCount, flightParts);
     }
 }

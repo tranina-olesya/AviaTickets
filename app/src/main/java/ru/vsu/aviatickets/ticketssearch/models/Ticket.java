@@ -1,6 +1,7 @@
 package ru.vsu.aviatickets.ticketssearch.models;
 
 import java.util.Date;
+import java.util.Objects;
 
 import ru.vsu.aviatickets.ticketssearch.models.skyscanner.SkyScannerPlace;
 
@@ -72,4 +73,20 @@ public class Ticket {
         this.duration = duration;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ticket ticket = (Ticket) o;
+        return Objects.equals(carrier, ticket.carrier) &&
+                Objects.equals(origin, ticket.origin) &&
+                Objects.equals(destination, ticket.destination) &&
+                Objects.equals(outboundDate, ticket.outboundDate) &&
+                Objects.equals(inboundDate, ticket.inboundDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(carrier, origin, destination, outboundDate, inboundDate, duration);
+    }
 }

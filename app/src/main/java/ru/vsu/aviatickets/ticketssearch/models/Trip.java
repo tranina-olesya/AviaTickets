@@ -2,6 +2,7 @@ package ru.vsu.aviatickets.ticketssearch.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Trip {
     private Flight outbound;
@@ -40,5 +41,19 @@ public class Trip {
 
     public void setPriceLinks(List<PriceLink> priceLinks) {
         this.priceLinks = priceLinks;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Trip trip = (Trip) o;
+        return Objects.equals(outbound, trip.outbound) &&
+                Objects.equals(inbound, trip.inbound);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(outbound, inbound);
     }
 }

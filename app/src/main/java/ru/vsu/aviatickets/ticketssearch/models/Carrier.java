@@ -3,6 +3,8 @@ package ru.vsu.aviatickets.ticketssearch.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 public class Carrier {
     @SerializedName("Code")
     @Expose
@@ -47,5 +49,18 @@ public class Carrier {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Carrier carrier = (Carrier) o;
+        return Objects.equals(code, carrier.code);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(code);
     }
 }

@@ -40,11 +40,11 @@ public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> {
     }
 
     @Override
-    public void getTickets(final TicketsCallback ticketsCallback) {
+    public void getTickets(TicketsCallback ticketsCallback) {
         getSessionKey(new SessionKeyCallback() {
             @Override
             public void onGet(String sessionKey) {
-                getTicketsApi().pollSessionResults(sessionKey, 0, 10, null, null, null).enqueue(new Callback<SkyScannerResponse>() {
+                getTicketsApi().pollSessionResults(sessionKey, null, 10, null, null, null).enqueue(new Callback<SkyScannerResponse>() {
                     @Override
                     public void onResponse(Call<SkyScannerResponse> call, Response<SkyScannerResponse> response) {
                         SkyScannerResponse body = response.body();
@@ -70,7 +70,7 @@ public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> {
     }
 
     private void getSessionKey(final SessionKeyCallback callback) {
-        getTicketsApi().createSession("2019-04-18", null, "business", 0, 0, "RU", "RUB", "ru-RU", "VOZ-sky", "MOSC-sky", 1).enqueue(new Callback<ResponseBody>() {
+        getTicketsApi().createSession("2019-04-18", "2019-04-20", "economy", 0, 0, "RU", "RUB", "ru-RU", "VOZ-sky", "MOSC-sky", 1).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (callback != null) {

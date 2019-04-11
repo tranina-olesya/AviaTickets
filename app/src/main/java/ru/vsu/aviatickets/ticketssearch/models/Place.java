@@ -3,6 +3,8 @@ package ru.vsu.aviatickets.ticketssearch.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 public class Place {
     @SerializedName("Code")
     @Expose
@@ -48,5 +50,19 @@ public class Place {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Place place = (Place) o;
+        return Objects.equals(code, place.code) &&
+                Objects.equals(type, place.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(code, type);
     }
 }
