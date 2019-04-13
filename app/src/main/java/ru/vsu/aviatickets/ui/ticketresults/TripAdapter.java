@@ -16,7 +16,7 @@ import java.util.List;
 import ru.vsu.aviatickets.R;
 import ru.vsu.aviatickets.ticketssearch.models.PriceLink;
 import ru.vsu.aviatickets.ticketssearch.models.Trip;
-import ru.vsu.aviatickets.ui.fullticketinfo.FullTripActivity;
+import ru.vsu.aviatickets.ui.fullticket.FullTripActivity;
 
 public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
 

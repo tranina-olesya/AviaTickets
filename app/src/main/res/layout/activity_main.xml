@@ -6,16 +6,105 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.MainActivity">
 
+    <EditText
+        android:id="@+id/cityFrom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hintCityFrom"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/cityTo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hintCityTo"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cityFrom" />
+
+    <EditText
+        android:id="@+id/adultsCount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hintAdultsCount"
+        android:inputType="numberDecimal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cityTo" />
+
+    <EditText
+        android:id="@+id/childrenCount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hintChildrenCount"
+        android:inputType="numberDecimal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/adultCount" />
+
+    <EditText
+        android:id="@+id/infantsCount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hintInfantsCount"
+        android:inputType="numberDecimal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/childrenCount" />
+    <CheckBox
+        android:id="@+id/transfer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hintTransfer"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/infantsCount"/>
+    <Spinner
+        android:id="@+id/routeType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/transfer"/>
+    <EditText
+        android:id="@+id/dateFrom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hintDateFrom"
+        android:inputType="date"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/routeType" />
+    <EditText
+        android:id="@+id/dateTo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hintDateTo"
+        android:inputType="date"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dateFrom" />
     <Button
+        android:id="@+id/buttonPickDateFrom"
+        android:text="@string/buttonPickDateFrom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/dateTo"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+    <Button
+        android:id="@+id/buttonPickDateTo"
+        android:text="@string/buttonPickDateTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonPickDateFrom"/>
+    <Button
+        android:id="@+id/buttonTips"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/buttonTrips"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonPickDateTo"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:id="@+id/buttonTips">
-    </Button>
+        app:layout_constraintRight_toRightOf="parent"/>
+
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="0dp"

@@ -1,6 +1,7 @@
 package ru.vsu.aviatickets.ticketssearch.providers;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -10,8 +11,10 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import ru.vsu.aviatickets.ticketssearch.api.interfaces.SkyScannerAPI;
 import ru.vsu.aviatickets.ticketssearch.models.Agent;
+import ru.vsu.aviatickets.ticketssearch.models.CabinClass;
 import ru.vsu.aviatickets.ticketssearch.models.Carrier;
 import ru.vsu.aviatickets.ticketssearch.models.Flight;
+import ru.vsu.aviatickets.ticketssearch.models.FlightType;
 import ru.vsu.aviatickets.ticketssearch.models.PriceLink;
 import ru.vsu.aviatickets.ticketssearch.models.Ticket;
 import ru.vsu.aviatickets.ticketssearch.models.Trip;
@@ -40,11 +43,14 @@ public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> {
     }
 
     @Override
-    public void getTickets(TicketsCallback ticketsCallback) {
-        getSessionKey(new SessionKeyCallback() {
+    public void getTickets(String origin, String destination, Date outboundDate, Date inboundDate, FlightType flightType, boolean transfer,
+                           int adultsCount, int childrenCount, int infantsCount, CabinClass cabinClass, TicketsCallback ticketsCallback) {
+        getSessionKey(origin, destination, outboundDate, inboundDate, flightType, adultsCount, childrenCount, infantsCount,
+                        cabinClass, new SessionKeyCallback() {
             @Override
             public void onGet(String sessionKey) {
-                getTicketsApi().pollSessionResults(sessionKey, null, 10, null, null, null).enqueue(new Callback<SkyScannerResponse>() {
+                getTicketsApi().pollSessionResults(sessionKey, null, 10, null, null,
+                        null, transfer ? 1 : 0).enqueue(new Callback<SkyScannerResponse>() {
                     @Override
                     public void onResponse(Call<SkyScannerResponse> call, Response<SkyScannerResponse> response) {
                         SkyScannerResponse body = response.body();
@@ -69,7 +75,8 @@ public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> {
         });
     }
 
-    private void getSessionKey(final SessionKeyCallback callback) {
+    private void getSessionKey(String origin, String destination, Date outboundDate, Date inboundDate, FlightType flightType,
+                               int adultsCount, int childrenCount, int infantsCount, CabinClass cabinClass, final SessionKeyCallback callback) {
         getTicketsApi().createSession("2019-04-18", "2019-04-20", "economy", 0, 0, "RU", "RUB", "ru-RU", "VOZ-sky", "MOSC-sky", 1).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

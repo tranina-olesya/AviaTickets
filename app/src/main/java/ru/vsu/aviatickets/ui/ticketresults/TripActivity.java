@@ -19,7 +19,6 @@ import ru.vsu.aviatickets.ticketssearch.models.Trip;
 import ru.vsu.aviatickets.ticketssearch.providers.KiwiProviderAPI;
 import ru.vsu.aviatickets.ticketssearch.providers.ProviderAPI;
 import ru.vsu.aviatickets.ticketssearch.providers.SkyScannerProviderAPI;
-import ru.vsu.aviatickets.ui.fullticketinfo.FullTripActivity;
 import ru.vsu.aviatickets.ui.main.MainActivity;
 
 public class TripActivity extends AppCompatActivity implements TripContractView {

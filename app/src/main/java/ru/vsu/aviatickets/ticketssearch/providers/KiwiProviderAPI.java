@@ -11,8 +11,10 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import ru.vsu.aviatickets.ticketssearch.api.interfaces.KiwiAPI;
 import ru.vsu.aviatickets.ticketssearch.models.Agent;
+import ru.vsu.aviatickets.ticketssearch.models.CabinClass;
 import ru.vsu.aviatickets.ticketssearch.models.Carrier;
 import ru.vsu.aviatickets.ticketssearch.models.Flight;
+import ru.vsu.aviatickets.ticketssearch.models.FlightType;
 import ru.vsu.aviatickets.ticketssearch.models.Place;
 import ru.vsu.aviatickets.ticketssearch.models.PriceLink;
 import ru.vsu.aviatickets.ticketssearch.models.Ticket;
@@ -28,7 +30,8 @@ public class KiwiProviderAPI extends ProviderAPI<KiwiAPI> {
     }
 
     @Override
-    public void getTickets(TicketsCallback callback) {
+    public void getTickets(String origin, String destination, Date outboundDate, Date inboundDate, FlightType flightType, boolean transfer,
+                           int adultsCount, int childrenCount, int infantsCount, CabinClass cabinClass, TicketsCallback callback) {
         getTicketsApi().getTickets("VOZ", "MOW", "18/04/2019", "18/04/2019", "20/04/2019", "20/04/2019", "round").enqueue(new Callback<KiwiResponse>() {
             @Override
             public void onResponse(Call<KiwiResponse> call, Response<KiwiResponse> response) {

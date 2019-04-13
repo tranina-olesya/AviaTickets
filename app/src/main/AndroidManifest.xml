@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.fullticketinfo.FullTripActivity"
+            android:name=".ui.fullticket.FullTripActivity"
             android:label="@string/title_activity_full_trip"
             android:parentActivityName=".ui.ticketresults.TripActivity">
             <meta-data

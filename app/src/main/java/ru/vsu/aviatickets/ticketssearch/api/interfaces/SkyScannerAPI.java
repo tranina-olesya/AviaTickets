@@ -31,7 +31,8 @@ public interface SkyScannerAPI {
               "X-RapidAPI-Host: skyscanner-skyscanner-flight-search-v1.p.rapidapi.com"})
     @GET("/apiservices/pricing/uk2/v1.0/{sessionkey}")
     Call<SkyScannerResponse> pollSessionResults(@Path("sessionkey") String sessionkey, @Query("pageIndex") Integer pageIndex, @Query("pageSize") Integer pageSize,
-                                                @Query("sortType") String sortType, @Query("sortOrder") String sortOrder, @Query("duration") Integer duration);
+                                                @Query("sortType") String sortType, @Query("sortOrder") String sortOrder, @Query("duration") Integer duration,
+                                                @Query("stops") Integer stops);
 
 
 }

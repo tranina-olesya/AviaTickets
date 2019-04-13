@@ -3,6 +3,7 @@ package ru.vsu.aviatickets.ticketssearch.providers;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.Date;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
@@ -10,26 +11,30 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import ru.vsu.aviatickets.BuildConfig;
+import ru.vsu.aviatickets.ticketssearch.models.CabinClass;
+import ru.vsu.aviatickets.ticketssearch.models.Flight;
+import ru.vsu.aviatickets.ticketssearch.models.FlightType;
 import ru.vsu.aviatickets.ticketssearch.models.Trip;
 
 public abstract class ProviderAPI<T> {
     private T ticketsApi;
     private String baseUrl;
 
-    public ProviderAPI(String baseUrl){
+    public ProviderAPI(String baseUrl) {
         this.baseUrl = baseUrl;
         init();
     }
 
-    protected void init(){
+    protected void init() {
         ticketsApi = createApiClass(buildRetrofit(buildOkHttp()));
     }
 
-    protected T getTicketsApi(){
+    protected T getTicketsApi() {
         return ticketsApi;
     }
 
-    public abstract void getTickets(SkyScannerProviderAPI.TicketsCallback callback);
+    public abstract void getTickets(String origin, String destination, Date outboundDate, Date inboundDate, FlightType flightType, boolean transfer,
+                                    int adultsCount, int childrenCount, int infantsCount, CabinClass cabinClass, ProviderAPI.TicketsCallback callback);
 
     public abstract List<Trip> sortTickets();
 
@@ -60,11 +65,13 @@ public abstract class ProviderAPI<T> {
 
     public interface TicketsCallback {
         void onGet(List<Trip> trips);
+
         void onFail();
     }
 
     protected interface SessionKeyCallback {
         void onGet(String sessionKey);
+
         void onFail();
     }
 }

@@ -7,4 +7,15 @@
     <string name="title_search">Поиск</string>
     <string name="title_history">История</string>
     <string name="title_bookmarks">Закладки</string>
+    <string name="hintCityFrom">Откуда</string>
+    <string name="hintCityTo">Куда</string>
+    <string name="hintRouteType">Тип перелета</string>
+    <string name="hintAdultsCount">Количество взрослых</string>
+    <string name="hintChildrenCount">Количество детей</string>
+    <string name="hintInfantsCount">Количество младенцев</string>
+    <string name="hintTransfer">С пересадками</string>
+    <string name="hintDateFrom">Дата вылета</string>
+    <string name="hintDateTo">Дата возращения</string>
+    <string name="buttonPickDateFrom">Выбрать дату вылета</string>
+    <string name="buttonPickDateTo">Выбрать дату возвращения</string>
 </resources>
