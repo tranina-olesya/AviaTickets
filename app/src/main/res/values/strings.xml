@@ -3,4 +3,8 @@
     <string name="textFlightTo">Туда:</string>
     <string name="textFlightFrom">Обратно:</string>
     <string name="buttonTrips">Поиск билетов</string>
+    <string name="title_activity_full_trip">FullTripActivity</string>
+    <string name="title_search">Поиск</string>
+    <string name="title_history">История</string>
+    <string name="title_bookmarks">Закладки</string>
 </resources>

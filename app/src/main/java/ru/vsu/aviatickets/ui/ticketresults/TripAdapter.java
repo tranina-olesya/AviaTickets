@@ -1,7 +1,9 @@
 package ru.vsu.aviatickets.ui.ticketresults;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import java.util.List;
 import ru.vsu.aviatickets.R;
 import ru.vsu.aviatickets.ticketssearch.models.PriceLink;
 import ru.vsu.aviatickets.ticketssearch.models.Trip;
+import ru.vsu.aviatickets.ui.fullticketinfo.FullTripActivity;
 
 public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
 
@@ -23,6 +26,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
         final TextView arrivalTimeFrom;
         final TextView departureTimeFrom;
         final TextView minPrice;
+        final ConstraintLayout container;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             arrivalTimeTo = (TextView) itemView.findViewById(R.id.arrivalTimeTo);
@@ -30,6 +34,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
             arrivalTimeFrom = (TextView) itemView.findViewById(R.id.arrivalTimeFrom);
             departureTimeFrom = (TextView) itemView.findViewById(R.id.departureTimeFrom);
             minPrice = (TextView) itemView.findViewById(R.id.minPrice);
+            container = (ConstraintLayout) itemView.findViewById(R.id.container);
         }
     }
 
@@ -57,6 +62,14 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
         viewHolder.departureTimeFrom.setText(trip.getOutbound().getOutboundDate().toString());
         PriceLink priceLink = trip.getPriceLinks().stream().min(Comparator.comparing(PriceLink::getPrice)).get();
         viewHolder.minPrice.setText(priceLink.getPrice().toString());
+
+        viewHolder.container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(viewHolder.container.getContext(), FullTripActivity.class);
+                viewHolder.container.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
