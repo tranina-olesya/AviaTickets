@@ -1,5 +1,6 @@
 package ru.vsu.aviatickets.ticketssearch.providers;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,12 +12,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import ru.vsu.aviatickets.ticketssearch.api.interfaces.KiwiAPI;
 import ru.vsu.aviatickets.ticketssearch.models.Agent;
-import ru.vsu.aviatickets.ticketssearch.models.CabinClass;
 import ru.vsu.aviatickets.ticketssearch.models.Carrier;
 import ru.vsu.aviatickets.ticketssearch.models.Flight;
 import ru.vsu.aviatickets.ticketssearch.models.FlightType;
 import ru.vsu.aviatickets.ticketssearch.models.Place;
 import ru.vsu.aviatickets.ticketssearch.models.PriceLink;
+import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 import ru.vsu.aviatickets.ticketssearch.models.Ticket;
 import ru.vsu.aviatickets.ticketssearch.models.Trip;
 import ru.vsu.aviatickets.ticketssearch.models.kiwi.Datum;
@@ -24,26 +25,43 @@ import ru.vsu.aviatickets.ticketssearch.models.kiwi.KiwiResponse;
 import ru.vsu.aviatickets.ticketssearch.models.kiwi.Route;
 import ru.vsu.aviatickets.ticketssearch.models.kiwi.SearchParams;
 
-public class KiwiProviderAPI extends ProviderAPI<KiwiAPI> {
+public class KiwiProviderAPI extends ProviderAPI<KiwiAPI> implements TicketProviderApi {
+    private IATAProviderAPI iataProviderAPI;
+
     public KiwiProviderAPI() {
         super("https://api.skypicker.com");
+        iataProviderAPI = new IATAProviderAPI();
     }
 
     @Override
-    public void getTickets(String origin, String destination, Date outboundDate, Date inboundDate, FlightType flightType, boolean transfer,
-                           int adultsCount, int childrenCount, int infantsCount, CabinClass cabinClass, TicketsCallback callback) {
-        getTicketsApi().getTickets("VOZ", "MOW", "18/04/2019", "18/04/2019", "20/04/2019", "20/04/2019", "round").enqueue(new Callback<KiwiResponse>() {
+    public void getTickets(SearchData searchData, TicketsCallback callback) {
+        iataProviderAPI.getCityCodes(searchData.getOrigin(), searchData.getDestination(), new CityCallback() {
             @Override
-            public void onResponse(Call<KiwiResponse> call, Response<KiwiResponse> response) {
-                if (response.body() != null) {
-                    callback.onGet(convertResponseToTrip(response.body()));
-                } else {
-                    callback.onFail();
-                }
+            public void onGet(String originCode, String destinationCode) {
+                String outboundDate = convertDateToString(searchData.getOutboundDate());
+                String inboundDate = searchData.getFlightType() == FlightType.ROUND ?
+                        convertDateToString(searchData.getInboundDate()) : null;
+                getApi().getTickets(originCode, destinationCode, outboundDate, outboundDate, inboundDate, inboundDate,
+                        searchData.getFlightType().toString().toLowerCase(), searchData.getAdultsCount(), searchData.getChildrenCount(),
+                        searchData.getInfantsCount(), searchData.getTransfers() ? 1 : 0).enqueue(new Callback<KiwiResponse>() {
+                    @Override
+                    public void onResponse(Call<KiwiResponse> call, Response<KiwiResponse> response) {
+                        if (response.body() != null) {
+                            callback.onGet(convertResponseToTrip(response.body()));
+                        } else {
+                            callback.onFail();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<KiwiResponse> call, Throwable t) {
+                        callback.onFail();
+                    }
+                });
             }
 
             @Override
-            public void onFailure(Call<KiwiResponse> call, Throwable t) {
+            public void onFail() {
                 callback.onFail();
             }
         });
@@ -57,6 +75,12 @@ public class KiwiProviderAPI extends ProviderAPI<KiwiAPI> {
     @Override
     protected KiwiAPI createApiClass(Retrofit retrofit) {
         return retrofit.create(KiwiAPI.class);
+    }
+
+    private String convertDateToString(Date date) {
+        String pattern = "dd/MM/yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        return simpleDateFormat.format(date);
     }
 
     private List<Trip> convertResponseToTrip(KiwiResponse response) {

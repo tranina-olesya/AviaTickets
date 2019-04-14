@@ -3,24 +3,26 @@ package ru.vsu.aviatickets.ui.ticketresults;
 import java.util.ArrayList;
 import java.util.List;
 
+import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 import ru.vsu.aviatickets.ticketssearch.models.Trip;
 import ru.vsu.aviatickets.ticketssearch.providers.ProviderAPI;
+import ru.vsu.aviatickets.ticketssearch.providers.TicketProviderApi;
 
 public class TripModel {
-    private List<ProviderAPI> providers;
+    private List<TicketProviderApi> providers;
 
-    public TripModel(List<ProviderAPI> providers) {
+    public TripModel(List<TicketProviderApi> providers) {
         this.providers = providers;
     }
 
     private int count = 0;
 
-    public void loadTrips(ProviderAPI.TicketsCallback callback) {
+    public void loadTrips(SearchData searchData, TicketProviderApi.TicketsCallback callback) {
         count = 0;
 
         List<List<Trip>> result = new ArrayList<>();
-        for (ProviderAPI providerAPI : providers) {
-            providerAPI.getTickets(new ProviderAPI.TicketsCallback() {
+        for (TicketProviderApi providerAPI : providers) {
+            providerAPI.getTickets(searchData, new TicketProviderApi.TicketsCallback() {
                 @Override
                 public void onGet(List<Trip> trips) {
                     count++;
@@ -31,7 +33,10 @@ public class TripModel {
 
                 @Override
                 public void onFail() {
+                    count++;
                     callback.onFail();
+                    if (count == providers.size())
+                        callback.onGet(mergeTrips(result));
                 }
             });
         }
@@ -50,7 +55,6 @@ public class TripModel {
                         resTrip.getPriceLinks().addAll(trip.getPriceLinks());
                     } else
                         result.add(trip);
-
                 }
             }
         }
@@ -70,7 +74,7 @@ public class TripModel {
         for (int i = 0; i < trips.size(); i++) {
             if (p.getInbound().getInboundDate().equals(trips.get(i).getInbound().getInboundDate()) &&
                     p.getInbound().getOutboundDate().equals(trips.get(i).getInbound().getOutboundDate()) &&
-                    p.getOutbound().getInboundDate().equals(trips.get(i).getInbound().getInboundDate())  &&
+                    p.getOutbound().getInboundDate().equals(trips.get(i).getInbound().getInboundDate()) &&
                     p.getOutbound().getOutboundDate().equals(trips.get(i).getInbound().getOutboundDate())
             )
                 return i;

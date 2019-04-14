@@ -14,6 +14,7 @@ import ru.vsu.aviatickets.BuildConfig;
 import ru.vsu.aviatickets.ticketssearch.models.CabinClass;
 import ru.vsu.aviatickets.ticketssearch.models.Flight;
 import ru.vsu.aviatickets.ticketssearch.models.FlightType;
+import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 import ru.vsu.aviatickets.ticketssearch.models.Trip;
 
 public abstract class ProviderAPI<T> {
@@ -29,14 +30,9 @@ public abstract class ProviderAPI<T> {
         ticketsApi = createApiClass(buildRetrofit(buildOkHttp()));
     }
 
-    protected T getTicketsApi() {
+    protected T getApi() {
         return ticketsApi;
     }
-
-    public abstract void getTickets(String origin, String destination, Date outboundDate, Date inboundDate, FlightType flightType, boolean transfer,
-                                    int adultsCount, int childrenCount, int infantsCount, CabinClass cabinClass, ProviderAPI.TicketsCallback callback);
-
-    public abstract List<Trip> sortTickets();
 
     private OkHttpClient buildOkHttp() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
@@ -62,16 +58,4 @@ public abstract class ProviderAPI<T> {
     }
 
     protected abstract T createApiClass(Retrofit retrofit);
-
-    public interface TicketsCallback {
-        void onGet(List<Trip> trips);
-
-        void onFail();
-    }
-
-    protected interface SessionKeyCallback {
-        void onGet(String sessionKey);
-
-        void onFail();
-    }
 }

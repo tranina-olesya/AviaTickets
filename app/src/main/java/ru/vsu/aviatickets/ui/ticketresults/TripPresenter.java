@@ -2,8 +2,9 @@ package ru.vsu.aviatickets.ui.ticketresults;
 
 import java.util.List;
 
+import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 import ru.vsu.aviatickets.ticketssearch.models.Trip;
-import ru.vsu.aviatickets.ticketssearch.providers.ProviderAPI;
+import ru.vsu.aviatickets.ticketssearch.providers.TicketProviderApi;
 
 public class TripPresenter {
     private TripContractView view;
@@ -13,20 +14,20 @@ public class TripPresenter {
         this.model = model;
     }
 
-    public void attachView(TripContractView activity){
+    public void attachView(TripContractView activity) {
         view = activity;
     }
 
-    public void detachView(){
+    public void detachView() {
         view = null;
     }
 
-    public void viewIsReady(){
-        loadData();
+    public void viewIsReady(SearchData searchData) {
+        loadData(searchData);
     }
 
-    public void loadData(){
-        model.loadTrips(new ProviderAPI.TicketsCallback() {
+    public void loadData(SearchData searchData) {
+        model.loadTrips(searchData, new TicketProviderApi.TicketsCallback() {
             @Override
             public void onGet(List<Trip> trips) {
                 view.showTrips(trips);

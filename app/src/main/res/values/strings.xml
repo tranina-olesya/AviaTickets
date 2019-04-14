@@ -10,6 +10,7 @@
     <string name="hintCityFrom">Откуда</string>
     <string name="hintCityTo">Куда</string>
     <string name="hintRouteType">Тип перелета</string>
+    <string name="hintCabinClass">Класс обслуживания</string>
     <string name="hintAdultsCount">Количество взрослых</string>
     <string name="hintChildrenCount">Количество детей</string>
     <string name="hintInfantsCount">Количество младенцев</string>
@@ -18,4 +19,8 @@
     <string name="hintDateTo">Дата возращения</string>
     <string name="buttonPickDateFrom">Выбрать дату вылета</string>
     <string name="buttonPickDateTo">Выбрать дату возвращения</string>
+    <string name="spinnerFlightTypeOneway">В одну сторону</string>
+    <string name="spinnerFlightTypeRound">Туда-обратно</string>
+    <string name="spinnerCabinClassEconomy">Эконом</string>
+    <string name="spinnerCabinClassBusiness">Бизнес класс</string>
 </resources>

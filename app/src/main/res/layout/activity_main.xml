@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hintCityFrom"
+        android:text="Воронеж"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
@@ -18,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hintCityTo"
+        android:text="Москва"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cityFrom" />
@@ -28,6 +30,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/hintAdultsCount"
         android:inputType="numberDecimal"
+        android:text="1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cityTo" />
@@ -38,9 +41,10 @@
         android:layout_height="wrap_content"
         android:hint="@string/hintChildrenCount"
         android:inputType="numberDecimal"
+        android:text="0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/adultCount" />
+        app:layout_constraintTop_toBottomOf="@id/adultsCount" />
 
     <EditText
         android:id="@+id/infantsCount"
@@ -48,62 +52,80 @@
         android:layout_height="wrap_content"
         android:hint="@string/hintInfantsCount"
         android:inputType="numberDecimal"
+        android:text="0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/childrenCount" />
+
     <CheckBox
         android:id="@+id/transfer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:checked="true"
         android:text="@string/hintTransfer"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/infantsCount"/>
+        app:layout_constraintTop_toBottomOf="@id/infantsCount" />
+
     <Spinner
         android:id="@+id/routeType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/transfer"/>
+        app:layout_constraintTop_toBottomOf="@id/transfer" />
+
+    <Spinner
+        android:id="@+id/cabinClass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/routeType"
+        app:layout_constraintTop_toBottomOf="@id/transfer" />
+
     <EditText
         android:id="@+id/dateFrom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hintDateFrom"
         android:inputType="date"
+        android:text="20/4/2019"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/routeType" />
+
     <EditText
         android:id="@+id/dateTo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hintDateTo"
         android:inputType="date"
+        android:text="22/4/2019"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/dateFrom" />
+
     <Button
         android:id="@+id/buttonPickDateFrom"
-        android:text="@string/buttonPickDateFrom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/dateTo"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        android:text="@string/buttonPickDateFrom"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dateTo" />
+
     <Button
         android:id="@+id/buttonPickDateTo"
-        android:text="@string/buttonPickDateTo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/buttonPickDateTo"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buttonPickDateFrom"/>
+        app:layout_constraintTop_toBottomOf="@id/buttonPickDateFrom" />
+
     <Button
-        android:id="@+id/buttonTips"
+        android:id="@+id/buttonSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/buttonTrips"
-        app:layout_constraintTop_toBottomOf="@id/buttonPickDateTo"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonPickDateTo" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"

@@ -15,10 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.vsu.aviatickets.R;
+import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 import ru.vsu.aviatickets.ticketssearch.models.Trip;
 import ru.vsu.aviatickets.ticketssearch.providers.KiwiProviderAPI;
 import ru.vsu.aviatickets.ticketssearch.providers.ProviderAPI;
 import ru.vsu.aviatickets.ticketssearch.providers.SkyScannerProviderAPI;
+import ru.vsu.aviatickets.ticketssearch.providers.TicketProviderApi;
 import ru.vsu.aviatickets.ui.main.MainActivity;
 
 public class TripActivity extends AppCompatActivity implements TripContractView {
@@ -54,23 +56,30 @@ public class TripActivity extends AppCompatActivity implements TripContractView 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip);
         recyclerView = (RecyclerView) findViewById(R.id.RecyclerView);
+        SearchData searchData = (SearchData) getIntent().getSerializableExtra("searchData");
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        List<ProviderAPI> providers = new ArrayList<>();
+        List<TicketProviderApi> providers = new ArrayList<>();
         providers.add(new KiwiProviderAPI());
         providers.add(new SkyScannerProviderAPI());
         TripModel tripModel = new TripModel(providers);
 
         presenter = new TripPresenter(tripModel);
         presenter.attachView(this);
-        presenter.viewIsReady();
+        presenter.viewIsReady(searchData);
     }
 
     @Override
     public void showTrips(List<Trip> trips) {
         TripAdapter adapter = new TripAdapter(this, trips);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.detachView();
     }
 }

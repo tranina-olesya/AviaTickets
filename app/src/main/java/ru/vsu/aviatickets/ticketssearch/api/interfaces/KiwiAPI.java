@@ -10,5 +10,7 @@ public interface KiwiAPI {
     Call<KiwiResponse> getTickets(@Query("fly_from") String flyFrom, @Query("fly_to") String flyTo,
                                   @Query("date_from") String dateFrom, @Query("date_to") String dateTo,
                                   @Query("return_from") String returnFrom, @Query("return_to") String returnTo,
-                                  @Query("flight_type") String flightType);
+                                  @Query("flight_type") String flightType,
+                                  @Query("adults") Integer adults, @Query("children") Integer children, @Query("infants") Integer infants,
+                                  @Query("direct_flights") Integer directFlights);
 }

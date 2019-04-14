@@ -1,5 +1,6 @@
 package ru.vsu.aviatickets.ticketssearch.providers;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,15 +12,17 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import ru.vsu.aviatickets.ticketssearch.api.interfaces.SkyScannerAPI;
 import ru.vsu.aviatickets.ticketssearch.models.Agent;
-import ru.vsu.aviatickets.ticketssearch.models.CabinClass;
 import ru.vsu.aviatickets.ticketssearch.models.Carrier;
 import ru.vsu.aviatickets.ticketssearch.models.Flight;
 import ru.vsu.aviatickets.ticketssearch.models.FlightType;
 import ru.vsu.aviatickets.ticketssearch.models.PriceLink;
+import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 import ru.vsu.aviatickets.ticketssearch.models.Ticket;
 import ru.vsu.aviatickets.ticketssearch.models.Trip;
 import ru.vsu.aviatickets.ticketssearch.models.skyscanner.Itinerary;
 import ru.vsu.aviatickets.ticketssearch.models.skyscanner.Leg;
+import ru.vsu.aviatickets.ticketssearch.models.skyscanner.SkyScannerCities;
+import ru.vsu.aviatickets.ticketssearch.models.skyscanner.SkyScannerCity;
 import ru.vsu.aviatickets.ticketssearch.models.skyscanner.SkyScannerPlace;
 import ru.vsu.aviatickets.ticketssearch.models.skyscanner.PricingOption;
 import ru.vsu.aviatickets.ticketssearch.models.skyscanner.Segment;
@@ -27,7 +30,7 @@ import ru.vsu.aviatickets.ticketssearch.models.skyscanner.SkyScannerAgent;
 import ru.vsu.aviatickets.ticketssearch.models.skyscanner.SkyScannerCarrier;
 import ru.vsu.aviatickets.ticketssearch.models.skyscanner.SkyScannerResponse;
 
-public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> {
+public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> implements TicketProviderApi {
     public SkyScannerProviderAPI() {
         super("https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com");
     }
@@ -43,14 +46,12 @@ public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> {
     }
 
     @Override
-    public void getTickets(String origin, String destination, Date outboundDate, Date inboundDate, FlightType flightType, boolean transfer,
-                           int adultsCount, int childrenCount, int infantsCount, CabinClass cabinClass, TicketsCallback ticketsCallback) {
-        getSessionKey(origin, destination, outboundDate, inboundDate, flightType, adultsCount, childrenCount, infantsCount,
-                        cabinClass, new SessionKeyCallback() {
+    public void getTickets(SearchData searchData, TicketsCallback ticketsCallback) {
+        getSessionKey(searchData, new SessionKeyCallback() {
             @Override
             public void onGet(String sessionKey) {
-                getTicketsApi().pollSessionResults(sessionKey, null, 10, null, null,
-                        null, transfer ? 1 : 0).enqueue(new Callback<SkyScannerResponse>() {
+                getApi().pollSessionResults(sessionKey, null, 10, null, null,
+                        null, searchData.getTransfers() ? 1 : 0).enqueue(new Callback<SkyScannerResponse>() {
                     @Override
                     public void onResponse(Call<SkyScannerResponse> call, Response<SkyScannerResponse> response) {
                         SkyScannerResponse body = response.body();
@@ -75,24 +76,85 @@ public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> {
         });
     }
 
-    private void getSessionKey(String origin, String destination, Date outboundDate, Date inboundDate, FlightType flightType,
-                               int adultsCount, int childrenCount, int infantsCount, CabinClass cabinClass, final SessionKeyCallback callback) {
-        getTicketsApi().createSession("2019-04-18", "2019-04-20", "economy", 0, 0, "RU", "RUB", "ru-RU", "VOZ-sky", "MOSC-sky", 1).enqueue(new Callback<ResponseBody>() {
+    private void getSessionKey(SearchData searchData, final SessionKeyCallback callback) {
+        getCities(searchData.getOrigin(), searchData.getDestination(), new CityCallback() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (callback != null) {
-                    String key = response.headers().get("location");
-                    if (key != null) {
-                        callback.onGet(key.substring(key.lastIndexOf("/")));
-                    } else
-                        callback.onFail();
+            public void onGet(String originCode, String destinationCode) {
+                getApi().createSession(convertDateToString(searchData.getOutboundDate()),
+                        searchData.getFlightType() == FlightType.ROUND ? convertDateToString(searchData.getOutboundDate()) : null,
+                        searchData.getCabinClass().toString(), searchData.getAdultsCount(), searchData.getChildrenCount(), searchData.getInfantsCount(),
+                        "RU", "RUB", "ru-RU", originCode, destinationCode).enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (callback != null) {
+                            String key = response.headers().get("location");
+                            if (key != null) {
+                                callback.onGet(key.substring(key.lastIndexOf("/")));
+                            } else
+                                callback.onFail();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        if (callback != null)
+                            callback.onFail();
+                    }
+                });
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
+    }
+
+    private String convertDateToString(Date date) {
+        String pattern = "yyyy-MM-dd";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        return simpleDateFormat.format(date);
+    }
+
+    private void getCities(String originQuery, String destinationQuery, CityCallback callback) {
+        List<String> results = new ArrayList<>();
+
+        getApi().listPlaces(originQuery).enqueue(new Callback<SkyScannerCities>() {
+            @Override
+            public void onResponse(Call<SkyScannerCities> call, Response<SkyScannerCities> response) {
+                if (response.body() != null && !response.body().getPlaces().isEmpty()) {
+                    SkyScannerCity skyScannerCity = response.body().getPlaces().get(0);
+                    results.add(skyScannerCity.getCityId());
+                    if (results.size() > 1) {
+                        callback.onGet(results.get(0), results.get(1));
+                    }
+                } else {
+                    callback.onFail();
                 }
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                if (callback != null)
+            public void onFailure(Call<SkyScannerCities> call, Throwable t) {
+                callback.onFail();
+            }
+        });
+        getApi().listPlaces(destinationQuery).enqueue(new Callback<SkyScannerCities>() {
+            @Override
+            public void onResponse(Call<SkyScannerCities> call, Response<SkyScannerCities> response) {
+                if (response.body() != null && !response.body().getPlaces().isEmpty()) {
+                    SkyScannerCity skyScannerCity = response.body().getPlaces().get(0);
+                    results.add(skyScannerCity.getCityId());
+                    if (results.size() > 1) {
+                        callback.onGet(results.get(0), results.get(1));
+                    }
+                } else {
                     callback.onFail();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SkyScannerCities> call, Throwable t) {
+                callback.onFail();
             }
         });
     }
@@ -191,7 +253,7 @@ public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> {
         return flight;
     }
 
-    private List<PriceLink> formPriceLinks(List<SkyScannerAgent> skyScannerAgents, Itinerary itinerary){
+    private List<PriceLink> formPriceLinks(List<SkyScannerAgent> skyScannerAgents, Itinerary itinerary) {
         List<PriceLink> priceLinks = new ArrayList<>();
         for (PricingOption pricingOption : itinerary.getPricingOptions()) {
             PriceLink priceLink = new PriceLink();
