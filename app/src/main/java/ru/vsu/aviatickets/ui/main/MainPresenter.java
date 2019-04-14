@@ -42,6 +42,6 @@ public class MainPresenter {
 
     public void searchTickets() {
         SearchData searchData = view.getSearchData();
-        view.onClickSearchButton(searchData);
+        view.showSearchResults(searchData);
     }
 }

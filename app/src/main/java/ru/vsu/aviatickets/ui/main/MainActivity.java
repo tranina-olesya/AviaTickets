@@ -187,7 +187,7 @@ public class MainActivity extends AppCompatActivity implements MainContractView 
     }
 
     @Override
-    public void onClickSearchButton(SearchData searchData) {
+    public void showSearchResults(SearchData searchData) {
         Intent intent = new Intent(MainActivity.this, TripActivity.class);
         intent.putExtra("searchData", searchData);
         startActivity(intent);

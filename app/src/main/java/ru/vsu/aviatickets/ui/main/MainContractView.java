@@ -13,5 +13,5 @@ public interface MainContractView {
 
     void setDateToEditTextValue(String date);
 
-    void onClickSearchButton(SearchData searchData);
+    void showSearchResults(SearchData searchData);
 }
