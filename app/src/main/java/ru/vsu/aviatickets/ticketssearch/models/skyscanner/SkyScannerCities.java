@@ -5,17 +5,17 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class SkyScannerPlaces {
+public class SkyScannerCities {
 
     @SerializedName("Places")
     @Expose
-    private List<SkyScannerPlace> places = null;
+    private List<SkyScannerCity> places = null;
 
-    public List<SkyScannerPlace> getPlaces() {
+    public List<SkyScannerCity> getPlaces() {
         return places;
     }
 
-    public void setPlaces(List<SkyScannerPlace> places) {
+    public void setPlaces(List<SkyScannerCity> places) {
         this.places = places;
     }
 

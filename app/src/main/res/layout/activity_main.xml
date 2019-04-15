@@ -4,31 +4,203 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ui.main.MainActivity">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/left_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.07" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/right_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.93" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline40"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.4" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/first_col_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.63" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/second_col_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.73" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/third_col_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.83" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/top_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/middle_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
 
     <EditText
-        android:layout_width="match_parent"
+        android:id="@+id/cityFrom"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:hint="@string/hintCityFrom"
+        android:text="Воронеж"
+        app:layout_constraintLeft_toLeftOf="@id/left_guideline"
+        app:layout_constraintRight_toRightOf="@id/middle_guideline"
+        app:layout_constraintTop_toTopOf="@id/top_guideline" />
+
+    <EditText
+        android:id="@+id/cityTo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/hintCityTo"
+        android:text="Москва"
+        app:layout_constraintLeft_toLeftOf="@id/middle_guideline"
+        app:layout_constraintRight_toRightOf="@id/right_guideline"
+        app:layout_constraintTop_toTopOf="@id/top_guideline" />
+
+    <EditText
+        android:id="@+id/adultsCount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/hintAdultsCount"
+        android:inputType="numberDecimal"
+        android:text="1"
+        android:textAlignment="textEnd"
+        app:layout_constraintLeft_toLeftOf="@id/first_col_guideline"
+        app:layout_constraintRight_toRightOf="@id/second_col_guideline"
+        app:layout_constraintTop_toBottomOf="@id/cityTo" />
+
+    <EditText
+        android:id="@+id/childrenCount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/hintChildrenCount"
+        android:inputType="numberDecimal"
+        android:text="0"
+        android:textAlignment="textEnd"
+        app:layout_constraintLeft_toLeftOf="@id/second_col_guideline"
+        app:layout_constraintRight_toRightOf="@id/third_col_guideline"
+        app:layout_constraintTop_toBottomOf="@id/cityTo" />
+
+    <EditText
+        android:id="@+id/infantsCount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/hintInfantsCount"
+        android:inputType="numberDecimal"
+        android:text="0"
+        android:textAlignment="textEnd"
+        app:layout_constraintLeft_toLeftOf="@id/third_col_guideline"
+        app:layout_constraintRight_toRightOf="@id/right_guideline"
+        app:layout_constraintTop_toBottomOf="@id/cityTo" />
+
+    <CheckBox
+        android:id="@+id/transfer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="@string/hintTransfer"
+        app:layout_constraintLeft_toLeftOf="@id/left_guideline"
+        app:layout_constraintTop_toBottomOf="@id/dateFrom" />
+
+    <Spinner
+        android:id="@+id/routeType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/left_guideline"
+        app:layout_constraintTop_toTopOf="@id/adultsCount" />
+
+    <Spinner
+        android:id="@+id/cabinClass"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="@id/right_guideline"
+        app:layout_constraintTop_toTopOf="@id/transfer" />
+
+    <EditText
+        android:id="@+id/dateFrom"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/hintDateFrom"
+        android:inputType="date"
+        app:layout_constraintLeft_toLeftOf="@id/left_guideline"
+        app:layout_constraintRight_toRightOf="@id/guideline40"
+        app:layout_constraintTop_toBottomOf="@id/adultsCount" />
+
+    <EditText
+        android:id="@+id/dateTo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/hintDateTo"
+        android:inputType="date"
+        app:layout_constraintLeft_toLeftOf="@id/middle_guideline"
+        app:layout_constraintRight_toRightOf="@id/third_col_guideline"
+        app:layout_constraintTop_toBottomOf="@id/adultsCount" />
+
+    <Button
+        android:id="@+id/buttonPickDateTo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:drawableTop="@drawable/calendar_month_outline"
+        app:layout_constraintBottom_toBottomOf="@id/dateFrom"
+        app:layout_constraintLeft_toLeftOf="@id/third_col_guideline"
+        app:layout_constraintRight_toRightOf="@id/right_guideline"
+        app:layout_constraintTop_toBottomOf="@id/adultsCount" />
+
+    <Button
+        android:id="@+id/buttonPickDateFrom"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:drawableTop="@drawable/calendar_month_outline"
+        app:layout_constraintBottom_toBottomOf="@id/dateFrom"
+        app:layout_constraintLeft_toLeftOf="@id/guideline40"
+        app:layout_constraintRight_toRightOf="@id/middle_guideline"
+        app:layout_constraintTop_toBottomOf="@id/adultsCount" />
+
+    <Button
+        android:id="@+id/buttonSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/buttonTrips"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/transfer" />
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:background="?android:attr/windowBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/editText"/>
-    <Button
-        android:id="@+id/buttonSubmit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editText"
-        android:text="Submit"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:text="Hello World!"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buttonSubmit" />
+        app:menu="@menu/navigation" />
 
 </android.support.constraint.ConstraintLayout>

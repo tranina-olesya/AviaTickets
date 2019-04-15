@@ -1,5 +1,9 @@
 package ru.vsu.aviatickets.ticketssearch.providers;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.util.Date;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
@@ -7,25 +11,28 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import ru.vsu.aviatickets.BuildConfig;
-import ru.vsu.aviatickets.ticketssearch.models.Ticket;
+import ru.vsu.aviatickets.ticketssearch.models.CabinClass;
+import ru.vsu.aviatickets.ticketssearch.models.Flight;
+import ru.vsu.aviatickets.ticketssearch.models.FlightType;
+import ru.vsu.aviatickets.ticketssearch.models.SearchData;
+import ru.vsu.aviatickets.ticketssearch.models.Trip;
 
 public abstract class ProviderAPI<T> {
     private T ticketsApi;
-    protected String baseUrl;
+    private String baseUrl;
 
-    public ProviderAPI(){
+    public ProviderAPI(String baseUrl) {
+        this.baseUrl = baseUrl;
+        init();
     }
 
-    protected void init(){
+    protected void init() {
         ticketsApi = createApiClass(buildRetrofit(buildOkHttp()));
     }
-    protected T getTicketsApi(){
+
+    protected T getApi() {
         return ticketsApi;
     }
-
-    public abstract List<Ticket> getTickets();
-
-    public abstract List<Ticket> sortTickets();
 
     private OkHttpClient buildOkHttp() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
@@ -40,13 +47,15 @@ public abstract class ProviderAPI<T> {
     }
 
     private Retrofit buildRetrofit(OkHttpClient okHttpClient) {
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                .create();
         return new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
     }
 
     protected abstract T createApiClass(Retrofit retrofit);
-
 }

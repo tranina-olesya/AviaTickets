@@ -1,4 +1,4 @@
-package ru.vsu.aviatickets.ticketssearch.models;
+package ru.vsu.aviatickets.ticketssearch.models.iata;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
