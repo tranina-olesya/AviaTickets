@@ -27,10 +27,12 @@ public class TripPresenter {
     }
 
     public void loadData(SearchData searchData) {
+        view.showProgress();
         model.loadTrips(searchData, new TicketProviderApi.TicketsCallback() {
             @Override
             public void onGet(List<Trip> trips) {
                 view.showTrips(trips);
+                view.hideProgress();
             }
 
             @Override

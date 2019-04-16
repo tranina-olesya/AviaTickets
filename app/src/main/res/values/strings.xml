@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">AviaTickets</string>
-    <string name="textFlightTo">Туда:</string>
-    <string name="textFlightFrom">Обратно:</string>
+    <string name="textFlightTo">Куда:</string>
+    <string name="textFlightFrom">Откуда:</string>
     <string name="buttonTrips">Поиск билетов</string>
     <string name="title_activity_full_trip">FullTripActivity</string>
     <string name="title_search">Поиск</string>
@@ -23,4 +23,5 @@
     <string name="spinnerFlightTypeRound">Туда-обратно</string>
     <string name="spinnerCabinClassEconomy">Эконом</string>
     <string name="spinnerCabinClassBusiness">Бизнес класс</string>
+    <string name="progressDialogTripActivity">Подождите, операция выполняется…</string>
 </resources>

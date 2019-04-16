@@ -9,7 +9,7 @@
         android:id="@+id/textFlightTo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/textFlightTo"
+        android:text="@string/textFlightFrom"
         android:layout_marginStart="25dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -33,7 +33,7 @@
         android:id="@+id/textFlightFrom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/textFlightFrom"
+        android:text="@string/textFlightTo"
         android:layout_marginStart="25dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/arrivalTimeTo" />

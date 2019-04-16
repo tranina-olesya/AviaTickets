@@ -56,12 +56,15 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         Trip trip = trips.get(i);
-        viewHolder.arrivalTimeTo.setText(trip.getInbound().getInboundDate().toString());
-        viewHolder.departureTimeTo.setText(trip.getInbound().getOutboundDate().toString());
         viewHolder.arrivalTimeFrom.setText(trip.getOutbound().getInboundDate().toString());
         viewHolder.departureTimeFrom.setText(trip.getOutbound().getOutboundDate().toString());
         PriceLink priceLink = trip.getPriceLinks().stream().min(Comparator.comparing(PriceLink::getPrice)).get();
         viewHolder.minPrice.setText(priceLink.getPrice().toString());
+
+        if (trip.getInbound() != null){
+            viewHolder.arrivalTimeTo.setText(trip.getInbound().getInboundDate().toString());
+            viewHolder.departureTimeTo.setText(trip.getInbound().getOutboundDate().toString());
+        }
 
         viewHolder.container.setOnClickListener(new View.OnClickListener() {
             @Override

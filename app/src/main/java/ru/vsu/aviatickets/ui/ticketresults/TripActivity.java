@@ -1,5 +1,6 @@
 package ru.vsu.aviatickets.ui.ticketresults;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -24,9 +25,7 @@ import ru.vsu.aviatickets.ticketssearch.providers.TicketProviderApi;
 import ru.vsu.aviatickets.ui.main.MainActivity;
 
 public class TripActivity extends AppCompatActivity implements TripContractView {
-    private TextView textView;
-    private EditText editText;
-    private Button buttonSubmit;
+    private ProgressDialog progressDialog;
     private RecyclerView recyclerView;
 
     private TripPresenter presenter;
@@ -81,5 +80,17 @@ public class TripActivity extends AppCompatActivity implements TripContractView 
     protected void onDestroy() {
         super.onDestroy();
         presenter.detachView();
+    }
+
+    @Override
+    public void showProgress() {
+        progressDialog = ProgressDialog.show(this, "", getString(R.string.progressDialogTripActivity));
+    }
+
+    @Override
+    public void hideProgress() {
+        if (progressDialog != null){
+            progressDialog.dismiss();
+        }
     }
 }
