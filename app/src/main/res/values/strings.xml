@@ -24,4 +24,7 @@
     <string name="spinnerCabinClassEconomy">Эконом</string>
     <string name="spinnerCabinClassBusiness">Бизнес класс</string>
     <string name="progressDialogTripActivity">Подождите, операция выполняется…</string>
+    <string name="hasTransfers">Есть пересадки</string>
+    <string name="noTransfers">Без пересадок</string>
+    <string name="durationComment">Время в пути</string>
 </resources>

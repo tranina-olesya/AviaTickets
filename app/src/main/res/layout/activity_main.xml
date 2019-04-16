@@ -7,7 +7,7 @@
     tools:context=".ui.main.MainActivity">
 
     <android.support.constraint.Guideline
-        android:id="@+id/left_guideline"
+        android:id="@+id/firstColGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -56,7 +56,7 @@
         app:layout_constraintGuide_percent="0.05" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/middle_guideline"
+        android:id="@+id/secondColGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -69,8 +69,8 @@
         android:layout_height="wrap_content"
         android:hint="@string/hintCityFrom"
         android:text="Воронеж"
-        app:layout_constraintLeft_toLeftOf="@id/left_guideline"
-        app:layout_constraintRight_toRightOf="@id/middle_guideline"
+        app:layout_constraintLeft_toLeftOf="@id/firstColGuideline"
+        app:layout_constraintRight_toRightOf="@id/secondColGuideline"
         app:layout_constraintTop_toTopOf="@id/top_guideline" />
 
     <EditText
@@ -79,7 +79,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/hintCityTo"
         android:text="Москва"
-        app:layout_constraintLeft_toLeftOf="@id/middle_guideline"
+        app:layout_constraintLeft_toLeftOf="@id/secondColGuideline"
         app:layout_constraintRight_toRightOf="@id/right_guideline"
         app:layout_constraintTop_toTopOf="@id/top_guideline" />
 
@@ -125,14 +125,14 @@
         android:layout_height="wrap_content"
         android:checked="true"
         android:text="@string/hintTransfer"
-        app:layout_constraintLeft_toLeftOf="@id/left_guideline"
+        app:layout_constraintLeft_toLeftOf="@id/firstColGuideline"
         app:layout_constraintTop_toBottomOf="@id/dateFrom" />
 
     <Spinner
         android:id="@+id/routeType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="@id/left_guideline"
+        app:layout_constraintLeft_toLeftOf="@id/firstColGuideline"
         app:layout_constraintTop_toTopOf="@id/adultsCount" />
 
     <Spinner
@@ -148,7 +148,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/hintDateFrom"
         android:inputType="date"
-        app:layout_constraintLeft_toLeftOf="@id/left_guideline"
+        app:layout_constraintLeft_toLeftOf="@id/firstColGuideline"
         app:layout_constraintRight_toRightOf="@id/guideline40"
         app:layout_constraintTop_toBottomOf="@id/adultsCount" />
 
@@ -158,7 +158,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/hintDateTo"
         android:inputType="date"
-        app:layout_constraintLeft_toLeftOf="@id/middle_guideline"
+        app:layout_constraintLeft_toLeftOf="@id/secondColGuideline"
         app:layout_constraintRight_toRightOf="@id/third_col_guideline"
         app:layout_constraintTop_toBottomOf="@id/adultsCount" />
 
@@ -179,7 +179,7 @@
         android:drawableTop="@drawable/calendar_month_outline"
         app:layout_constraintBottom_toBottomOf="@id/dateFrom"
         app:layout_constraintLeft_toLeftOf="@id/guideline40"
-        app:layout_constraintRight_toRightOf="@id/middle_guideline"
+        app:layout_constraintRight_toRightOf="@id/secondColGuideline"
         app:layout_constraintTop_toBottomOf="@id/adultsCount" />
 
     <Button

@@ -10,7 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import ru.vsu.aviatickets.R;
@@ -21,18 +24,28 @@ import ru.vsu.aviatickets.ui.fullticket.FullTripActivity;
 public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        final TextView arrivalTimeTo;
-        final TextView departureTimeTo;
-        final TextView arrivalTimeFrom;
-        final TextView departureTimeFrom;
+        final TextView timeInbound;
+        final TextView durationInboundComment;
+        final TextView timeOutbound;
+        final TextView transferInbound;
+        final TextView transferOutbound;
+        final TextView placesOutbound;
+        final TextView placesInbound;
+        final TextView durationInbound;
+        final TextView durationOutbound;
         final TextView minPrice;
         final ConstraintLayout container;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            arrivalTimeTo = (TextView) itemView.findViewById(R.id.arrivalTimeTo);
-            departureTimeTo = (TextView) itemView.findViewById(R.id.departureTimeTo);
-            arrivalTimeFrom = (TextView) itemView.findViewById(R.id.arrivalTimeFrom);
-            departureTimeFrom = (TextView) itemView.findViewById(R.id.departureTimeFrom);
+            timeInbound = (TextView) itemView.findViewById(R.id.timeInbound);
+            timeOutbound = (TextView) itemView.findViewById(R.id.timeOutbound);
+            durationInbound = (TextView) itemView.findViewById(R.id.durationInbound);
+            durationOutbound = (TextView) itemView.findViewById(R.id.durationOutbound);
+            durationInboundComment = (TextView) itemView.findViewById(R.id.durationInboundComment);
+            placesInbound = (TextView) itemView.findViewById(R.id.placesInbound);
+            placesOutbound = (TextView) itemView.findViewById(R.id.placesOutbound);
+            transferInbound = (TextView) itemView.findViewById(R.id.transferInbound);
+            transferOutbound= (TextView) itemView.findViewById(R.id.transferOutbound);
             minPrice = (TextView) itemView.findViewById(R.id.minPrice);
             container = (ConstraintLayout) itemView.findViewById(R.id.container);
         }
@@ -56,14 +69,22 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         Trip trip = trips.get(i);
-        viewHolder.arrivalTimeFrom.setText(trip.getOutbound().getInboundDate().toString());
-        viewHolder.departureTimeFrom.setText(trip.getOutbound().getOutboundDate().toString());
+        viewHolder.placesOutbound.setText(String.format("%s - %s" ,trip.getOutbound().getOrigin().getCode(),trip.getOutbound().getDestination().getCode()));
+        viewHolder.timeOutbound.setText(getTimeString(trip.getOutbound().getOutboundDate(), trip.getOutbound().getInboundDate()));
+        viewHolder.durationOutbound.setText(getDurationString(trip.getOutbound().getDuration()));
+        boolean transfersOutbound = trip.getOutbound().getFlightParts().size() > 1;
+        viewHolder.transferOutbound.setText(transfersOutbound ? R.string.hasTransfers : R.string.noTransfers);
+
         PriceLink priceLink = trip.getPriceLinks().stream().min(Comparator.comparing(PriceLink::getPrice)).get();
         viewHolder.minPrice.setText(priceLink.getPrice().toString());
 
-        if (trip.getInbound() != null){
-            viewHolder.arrivalTimeTo.setText(trip.getInbound().getInboundDate().toString());
-            viewHolder.departureTimeTo.setText(trip.getInbound().getOutboundDate().toString());
+        if (trip.getInbound() != null) {
+            viewHolder.durationInboundComment.setVisibility(View.VISIBLE);
+            viewHolder.placesInbound.setText(String.format("%s - %s" ,trip.getInbound().getOrigin().getCode(),trip.getInbound().getDestination().getCode()));
+            viewHolder.timeInbound.setText(getTimeString(trip.getInbound().getOutboundDate(), trip.getInbound().getInboundDate()));
+            viewHolder.durationOutbound.setText(getDurationString(trip.getInbound().getDuration()));
+            boolean transfersInbound = trip.getInbound().getFlightParts().size() > 1;
+            viewHolder.transferInbound.setText(transfersInbound ? R.string.hasTransfers : R.string.noTransfers);
         }
 
         viewHolder.container.setOnClickListener(new View.OnClickListener() {
@@ -78,5 +99,19 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
     @Override
     public int getItemCount() {
         return trips.size();
+    }
+
+    private String getTimeString(Date first, Date second) {
+        String pattern = "HH:mm";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        return String.format("%s - %s",  simpleDateFormat.format(first), simpleDateFormat.format(second));
+    }
+
+    private String getDurationString(Integer duration) {
+        int hours = duration / 60;
+        int minutes = duration % 60;
+        String hoursStr = (hours < 10 ? "0" : "") + String.valueOf(hours);
+        String minutesStr = (minutes < 10 ? "0" : "") + String.valueOf(minutes);
+        return String.format("%s:%s", hoursStr, minutesStr);
     }
 }
