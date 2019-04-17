@@ -23,7 +23,12 @@ public class TripPresenter {
     }
 
     public void viewIsReady(SearchData searchData) {
-        loadData(searchData);
+        if (searchData != null) {
+            loadData(searchData);
+        } else {
+            List<Trip> trips = view.getTripsFromSharedPreferences();
+            view.showTrips(trips);
+        }
     }
 
     public void loadData(SearchData searchData) {
@@ -32,6 +37,7 @@ public class TripPresenter {
             @Override
             public void onGet(List<Trip> trips) {
                 view.showTrips(trips);
+                view.saveTripsToSharedPreferences(trips);
                 view.hideProgress();
             }
 

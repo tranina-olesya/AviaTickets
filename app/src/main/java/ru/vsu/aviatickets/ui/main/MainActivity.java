@@ -25,6 +25,9 @@ import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 import ru.vsu.aviatickets.ui.ticketresults.TripActivity;
 
 public class MainActivity extends AppCompatActivity implements MainContractView {
+
+    public static final String SEARCH_DATA = "searchData";
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -189,7 +192,7 @@ public class MainActivity extends AppCompatActivity implements MainContractView 
     @Override
     public void showSearchResults(SearchData searchData) {
         Intent intent = new Intent(MainActivity.this, TripActivity.class);
-        intent.putExtra("searchData", searchData);
+        intent.putExtra(SEARCH_DATA, searchData);
         startActivity(intent);
     }
 }
