@@ -82,7 +82,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
             viewHolder.durationInboundComment.setVisibility(View.VISIBLE);
             viewHolder.placesInbound.setText(String.format("%s - %s" ,trip.getInbound().getOrigin().getCode(),trip.getInbound().getDestination().getCode()));
             viewHolder.timeInbound.setText(getTimeString(trip.getInbound().getOutboundDate(), trip.getInbound().getInboundDate()));
-            viewHolder.durationOutbound.setText(getDurationString(trip.getInbound().getDuration()));
+            viewHolder.durationInbound.setText(getDurationString(trip.getInbound().getDuration()));
             boolean transfersInbound = trip.getInbound().getFlightParts().size() > 1;
             viewHolder.transferInbound.setText(transfersInbound ? R.string.hasTransfers : R.string.noTransfers);
         }

@@ -115,7 +115,7 @@ public class KiwiProviderAPI extends ProviderAPI<KiwiAPI> implements TicketProvi
             ticket.setDestination(new Place(route.getFlyTo(), searchParams.getToType(), route.getCityTo()));
             ticket.setOutboundDate(new Date(route.getDTime() * 1000L));
             ticket.setInboundDate(new Date(route.getATime() * 1000L));
-            ticket.setDuration((int) ((route.getDTime() - route.getATime()) / (60L)));
+            ticket.setDuration((int) ((route.getATime() - route.getDTime()) / (60L)));
             tickets.add(ticket);
         }
         return tickets;
@@ -128,9 +128,9 @@ public class KiwiProviderAPI extends ProviderAPI<KiwiAPI> implements TicketProvi
         flight.setInfantsCount(searchParams.getSeats().getInfants());
 
         if (direction == 0)
-            flight.setDuration(data.getDuration().getDeparture());
+            flight.setDuration((data.getDuration().getDeparture() / 60));
         else
-            flight.setDuration(data.getDuration().getReturn());
+            flight.setDuration((data.getDuration().getReturn() / 60));
         List<Ticket> flightParts = formTicketsList(searchParams, data, direction);
         if (flightParts.isEmpty())
             return null;
