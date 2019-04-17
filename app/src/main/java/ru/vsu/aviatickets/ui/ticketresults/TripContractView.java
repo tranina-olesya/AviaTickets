@@ -6,8 +6,8 @@ import ru.vsu.aviatickets.ticketssearch.models.Trip;
 
 public interface TripContractView {
     void showTrips(List<Trip> trips);
+
     void showProgress();
+
     void hideProgress();
-    void saveTripsToSharedPreferences(List<Trip> trips);
-    List<Trip> getTripsFromSharedPreferences();
 }

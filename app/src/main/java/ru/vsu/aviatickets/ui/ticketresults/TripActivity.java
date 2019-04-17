@@ -28,13 +28,9 @@ import ru.vsu.aviatickets.ui.main.MainActivity;
 import static ru.vsu.aviatickets.ui.main.MainActivity.SEARCH_DATA;
 
 public class TripActivity extends AppCompatActivity implements TripContractView {
-    private static final String PREFS_NAME = "TripSharedPreferences";
-    private static final String TRIPS_KEY = "Trips";
 
     private ProgressDialog progressDialog;
     private RecyclerView recyclerView;
-
-    private SharedPreferences sharedPreferences;
 
     private TripPresenter presenter;
 
@@ -64,13 +60,7 @@ public class TripActivity extends AppCompatActivity implements TripContractView 
         setContentView(R.layout.activity_trip);
         recyclerView = (RecyclerView) findViewById(R.id.RecyclerView);
 
-        sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        SearchData searchData = null;
-        Intent intent = getIntent();
-        if (intent.hasExtra(SEARCH_DATA)){
-            searchData = (SearchData) getIntent().getSerializableExtra(SEARCH_DATA);
-        }
-
+        SearchData searchData = (SearchData) getIntent().getSerializableExtra(SEARCH_DATA);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
@@ -108,23 +98,4 @@ public class TripActivity extends AppCompatActivity implements TripContractView 
         }
     }
 
-    @Override
-    public void saveTripsToSharedPreferences(List<Trip> trips) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        Gson gson = new Gson();
-        editor.putString(TRIPS_KEY, gson.toJson(trips));
-        editor.apply();
-    }
-
-    @Override
-    public List<Trip> getTripsFromSharedPreferences() {
-        if (!sharedPreferences.contains(TRIPS_KEY))
-            return null;
-
-        Gson gson = new Gson();
-        Type type = new TypeToken<List<Trip>>() {}.getType();
-        String json = sharedPreferences.getString(TRIPS_KEY, "");
-
-        return gson.fromJson(json, type);
-    }
 }
