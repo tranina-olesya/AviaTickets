@@ -1,11 +1,12 @@
 package ru.vsu.aviatickets.ticketssearch.models;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
 import ru.vsu.aviatickets.ticketssearch.models.skyscanner.SkyScannerPlace;
 
-public class Ticket {
+public class Ticket implements Serializable {
     private Carrier carrier;
     private Place origin;
     private Place destination;

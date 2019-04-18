@@ -1,5 +1,6 @@
 package ru.vsu.aviatickets.ticketssearch.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.Objects;
 
 import ru.vsu.aviatickets.ticketssearch.models.skyscanner.SkyScannerPlace;
 
-public class Flight {
+public class Flight implements Serializable {
     private Place origin;
     private Place destination;
     private Date outboundDate;

@@ -1,10 +1,11 @@
 package ru.vsu.aviatickets.ticketssearch.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Trip {
+public class Trip implements Serializable {
     private Flight outbound;
     private Flight inbound;
     private List<PriceLink> priceLinks;

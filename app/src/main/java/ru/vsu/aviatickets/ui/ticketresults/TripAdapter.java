@@ -21,6 +21,8 @@ import ru.vsu.aviatickets.ticketssearch.models.PriceLink;
 import ru.vsu.aviatickets.ticketssearch.models.Trip;
 import ru.vsu.aviatickets.ui.fullticket.FullTripActivity;
 
+import static ru.vsu.aviatickets.ui.fullticket.FullTripActivity.TRIP_EXTRA;
+
 public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -91,6 +93,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(viewHolder.container.getContext(), FullTripActivity.class);
+                intent.putExtra(TRIP_EXTRA, trip);
                 viewHolder.container.getContext().startActivity(intent);
             }
         });

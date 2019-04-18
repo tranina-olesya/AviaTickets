@@ -1,8 +1,9 @@
 package ru.vsu.aviatickets.ticketssearch.models;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class PriceLink {
+public class PriceLink implements Serializable {
     private List<Agent> agents;
     private Double price;
     private String deepLink;

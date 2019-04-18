@@ -3,7 +3,9 @@ package ru.vsu.aviatickets.ticketssearch.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Agent {
+import java.io.Serializable;
+
+public class Agent implements Serializable {
     @SerializedName("Name")
     @Expose
     private String name;
