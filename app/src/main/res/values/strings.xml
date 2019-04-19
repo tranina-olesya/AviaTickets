@@ -27,4 +27,5 @@
     <string name="hasTransfers">Есть пересадки</string>
     <string name="noTransfers">Без пересадок</string>
     <string name="durationComment">Время в пути</string>
+    <string name="priceLinks">Цены</string>
 </resources>

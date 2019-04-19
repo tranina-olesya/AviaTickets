@@ -12,6 +12,7 @@ import ru.vsu.aviatickets.R;
 import ru.vsu.aviatickets.ticketssearch.models.PriceLink;
 import ru.vsu.aviatickets.ticketssearch.models.Ticket;
 import ru.vsu.aviatickets.ticketssearch.models.Trip;
+import ru.vsu.aviatickets.ui.utils.DateConvert;
 
 public class FullTripAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -26,10 +27,26 @@ public class FullTripAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public class TicketViewHolder extends RecyclerView.ViewHolder {
         private final TextView route;
+        private final TextView fullRoute;
+        private final TextView date;
+        private final TextView duration;
+        private final TextView carrier;
 
         public TicketViewHolder(@NonNull View itemView) {
             super(itemView);
             route = (TextView) itemView.findViewById(R.id.route);
+            fullRoute = (TextView) itemView.findViewById(R.id.fullRoute);
+            carrier = (TextView) itemView.findViewById(R.id.carrier);
+            date = (TextView) itemView.findViewById(R.id.date);
+            duration = (TextView) itemView.findViewById(R.id.duration);
+        }
+
+        public void addTicketInfo(Ticket ticket){
+            carrier.setText(String.format("%s", ticket.getCarrier().getName()));
+            fullRoute.setText(String.format("%s - %s", ticket.getOrigin().getName(), ticket.getDestination().getName()));
+            route.setText(String.format("%s - %s", ticket.getOrigin().getCode(), ticket.getDestination().getCode()));
+            date.setText(DateConvert.getTimeString(ticket.getOutboundDate(), ticket.getInboundDate()));
+            duration.setText(DateConvert.getDurationString(ticket.getDuration()));
         }
     }
 
@@ -98,23 +115,29 @@ public class FullTripAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         int type = viewHolder.getItemViewType();
         if (type == ViewHolderTypes.ROUTE_TO.index()) {
             TitleViewHolder titleViewHolder = (TitleViewHolder) viewHolder;
-            ((TitleViewHolder) viewHolder).title.setText("route to");
+            titleViewHolder.title.setText(String.format("%s - %s (%s - %s)",
+                    trip.getOutbound().getOrigin().getName(), trip.getOutbound().getDestination().getName(),
+                    trip.getOutbound().getOrigin().getCode(), trip.getOutbound().getDestination().getCode()));
         } else if (type == ViewHolderTypes.ROUTE_FROM.index()) {
-            ((TitleViewHolder) viewHolder).title.setText("route from");
+            TitleViewHolder titleViewHolder = (TitleViewHolder) viewHolder;
+            titleViewHolder.title.setText(String.format("%s - %s (%s - %s)",
+                    trip.getInbound().getOrigin().getName(), trip.getInbound().getDestination().getName(),
+                    trip.getInbound().getOrigin().getCode(), trip.getInbound().getDestination().getCode()));
         } else if (type == ViewHolderTypes.PRICE_TITLE.index()) {
-            ((TitleViewHolder) viewHolder).title.setText("prices");
+            TitleViewHolder titleViewHolder = (TitleViewHolder) viewHolder;
+            titleViewHolder.title.setText(R.string.priceLinks);
         } else if (type == ViewHolderTypes.TICKETS_TO.index()) {
-            //Ticket ticket = trip.getOutbound().getFlightParts().get(position - 1);
+            Ticket ticket = trip.getOutbound().getFlightParts().get(position - 1);
             TicketViewHolder ticketViewHolder = (TicketViewHolder) viewHolder;
-            ticketViewHolder.route.setText(String.format("ticket %d", (position - 1)));
+            ticketViewHolder.addTicketInfo(ticket);
         } else if (type == ViewHolderTypes.TICKETS_FROM.index() && ticketsFromCount > 0) {
-            //Ticket ticket = trip.getOutbound().getFlightParts().get(position - 2 - ticketsToCount);
+            Ticket ticket = trip.getOutbound().getFlightParts().get(position - 2 - ticketsToCount);
             TicketViewHolder ticketViewHolder = (TicketViewHolder) viewHolder;
-            ticketViewHolder.route.setText(String.format("ticket %d", (position - 2 - ticketsToCount)));
+            ticketViewHolder.addTicketInfo(ticket);
         } else if (type == ViewHolderTypes.PRICE_LINK.index()) {
-            //PriceLink priceLink = trip.getPriceLinks().get(position - ticketsToCount - ticketsFromCount - titlesCount);
+            PriceLink priceLink = trip.getPriceLinks().get(position - ticketsToCount - ticketsFromCount - titlesCount);
             PriceLinkViewHolder priceLinkViewHolder = (PriceLinkViewHolder) viewHolder;
-            priceLinkViewHolder.priceLink.setText(String.format("pricelink %d", (position - ticketsToCount - ticketsFromCount - titlesCount)));
+            priceLinkViewHolder.priceLink.setText(priceLink.getDeepLink());
         }
     }
 
