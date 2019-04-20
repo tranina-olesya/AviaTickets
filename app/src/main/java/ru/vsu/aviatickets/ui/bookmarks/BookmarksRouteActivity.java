@@ -17,12 +17,12 @@ import ru.vsu.aviatickets.bookmarks.entity.BookmarkRoute;
 import ru.vsu.aviatickets.bookmarks.logic.AviaTicketsDatabase;
 import ru.vsu.aviatickets.bookmarks.logic.BookmarkRouteDao;
 
-public class BookmarksRouteActivity extends AppCompatActivity {
+public class BookmarksRouteActivity extends AppCompatActivity implements BookmarksContractView {
     private TextView textView;
     private TextView textV;
     private Button but;
-    private List<BookmarkRoute> routes;
     private BookmarkRoute id;
+    BookmarksRoutePresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,130 +32,44 @@ public class BookmarksRouteActivity extends AppCompatActivity {
         textV = (TextView) findViewById(R.id.viewDel);
 
         but = (Button) findViewById(R.id.but);
-        routes = new ArrayList<>();
-//        but.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                BookmarkRoute bookmarkRoute = new BookmarkRoute("London", "Moscow", 1,
-//                        0, 0, "");
-//                BookmarksRouteInsert insert = new BookmarksRouteInsert();
-//                insert.execute(bookmarkRoute);
-//                BookmarksRouteOut bookmarkDatabase = new BookmarksRouteOut();
-//                bookmarkDatabase.execute();
-//            }
-//        });
 
+        BookmarksRouteModel model = new BookmarksRouteModel();
+        presenter = new BookmarksRoutePresenter(model);
+        presenter.attachView(this);
 
-        BookmarksRouteOut bookmarkDatabase = new BookmarksRouteOut();
-        bookmarkDatabase.execute();
+        presenter.viewIsReady();
 
-        textView.setText(routes.toString());
-
-        BookmarksRouteGetById getById = new BookmarksRouteGetById();
-
-
-
-        BookmarksRouteDelete delete = new BookmarksRouteDelete();
-        delete.execute(id);
-
-        textV.setText(routes.toString());
-
-    }
-
-    class BookmarksRouteGetById extends AsyncTask<Long, Void, BookmarkRoute> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-        }
-
-        @Override
-        protected BookmarkRoute doInBackground(Long... params) {
-            AviaTicketsDatabase db = App.getInstance().getDatabase();
-            BookmarkRouteDao bookmarkRouteDao = db.bookmarkRouteDao();
-
-            for (Long id : params) {
-                return bookmarkRouteDao.getById(id);
+        but.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.delete();
             }
-            return null;
-        }
+        });
 
-        @Override
-        protected void onPostExecute(BookmarkRoute result) {
-            super.onPostExecute(result);
-            id = result;
-        }
+
     }
 
-    class BookmarksRouteDelete extends AsyncTask<BookmarkRoute, Void, Void> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-        }
-
-        @Override
-        protected Void doInBackground(BookmarkRoute... params) {
-            AviaTicketsDatabase db = App.getInstance().getDatabase();
-            BookmarkRouteDao bookmarkRouteDao = db.bookmarkRouteDao();
-
-            for (BookmarkRoute bookmarkRoute : params) {
-                bookmarkRouteDao.delete(bookmarkRoute);
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-        }
+    public void showBookmarksRoute(List<BookmarkRoute> bookmarkRoutes)
+    {
+        textView.setText(bookmarkRoutes.toString());
     }
 
-    class BookmarksRouteInsert extends AsyncTask<BookmarkRoute, Void, Void> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-        }
-
-        @Override
-        protected Void doInBackground(BookmarkRoute... params) {
-            AviaTicketsDatabase db = App.getInstance().getDatabase();
-            BookmarkRouteDao bookmarkRouteDao = db.bookmarkRouteDao();
-
-            for (BookmarkRoute bookmarkRoute : params) {
-                bookmarkRouteDao.insert(bookmarkRoute);
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-        }
+    public BookmarkRoute addBookmarkRouteData(){
+        BookmarkRoute bookmarkRoute = new BookmarkRoute("Madrid","London",
+                                            1,0,0,"");
+        return bookmarkRoute;
     }
 
-    class BookmarksRouteOut extends AsyncTask<Void, Void, List<BookmarkRoute>> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
+    public BookmarkRoute deleteBookmarkRoute(){
+        BookmarkRoute bookmarkRoute = new BookmarkRoute("Madrid","London",
+                1,0,0,"");
+               bookmarkRoute.setId((long)1);
 
-        }
-
-        @Override
-        protected List<BookmarkRoute> doInBackground(Void... params) {
-            AviaTicketsDatabase db = App.getInstance().getDatabase();
-            BookmarkRouteDao bookmarkRouteDao = db.bookmarkRouteDao();
-
-            routes = bookmarkRouteDao.getAll();
-
-            return routes;
-        }
-
-        @Override
-        protected void onPostExecute(List<BookmarkRoute> result) {
-            super.onPostExecute(result);
-            textView.setText(result.toString());
-        }
+        return bookmarkRoute;
     }
+
+
+
+
+
 }
