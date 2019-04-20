@@ -1,11 +1,15 @@
 package ru.vsu.aviatickets.ui.fullticket;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import ru.vsu.aviatickets.R;
@@ -13,6 +17,8 @@ import ru.vsu.aviatickets.ticketssearch.models.PriceLink;
 import ru.vsu.aviatickets.ticketssearch.models.Ticket;
 import ru.vsu.aviatickets.ticketssearch.models.Trip;
 import ru.vsu.aviatickets.ui.utils.DateConvert;
+
+import static android.content.Intent.ACTION_VIEW;
 
 public class FullTripAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -51,11 +57,15 @@ public class FullTripAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public class PriceLinkViewHolder extends RecyclerView.ViewHolder {
-        private final TextView priceLink;
+        private final TextView agentName;
+        private final Button buttonPrice;
+        private final ConstraintLayout container;
 
         public PriceLinkViewHolder(@NonNull View itemView) {
             super(itemView);
-            priceLink = (TextView) itemView.findViewById(R.id.linkText);
+            agentName = (TextView) itemView.findViewById(R.id.agentName);
+            buttonPrice = (Button) itemView.findViewById(R.id.buttonPrice);
+            container = (ConstraintLayout) itemView.findViewById(R.id.container);
         }
     }
 
@@ -137,7 +147,15 @@ public class FullTripAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         } else if (type == ViewHolderTypes.PRICE_LINK.index()) {
             PriceLink priceLink = trip.getPriceLinks().get(position - ticketsToCount - ticketsFromCount - titlesCount);
             PriceLinkViewHolder priceLinkViewHolder = (PriceLinkViewHolder) viewHolder;
-            priceLinkViewHolder.priceLink.setText(priceLink.getDeepLink());
+            priceLinkViewHolder.agentName.setText(priceLink.getAgents().get(0).getName());
+            priceLinkViewHolder.buttonPrice.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(ACTION_VIEW);
+                    intent.setData(Uri.parse(priceLink.getDeepLink()));
+                    priceLinkViewHolder.container.getContext().startActivity(intent);
+                }
+            });
         }
     }
 

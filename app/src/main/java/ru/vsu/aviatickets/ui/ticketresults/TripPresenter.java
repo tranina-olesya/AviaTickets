@@ -39,7 +39,7 @@ public class TripPresenter {
 
             @Override
             public void onFail() {
-
+                view.hideProgress();
             }
         });
     }
