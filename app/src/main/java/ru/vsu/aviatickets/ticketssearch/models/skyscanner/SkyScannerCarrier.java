@@ -3,19 +3,18 @@ package ru.vsu.aviatickets.ticketssearch.models.skyscanner;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import ru.vsu.aviatickets.ticketssearch.models.Place;
+import ru.vsu.aviatickets.ticketssearch.models.Carrier;
 
-public class SkyScannerPlace extends Place {
+public class SkyScannerCarrier extends Carrier {
     @SerializedName("Id")
     @Expose
     private Integer id;
-
-    public SkyScannerPlace(Integer id, String code, String type, String name) {
-        super(code, type, name);
+    public SkyScannerCarrier(Integer id, String code, String name, String imageUrl) {
+        super(code, name, imageUrl);
         this.id = id;
     }
 
-    public SkyScannerPlace() {
+    public SkyScannerCarrier() {
     }
 
     public Integer getId() {
