@@ -10,7 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import ru.vsu.aviatickets.R;
 import ru.vsu.aviatickets.ticketssearch.models.PriceLink;
@@ -36,19 +40,22 @@ public class FullTripAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         private final TextView fullRoute;
         private final TextView date;
         private final TextView duration;
-        private final TextView carrier;
+        private final ImageView carrier;
 
         public TicketViewHolder(@NonNull View itemView) {
             super(itemView);
             route = (TextView) itemView.findViewById(R.id.route);
             fullRoute = (TextView) itemView.findViewById(R.id.fullRoute);
-            carrier = (TextView) itemView.findViewById(R.id.carrier);
+            carrier = (ImageView) itemView.findViewById(R.id.carrier);
             date = (TextView) itemView.findViewById(R.id.date);
             duration = (TextView) itemView.findViewById(R.id.duration);
         }
 
-        public void addTicketInfo(Ticket ticket){
-            carrier.setText(String.format("%s", ticket.getCarrier().getName()));
+        public void addTicketInfo(Ticket ticket) {
+            Glide.with(context)
+                    .load(ticket.getCarrier().getImageUrl())
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(carrier);
             fullRoute.setText(String.format("%s - %s", ticket.getOrigin().getName(), ticket.getDestination().getName()));
             route.setText(String.format("%s - %s", ticket.getOrigin().getCode(), ticket.getDestination().getCode()));
             date.setText(DateConvert.getTimeString(ticket.getOutboundDate(), ticket.getInboundDate()));
@@ -57,18 +64,21 @@ public class FullTripAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public class PriceLinkViewHolder extends RecyclerView.ViewHolder {
-        private final TextView agentName;
+        private final ImageView agentImage;
+        private final TextView price;
         private final Button buttonPrice;
         private final ConstraintLayout container;
 
         public PriceLinkViewHolder(@NonNull View itemView) {
             super(itemView);
-            agentName = (TextView) itemView.findViewById(R.id.agentName);
+            agentImage = (ImageView) itemView.findViewById(R.id.agentImage);
+            price = (TextView) itemView.findViewById(R.id.price);
             buttonPrice = (Button) itemView.findViewById(R.id.buttonPrice);
             container = (ConstraintLayout) itemView.findViewById(R.id.container);
         }
     }
 
+    private Context context;
     private Trip trip;
     private LayoutInflater inflater;
     private int ticketsToCount;
@@ -77,6 +87,7 @@ public class FullTripAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private int linksCount;
 
     public FullTripAdapter(Context context, Trip trip) {
+        this.context = context;
         this.trip = trip;
         this.inflater = LayoutInflater.from(context);
 
@@ -147,7 +158,11 @@ public class FullTripAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         } else if (type == ViewHolderTypes.PRICE_LINK.index()) {
             PriceLink priceLink = trip.getPriceLinks().get(position - ticketsToCount - ticketsFromCount - titlesCount);
             PriceLinkViewHolder priceLinkViewHolder = (PriceLinkViewHolder) viewHolder;
-            priceLinkViewHolder.agentName.setText(priceLink.getAgents().get(0).getName());
+            Glide.with(context)
+                    .load(priceLink.getAgents().get(0).getImageUrl())
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(priceLinkViewHolder.agentImage);
+            priceLinkViewHolder.price.setText(String.valueOf(priceLink.getPrice()));
             priceLinkViewHolder.buttonPrice.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -24,9 +25,12 @@ import ru.vsu.aviatickets.ticketssearch.models.FlightType;
 import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 import ru.vsu.aviatickets.ui.ticketresults.TripActivity;
 
+import static android.view.MotionEvent.ACTION_UP;
+
 public class MainActivity extends AppCompatActivity implements MainContractView {
 
     public static final String SEARCH_DATA = "searchData";
+    private final int DRAWABLE_RIGHT = 2;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -67,8 +71,6 @@ public class MainActivity extends AppCompatActivity implements MainContractView 
         setContentView(R.layout.activity_main);
 
         Button buttonSearch = (Button) findViewById(R.id.buttonSearch);
-        Button buttonPickDateFrom = (Button) findViewById(R.id.buttonPickDateFrom);
-        Button buttonPickDateTo = (Button) findViewById(R.id.buttonPickDateTo);
         editTextDateFrom = (EditText) findViewById(R.id.dateFrom);
         editTextDateTo = (EditText) findViewById(R.id.dateTo);
         editTextOrigin = (EditText) findViewById(R.id.cityFrom);
@@ -90,20 +92,31 @@ public class MainActivity extends AppCompatActivity implements MainContractView 
             }
         });
 
-        buttonPickDateFrom.setOnClickListener(new View.OnClickListener() {
+        editTextDateFrom.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                presenter.calendarDateFrom();
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == ACTION_UP) {
+                    if (event.getRawX() >= (editTextDateFrom.getRight() - editTextDateFrom.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        presenter.calendarDateFrom();
+                        return true;
+                    }
+                }
+                return false;
             }
         });
 
-        buttonPickDateTo.setOnClickListener(new View.OnClickListener() {
+        editTextDateTo.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                presenter.calendarDateTo();
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == ACTION_UP) {
+                    if (event.getRawX() >= (editTextDateTo.getRight() - editTextDateTo.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        presenter.calendarDateTo();
+                        return true;
+                    }
+                }
+                return false;
             }
         });
-
         presenter = new MainPresenter();
         presenter.attachView(this);
     }

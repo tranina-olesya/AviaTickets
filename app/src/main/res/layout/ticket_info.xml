@@ -27,11 +27,10 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.95" />
 
-    <TextView
+    <ImageView
         android:id="@+id/carrier"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
+        android:layout_height="32dp"
         app:layout_constraintRight_toRightOf="@id/guideline95"
         app:layout_constraintTop_toTopOf="parent" />
 

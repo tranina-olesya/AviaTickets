@@ -20,13 +20,23 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent=".95" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="@id/buttonPrice"
+        android:id="@+id/agentImage"
+        app:layout_constraintTop_toTopOf="@id/buttonPrice"
+        app:layout_constraintBottom_toBottomOf="@id/buttonPrice"
+        app:layout_constraintLeft_toLeftOf="@id/guideline05"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp"
-        android:id="@+id/agentName"
+        android:paddingEnd="15dp"
+        android:id="@+id/price"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="@id/guideline05"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/buttonPrice"/>
 
     <Button
         android:layout_width="wrap_content"
