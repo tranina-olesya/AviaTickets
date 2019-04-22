@@ -28,5 +28,5 @@
     <string name="noTransfers">Без пересадок</string>
     <string name="durationComment">Время в пути</string>
     <string name="priceLinks">Цены</string>
-    <string name="buttonPrice">Перейти на сайт</string>
+    <string name="buttonPrice">Купить</string>
 </resources>

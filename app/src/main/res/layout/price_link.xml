@@ -43,6 +43,8 @@
         android:layout_height="wrap_content"
         android:text="@string/buttonPrice"
         android:id="@+id/buttonPrice"
+        android:drawableRight="@drawable/airplane"
+        android:drawablePadding="7dp"
         app:layout_constraintRight_toRightOf="@id/guideline95"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>

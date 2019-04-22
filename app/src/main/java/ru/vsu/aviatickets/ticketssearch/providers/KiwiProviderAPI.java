@@ -90,7 +90,7 @@ public class KiwiProviderAPI extends ProviderAPI<KiwiAPI> implements TicketProvi
 
             List<PriceLink> priceLinks = new ArrayList<>();
             List<Agent> agents = new ArrayList<>();
-            agents.add(new Agent("Kiwi.com", null));
+            agents.add(new Agent("Kiwi.com", "https://s1.apideeplink.com/images/websites/skyp.png"));
             PriceLink priceLink = new PriceLink(agents, data.getPrice(), data.getDeepLink());
             priceLinks.add(priceLink);
             trip.setPriceLinks(priceLinks);
@@ -110,7 +110,8 @@ public class KiwiProviderAPI extends ProviderAPI<KiwiAPI> implements TicketProvi
         List<Ticket> tickets = new ArrayList<>();
         for (Route route : getRoutesByDirection(data.getRoute(), direction)) {
             Ticket ticket = new Ticket();
-            ticket.setCarrier(new Carrier(route.getOperatingCarrier(), route.getAirline(), null));
+            String operatingCarrier = !route.getOperatingCarrier().isEmpty() ? route.getOperatingCarrier():route.getAirline();
+            ticket.setCarrier(new Carrier(operatingCarrier, route.getAirline(), String.format("https://pics.avs.io/120/60/%s.png", route.getAirline())));
             ticket.setOrigin(new Place(route.getFlyFrom(), searchParams.getFlyFromType(), route.getCityFrom()));
             ticket.setDestination(new Place(route.getFlyTo(), searchParams.getToType(), route.getCityTo()));
             ticket.setOutboundDate(new Date(route.getDTime() * 1000L));
