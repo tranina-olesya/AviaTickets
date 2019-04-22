@@ -2,6 +2,8 @@ package ru.vsu.aviatickets.ui.main;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -110,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements MainContractView 
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == ACTION_UP) {
                     if (event.getRawX() >= (editTextDateTo.getRight() - editTextDateTo.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        presenter.calendarDateTo();
+                        presenter.calendarDateTo(editTextDateFrom.getText().toString());
                         return true;
                     }
                 }
@@ -122,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements MainContractView 
     }
 
     private void fillRouteTypeSpinner() {
-        String[] data = {getString(R.string.spinnerFlightTypeOneway), getString(R.string.spinnerFlightTypeRound)};
+        String[] data = {getString(R.string.spinnerFlightTypeRound), getString(R.string.spinnerFlightTypeOneway)};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, data);
         spinnerFlightType = (Spinner) findViewById(R.id.routeType);
         spinnerFlightType.setAdapter(adapter);
@@ -142,9 +144,16 @@ public class MainActivity extends AppCompatActivity implements MainContractView 
         SearchData searchData = new SearchData();
         searchData.setOrigin(editTextOrigin.getText().toString());
         searchData.setDestination(editTextDestination.getText().toString());
-        searchData.setAdultsCount(Integer.parseInt(editTextAdultsCount.getText().toString()));
-        searchData.setChildrenCount(Integer.parseInt(editTextChildrenCount.getText().toString()));
-        searchData.setInfantsCount(Integer.parseInt(editTextInfantsCount.getText().toString()));
+        if (editTextAdultsCount.getText() != null && !editTextAdultsCount.getText().toString().isEmpty())
+            searchData.setAdultsCount(Integer.parseInt(editTextAdultsCount.getText().toString()));
+        if (editTextChildrenCount.getText() != null && !editTextChildrenCount.getText().toString().isEmpty())
+            searchData.setChildrenCount(Integer.parseInt(editTextChildrenCount.getText().toString()));
+        else
+            searchData.setChildrenCount(0);
+        if (editTextInfantsCount.getText() != null && !editTextInfantsCount.getText().toString().isEmpty())
+            searchData.setInfantsCount(Integer.parseInt(editTextInfantsCount.getText().toString()));
+        else
+            searchData.setInfantsCount(0);
         searchData.setTransfers(checkboxTransfer.isChecked());
 
         CabinClass cabinClass = spinnerCabinClass.getSelectedItem().toString().equals(getString(R.string.spinnerCabinClassEconomy)) ?
@@ -155,16 +164,23 @@ public class MainActivity extends AppCompatActivity implements MainContractView 
                 FlightType.ROUND : FlightType.ONEWAY;
         searchData.setFlightType(flightType);
 
+        String pattern = "dd/MM/yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         try {
-            String pattern = "dd/MM/yyyy";
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
             searchData.setOutboundDate(simpleDateFormat.parse(editTextDateFrom.getText().toString()));
-            if (flightType == FlightType.ROUND)
-                searchData.setInboundDate(simpleDateFormat.parse(editTextDateTo.getText().toString()));
         } catch (ParseException e) {
+            searchData.setOutboundDate(null);
             e.printStackTrace();
         }
 
+        if (flightType == FlightType.ROUND) {
+            try {
+                searchData.setInboundDate(simpleDateFormat.parse(editTextDateTo.getText().toString()));
+            } catch (ParseException e) {
+                searchData.setInboundDate(null);
+                e.printStackTrace();
+            }
+        }
         return searchData;
     }
 
@@ -178,6 +194,7 @@ public class MainActivity extends AppCompatActivity implements MainContractView 
                     }
                 }, year, month, dayOfMonth);
         datePickerDialog.show();
+        editTextDateFrom.setError(null);
     }
 
     @Override
@@ -190,6 +207,7 @@ public class MainActivity extends AppCompatActivity implements MainContractView 
                     }
                 }, year, month, dayOfMonth);
         datePickerDialog.show();
+        editTextDateTo.setError(null);
     }
 
     @Override
@@ -207,5 +225,33 @@ public class MainActivity extends AppCompatActivity implements MainContractView 
         Intent intent = new Intent(MainActivity.this, TripActivity.class);
         intent.putExtra(SEARCH_DATA, searchData);
         startActivity(intent);
+    }
+
+    @Override
+    public void errorAdultCount(int resId) {
+        editTextAdultsCount.requestFocus();
+        editTextAdultsCount.setError(getString(resId), null);
+    }
+
+    @Override
+    public void errorDateOutbound(int resId) {
+        editTextDateFrom.requestFocus();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Drawable drawable = getDrawable(R.drawable.error_calendar_month_outline);
+            drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+            editTextDateFrom.setError(getString(resId), drawable);
+        } else
+            editTextDateFrom.setError(getString(resId));
+    }
+
+    @Override
+    public void errorDateInbound(int resId) {
+        editTextDateTo.requestFocus();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Drawable drawable = getDrawable(R.drawable.error_calendar_month_outline);
+            drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+            editTextDateTo.setError(getString(resId), drawable);
+        } else
+            editTextDateTo.setError(getString(resId));
     }
 }

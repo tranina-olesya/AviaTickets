@@ -14,4 +14,10 @@ public interface MainContractView {
     void setDateToEditTextValue(String date);
 
     void showSearchResults(SearchData searchData);
+
+    void errorAdultCount(int resId);
+
+    void errorDateOutbound(int resId);
+
+    void errorDateInbound(int resId);
 }
