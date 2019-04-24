@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">AviaTickets</string>
-    <string name="textFlightTo">Туда:</string>
-    <string name="textFlightFrom">Обратно:</string>
+    <string name="textFlightTo">Куда:</string>
+    <string name="textFlightFrom">Откуда:</string>
     <string name="buttonTrips">Поиск билетов</string>
     <string name="title_activity_full_trip">FullTripActivity</string>
     <string name="title_search">Поиск</string>
@@ -23,4 +23,15 @@
     <string name="spinnerFlightTypeRound">Туда-обратно</string>
     <string name="spinnerCabinClassEconomy">Эконом</string>
     <string name="spinnerCabinClassBusiness">Бизнес класс</string>
+    <string name="progressDialogTripActivity">Подождите, операция выполняется…</string>
+    <string name="hasTransfers">Есть пересадки</string>
+    <string name="noTransfers">Без пересадок</string>
+    <string name="durationComment">Время в пути</string>
+    <string name="priceLinks">Цены</string>
+    <string name="buttonPrice">Купить</string>
+    <string name="errorOneAdultRequiared">Необходим как минимум один взрослый пассажир</string>
+    <string name="errorDateOutbound">Выберите дату отправления (ДД/ММ/ГГГГ)</string>
+    <string name="errorDateInbound">Выберите дату возвращения (ДД/ММ/ГГГГ)</string>
+    <string name="errorDateOutboundAfterDateIbound">Дата возвращения должна быть после даты отправления</string>
+    <string name="errorDateInPast">Выберите дату не раньше сегодняшней</string>
 </resources>

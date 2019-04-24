@@ -1,8 +1,8 @@
-package ru.vsu.aviatickets.ui.main;
+package ru.vsu.aviatickets.ui.searchform;
 
 import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 
-public interface MainContractView {
+public interface SearchFormContractView {
     SearchData getSearchData();
 
     void showDateFromPickerDialog(int year, int month, int dayOfMonth);
@@ -14,4 +14,10 @@ public interface MainContractView {
     void setDateToEditTextValue(String date);
 
     void showSearchResults(SearchData searchData);
+
+    void errorAdultCount(int resId);
+
+    void errorDateOutbound(int resId);
+
+    void errorDateInbound(int resId);
 }

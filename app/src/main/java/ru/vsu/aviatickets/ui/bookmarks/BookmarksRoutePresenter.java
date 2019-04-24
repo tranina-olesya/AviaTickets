@@ -1,7 +1,5 @@
 package ru.vsu.aviatickets.ui.bookmarks;
 
-import android.text.TextUtils;
-
 import java.util.List;
 
 import ru.vsu.aviatickets.bookmarks.entity.BookmarkRoute;
@@ -14,7 +12,7 @@ public class BookmarksRoutePresenter {
         this.model = model;
     }
 
-    public void attachView(BookmarksRouteActivity activity) {
+    public void attachView(BookmarksRouteFragment activity) {
         view = activity;
     }
 

@@ -3,9 +3,10 @@ package ru.vsu.aviatickets.ticketssearch.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Carrier {
+public class Carrier implements Serializable {
     @SerializedName("Code")
     @Expose
     private String code;

@@ -1,17 +1,16 @@
-package ru.vsu.aviatickets.ui.ticketresults;
+package ru.vsu.aviatickets.ui.tripresults;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 import ru.vsu.aviatickets.ticketssearch.models.Trip;
-import ru.vsu.aviatickets.ticketssearch.providers.ProviderAPI;
 import ru.vsu.aviatickets.ticketssearch.providers.TicketProviderApi;
 
-public class TripModel {
+public class TripResultsModel {
     private List<TicketProviderApi> providers;
 
-    public TripModel(List<TicketProviderApi> providers) {
+    public TripResultsModel(List<TicketProviderApi> providers) {
         this.providers = providers;
     }
 

@@ -5,62 +5,120 @@
     android:padding="15dp"
     android:id="@+id/container">
 
-    <TextView
-        android:id="@+id/textFlightTo"
+    <android.support.constraint.Guideline
+        android:id="@+id/firstColGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/textFlightTo"
-        android:layout_marginStart="25dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.08" />
 
-    <TextView
-        android:id="@+id/departureTimeTo"
+    <android.support.constraint.Guideline
+        android:id="@+id/secondColGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textFlightTo" />
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.38" />
 
-    <TextView
-        android:id="@+id/arrivalTimeTo"
+    <android.support.constraint.Guideline
+        android:id="@+id/thirdColGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/departureTimeTo"/>
-    <TextView
-        android:id="@+id/textFlightFrom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/textFlightFrom"
-        android:layout_marginStart="25dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/arrivalTimeTo" />
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.67" />
 
-    <TextView
-        android:id="@+id/departureTimeFrom"
+    <android.support.constraint.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textFlightFrom" />
+        app:layout_constraintGuide_percent=".05"
+        android:orientation="horizontal"
+        android:id="@+id/top_guideline"/>
 
-    <TextView
-        android:id="@+id/arrivalTimeFrom"
+    <android.support.constraint.Group
+        android:id="@+id/groupInbound"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/departureTimeFrom"/>
+        app:constraint_referenced_ids="placesInbound, durationInboundComment, transferInbound, timeInbound, durationInbound"/>
 
     <TextView
         android:id="@+id/minPrice"
         android:layout_width="wrap_content"
+        android:textSize="20sp"
+        android:textColor="@color/colorPrimary"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/arrivalTimeFrom" />
+        app:layout_constraintLeft_toLeftOf="@id/firstColGuideline"
+        app:layout_constraintTop_toTopOf="@id/top_guideline" />
 
+    <TextView
+        android:id="@+id/placesOutbound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/firstColGuideline"
+        app:layout_constraintTop_toBottomOf="@id/minPrice" />
+
+    <TextView
+        android:id="@+id/placesInbound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/firstColGuideline"
+        app:layout_constraintTop_toBottomOf="@id/timeOutbound" />
+
+    <TextView
+        android:id="@+id/timeOutbound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/firstColGuideline"
+        app:layout_constraintTop_toBottomOf="@id/placesOutbound" />
+
+    <TextView
+        android:id="@+id/timeInbound"
+        android:layout_width="wrap_content"
+        android:layout_height="22dp"
+        app:layout_constraintLeft_toLeftOf="@id/firstColGuideline"
+        app:layout_constraintTop_toBottomOf="@id/placesInbound" />
+
+    <TextView
+        android:id="@+id/durationOutboundComment"
+        android:text="@string/durationComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/secondColGuideline"
+        app:layout_constraintTop_toTopOf="@id/placesOutbound" />
+
+    <TextView
+        android:id="@+id/durationInboundComment"
+        android:text="@string/durationComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/secondColGuideline"
+        app:layout_constraintTop_toTopOf="@id/placesInbound" />
+
+    <TextView
+        android:id="@+id/durationOutbound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/secondColGuideline"
+        app:layout_constraintTop_toTopOf="@id/timeOutbound" />
+
+    <TextView
+        android:id="@+id/durationInbound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/secondColGuideline"
+        app:layout_constraintTop_toTopOf="@id/timeInbound"/>
+
+    <TextView
+        android:id="@+id/transferOutbound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/thirdColGuideline"
+        app:layout_constraintTop_toTopOf="@id/durationOutboundComment"/>
+
+    <TextView
+        android:id="@+id/transferInbound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/thirdColGuideline"
+        app:layout_constraintTop_toTopOf="@id/durationInboundComment" />
 
 </android.support.constraint.ConstraintLayout>

@@ -90,7 +90,7 @@ public class KiwiProviderAPI extends ProviderAPI<KiwiAPI> implements TicketProvi
 
             List<PriceLink> priceLinks = new ArrayList<>();
             List<Agent> agents = new ArrayList<>();
-            agents.add(new Agent("Kiwi.com", null));
+            agents.add(new Agent("Kiwi.com", "https://s1.apideeplink.com/images/websites/skyp.png"));
             PriceLink priceLink = new PriceLink(agents, data.getPrice(), data.getDeepLink());
             priceLinks.add(priceLink);
             trip.setPriceLinks(priceLinks);
@@ -110,12 +110,13 @@ public class KiwiProviderAPI extends ProviderAPI<KiwiAPI> implements TicketProvi
         List<Ticket> tickets = new ArrayList<>();
         for (Route route : getRoutesByDirection(data.getRoute(), direction)) {
             Ticket ticket = new Ticket();
-            ticket.setCarrier(new Carrier(route.getOperatingCarrier(), route.getAirline(), null));
+            String operatingCarrier = !route.getOperatingCarrier().isEmpty() ? route.getOperatingCarrier():route.getAirline();
+            ticket.setCarrier(new Carrier(operatingCarrier, route.getAirline(), String.format("https://pics.avs.io/120/60/%s.png", route.getAirline())));
             ticket.setOrigin(new Place(route.getFlyFrom(), searchParams.getFlyFromType(), route.getCityFrom()));
             ticket.setDestination(new Place(route.getFlyTo(), searchParams.getToType(), route.getCityTo()));
             ticket.setOutboundDate(new Date(route.getDTime() * 1000L));
             ticket.setInboundDate(new Date(route.getATime() * 1000L));
-            ticket.setDuration((int) ((route.getDTime() - route.getATime()) / (60000L)));
+            ticket.setDuration((int) ((route.getATime() - route.getDTime()) / (60L)));
             tickets.add(ticket);
         }
         return tickets;
@@ -128,9 +129,9 @@ public class KiwiProviderAPI extends ProviderAPI<KiwiAPI> implements TicketProvi
         flight.setInfantsCount(searchParams.getSeats().getInfants());
 
         if (direction == 0)
-            flight.setDuration(data.getDuration().getDeparture());
+            flight.setDuration((data.getDuration().getDeparture() / 60));
         else
-            flight.setDuration(data.getDuration().getReturn());
+            flight.setDuration((data.getDuration().getReturn() / 60));
         List<Ticket> flightParts = formTicketsList(searchParams, data, direction);
         if (flightParts.isEmpty())
             return null;
