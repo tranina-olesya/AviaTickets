@@ -22,6 +22,7 @@ import ru.vsu.aviatickets.R;
 import ru.vsu.aviatickets.ticketssearch.models.CabinClass;
 import ru.vsu.aviatickets.ticketssearch.models.FlightType;
 import ru.vsu.aviatickets.ticketssearch.models.SearchData;
+import ru.vsu.aviatickets.ui.bookmarks.BookmarksRouteActivity;
 import ru.vsu.aviatickets.ui.ticketresults.TripActivity;
 
 public class MainActivity extends AppCompatActivity implements MainContractView {
@@ -36,7 +37,8 @@ public class MainActivity extends AppCompatActivity implements MainContractView 
                     startActivity(intent);
                     return true;
                 case R.id.navigation_bookmarks:
-
+                    intent = new Intent(MainActivity.this, BookmarksRouteActivity.class);
+                    startActivity(intent);
                     return true;
                 case R.id.navigation_history:
                     return true;
