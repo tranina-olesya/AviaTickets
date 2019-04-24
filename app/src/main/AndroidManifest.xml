@@ -26,13 +26,13 @@
                 android:value="ru.vsu.aviatickets.ui.main.MainActivity" />
         </activity>
         <activity android:name=".ui.main.MainActivity">
-
-            </activity>
-        <activity android:name=".ui.bookmarks.BookmarksRouteActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            </activity>
+        <activity android:name=".ui.bookmarks.BookmarksRouteActivity">
+
         </activity>
     </application>
 

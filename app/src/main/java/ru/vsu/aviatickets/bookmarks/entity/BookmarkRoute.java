@@ -16,14 +16,16 @@ public class BookmarkRoute {
     private int childCount;
     private int infantCount;
     private String classType;
+    private boolean transfers;
 
-    public BookmarkRoute(String origin, String destination, int adultCount, int childCount, int infantCount, String classType) {
+    public BookmarkRoute(String origin, String destination, int adultCount, int childCount, int infantCount, String classType, boolean transfers) {
         this.origin = origin;
         this.destination = destination;
         this.adultCount = adultCount;
         this.childCount = childCount;
         this.infantCount = infantCount;
         this.classType = classType;
+        this.transfers = transfers;
     }
 
     public Long getId() {
@@ -82,6 +84,28 @@ public class BookmarkRoute {
         this.classType = classType;
     }
 
+    public boolean isTransfers() {
+        return transfers;
+    }
+
+    public void setTransfers(boolean transfers) {
+        this.transfers = transfers;
+    }
+
+    @Override
+    public String toString() {
+        return "BookmarkRoute{" +
+                "id=" + id +
+                ", origin='" + origin + '\'' +
+                ", destination='" + destination + '\'' +
+                ", adultCount=" + adultCount +
+                ", childCount=" + childCount +
+                ", infantCount=" + infantCount +
+                ", classType='" + classType + '\'' +
+                ", transfers=" + transfers +
+                '}';
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -95,16 +119,5 @@ public class BookmarkRoute {
         return Objects.hash(id);
     }
 
-    @Override
-    public String toString() {
-        return "BookmarkRoute{" +
-                "id=" + id +
-                ", origin='" + origin + '\'' +
-                ", destination='" + destination + '\'' +
-                ", adultCount=" + adultCount +
-                ", childCount=" + childCount +
-                ", infantCount=" + infantCount +
-                ", classType='" + classType + '\'' +
-                '}';
-    }
+
 }
