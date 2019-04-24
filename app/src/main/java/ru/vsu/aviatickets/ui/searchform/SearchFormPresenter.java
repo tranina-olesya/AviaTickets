@@ -1,6 +1,4 @@
-package ru.vsu.aviatickets.ui.main;
-
-import android.text.format.DateUtils;
+package ru.vsu.aviatickets.ui.searchform;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,13 +9,13 @@ import ru.vsu.aviatickets.R;
 import ru.vsu.aviatickets.ticketssearch.models.FlightType;
 import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 
-public class MainPresenter {
-    private MainContractView view;
+public class SearchFormPresenter {
+    private SearchFormContractView view;
 
-    public MainPresenter() {
+    public SearchFormPresenter() {
     }
 
-    public void attachView(MainContractView view) {
+    public void attachView(SearchFormContractView view) {
         this.view = view;
     }
 

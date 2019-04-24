@@ -1,4 +1,4 @@
-package ru.vsu.aviatickets.ui.fullticket;
+package ru.vsu.aviatickets.ui.fulltrip;
 
 public enum ViewHolderTypes {
     ROUTE_TO(0),
@@ -10,11 +10,11 @@ public enum ViewHolderTypes {
 
     private int index;
 
-    ViewHolderTypes(int index){
+    ViewHolderTypes(int index) {
         this.index = index;
     }
 
-    public int index(){
+    public int index() {
         return index;
     }
 }

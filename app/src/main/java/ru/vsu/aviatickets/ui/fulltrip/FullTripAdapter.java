@@ -1,4 +1,4 @@
-package ru.vsu.aviatickets.ui.fullticket;
+package ru.vsu.aviatickets.ui.fulltrip;
 
 import android.content.Context;
 import android.content.Intent;

@@ -1,4 +1,4 @@
-package ru.vsu.aviatickets.ui.ticketresults;
+package ru.vsu.aviatickets.ui.tripresults;
 
 import java.util.List;
 
@@ -6,15 +6,15 @@ import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 import ru.vsu.aviatickets.ticketssearch.models.Trip;
 import ru.vsu.aviatickets.ticketssearch.providers.TicketProviderApi;
 
-public class TripPresenter {
-    private TripContractView view;
-    private final TripModel model;
+public class TripResultsPresenter {
+    private TripResultsContractView view;
+    private final TripResultsModel model;
 
-    public TripPresenter(TripModel model) {
+    public TripResultsPresenter(TripResultsModel model) {
         this.model = model;
     }
 
-    public void attachView(TripContractView activity) {
+    public void attachView(TripResultsContractView activity) {
         view = activity;
     }
 

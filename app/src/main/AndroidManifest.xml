@@ -13,15 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.fullticket.FullTripActivity"
-            android:label="@string/title_activity_full_trip"
-            android:parentActivityName=".ui.ticketresults.TripActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="ru.vsu.aviatickets.ui.ticketresults.TripActivity" />
-        </activity>
-        <activity android:name=".ui.ticketresults.TripActivity"
-            android:parentActivityName=".ui.main.MainActivity">
+            android:name=".ui.fulltrip.FullTripActivity"
+            android:label="@string/title_activity_full_trip">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ru.vsu.aviatickets.ui.main.MainActivity" />

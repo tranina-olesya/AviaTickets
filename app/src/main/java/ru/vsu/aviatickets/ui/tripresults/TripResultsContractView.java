@@ -1,10 +1,10 @@
-package ru.vsu.aviatickets.ui.ticketresults;
+package ru.vsu.aviatickets.ui.tripresults;
 
 import java.util.List;
 
 import ru.vsu.aviatickets.ticketssearch.models.Trip;
 
-public interface TripContractView {
+public interface TripResultsContractView {
     void showTrips(List<Trip> trips);
 
     void showProgress();

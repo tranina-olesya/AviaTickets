@@ -1,29 +1,28 @@
-package ru.vsu.aviatickets.ui.ticketresults;
+package ru.vsu.aviatickets.ui.tripresults;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.constraint.Group;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 import ru.vsu.aviatickets.R;
 import ru.vsu.aviatickets.ticketssearch.models.PriceLink;
 import ru.vsu.aviatickets.ticketssearch.models.Trip;
-import ru.vsu.aviatickets.ui.fullticket.FullTripActivity;
+import ru.vsu.aviatickets.ui.fulltrip.FullTripActivity;
 import ru.vsu.aviatickets.ui.utils.DateConvert;
 
-import static ru.vsu.aviatickets.ui.fullticket.FullTripActivity.TRIP_EXTRA;
+import static ru.vsu.aviatickets.ui.fulltrip.FullTripActivity.TRIP_EXTRA;
 
-public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
+public class TripResultsAdapter extends RecyclerView.Adapter<TripResultsAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         final TextView timeInbound;
@@ -38,6 +37,8 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
         final TextView minPrice;
         final ConstraintLayout container;
 
+        final Group groupInbound;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             timeInbound = (TextView) itemView.findViewById(R.id.timeInbound);
@@ -51,13 +52,14 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
             transferOutbound = (TextView) itemView.findViewById(R.id.transferOutbound);
             minPrice = (TextView) itemView.findViewById(R.id.minPrice);
             container = (ConstraintLayout) itemView.findViewById(R.id.container);
+            groupInbound = (Group) itemView.findViewById(R.id.groupInbound);
         }
     }
 
     private LayoutInflater inflater;
     private List<Trip> trips;
 
-    public TripAdapter(Context context, List<Trip> trips) {
+    public TripResultsAdapter(Context context, List<Trip> trips) {
         this.trips = trips;
         this.inflater = LayoutInflater.from(context);
     }
@@ -82,7 +84,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
         viewHolder.minPrice.setText(priceLink.getPrice().toString());
 
         if (trip.getInbound() != null) {
-            viewHolder.durationInboundComment.setVisibility(View.VISIBLE);
+            viewHolder.groupInbound.setVisibility(View.VISIBLE);
             viewHolder.placesInbound.setText(String.format("%s - %s", trip.getInbound().getOrigin().getCode(), trip.getInbound().getDestination().getCode()));
             viewHolder.timeInbound.setText(DateConvert.getTimeString(trip.getInbound().getOutboundDate(), trip.getInbound().getInboundDate()));
             viewHolder.durationInbound.setText(DateConvert.getDurationString(trip.getInbound().getDuration()));

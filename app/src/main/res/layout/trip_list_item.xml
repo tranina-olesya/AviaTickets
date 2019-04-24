@@ -33,6 +33,13 @@
         android:orientation="horizontal"
         android:id="@+id/top_guideline"/>
 
+    <android.support.constraint.Group
+        android:id="@+id/groupInbound"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="placesInbound, durationInboundComment, transferInbound, timeInbound, durationInbound"/>
+
     <TextView
         android:id="@+id/minPrice"
         android:layout_width="wrap_content"
@@ -81,7 +88,6 @@
     <TextView
         android:id="@+id/durationInboundComment"
         android:text="@string/durationComment"
-        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="@id/secondColGuideline"
