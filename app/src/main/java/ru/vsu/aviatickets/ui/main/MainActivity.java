@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import ru.vsu.aviatickets.R;
+import ru.vsu.aviatickets.ui.bookmarks.BookmarksRouteFragment;
 import ru.vsu.aviatickets.ui.searchform.SearchFormFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,16 +23,21 @@ public class MainActivity extends AppCompatActivity {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             switch (item.getItemId()) {
                 case R.id.navigation_search:
-                    fragmentTransaction.replace(R.id.fragmentContainer, new SearchFormFragment()).commit();
+                    fragmentTransaction.replace(R.id.fragmentContainer, new SearchFormFragment());
                     fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
                     return true;
                 case R.id.navigation_bookmarks:
-
+                    fragmentTransaction.replace(R.id.fragmentContainer, new BookmarksRouteFragment());
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
                     return true;
                 case R.id.navigation_history:
+
                     return true;
+                default:
+                    fragmentTransaction.commit();
             }
-            fragmentTransaction.commit();
             return false;
         }
     };

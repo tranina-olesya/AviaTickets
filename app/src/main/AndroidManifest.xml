@@ -24,7 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             </activity>
-        <activity android:name=".ui.bookmarks.BookmarksRouteActivity">
+        <activity android:name=".ui.bookmarks.BookmarksRouteFragment">
 
         </activity>
     </application>
