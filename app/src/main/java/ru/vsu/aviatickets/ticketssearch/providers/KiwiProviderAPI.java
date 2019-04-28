@@ -117,6 +117,7 @@ public class KiwiProviderAPI extends ProviderAPI<KiwiAPI> implements TicketProvi
             ticket.setOutboundDate(new Date(route.getDTime() * 1000L));
             ticket.setInboundDate(new Date(route.getATime() * 1000L));
             ticket.setDuration((int) ((route.getATime() - route.getDTime()) / (60L)));
+            ticket.setFlightNumber(route.getFlightNo().toString());
             tickets.add(ticket);
         }
         return tickets;

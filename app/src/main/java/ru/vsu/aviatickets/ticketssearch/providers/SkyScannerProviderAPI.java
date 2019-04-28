@@ -247,6 +247,7 @@ public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> implements
             ticket.setInboundDate(segment.getArrivalDateTime());
             ticket.setDuration(segment.getDuration());
             ticket.setCarrier(findCarrierById(response.getCarriers(), segment.getCarrier()));
+            ticket.setFlightNumber(segment.getFlightNumber());
             flight.getFlightParts().add(ticket);
 
         }
