@@ -1,8 +1,11 @@
 package ru.vsu.aviatickets.ui.tripresults;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
+import ru.vsu.aviatickets.ticketssearch.models.PriceLink;
 import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 import ru.vsu.aviatickets.ticketssearch.models.Trip;
 import ru.vsu.aviatickets.ticketssearch.providers.TicketProviderApi;
@@ -52,6 +55,10 @@ public class TripResultsModel {
                     if (index >= 0) {
                         Trip resTrip = result.get(index);
                         resTrip.getPriceLinks().addAll(trip.getPriceLinks());
+                        Optional<PriceLink> minPrice = trip.getPriceLinks().stream().min(Comparator.comparing(PriceLink::getPrice));
+                        if (minPrice.isPresent()){
+                            resTrip.setMinPrice(minPrice.get().getPrice());
+                        }
                     } else
                         result.add(trip);
                 }

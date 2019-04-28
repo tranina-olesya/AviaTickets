@@ -2,8 +2,10 @@ package ru.vsu.aviatickets.ticketssearch.providers;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import retrofit2.Call;
@@ -96,7 +98,10 @@ public class KiwiProviderAPI extends ProviderAPI<KiwiAPI> implements TicketProvi
             trip.setPriceLinks(priceLinks);
             trip.setOutbound(formFlight(response.getSearchParams(), data, 0));
             trip.setInbound(formFlight(response.getSearchParams(), data, 1));
-
+            Optional<PriceLink> minPrice = trip.getPriceLinks().stream().min(Comparator.comparing(PriceLink::getPrice));
+            if (minPrice.isPresent()){
+                trip.setMinPrice(minPrice.get().getPrice());
+            }
             trips.add(trip);
         }
         return trips;
