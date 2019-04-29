@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import ru.vsu.aviatickets.R;
 import ru.vsu.aviatickets.ui.bookmarks.BookmarksRouteFragment;
 import ru.vsu.aviatickets.ui.searchform.SearchFormFragment;
+import ru.vsu.aviatickets.ui.searchhistory.SearchHistoryFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,7 +34,9 @@ public class MainActivity extends AppCompatActivity {
                     fragmentTransaction.commit();
                     return true;
                 case R.id.navigation_history:
-
+                    fragmentTransaction.replace(R.id.fragmentContainer, new SearchHistoryFragment());
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
                     return true;
                 default:
                     fragmentTransaction.commit();

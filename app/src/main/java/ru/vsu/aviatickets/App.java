@@ -4,6 +4,7 @@ import android.app.Application;
 import android.arch.persistence.room.Room;
 
 import ru.vsu.aviatickets.bookmarks.logic.AviaTicketsDatabase;
+import ru.vsu.aviatickets.searchhistory.SearchHistoryRepository;
 
 public class App extends Application {
     public static App instance;
@@ -14,6 +15,7 @@ public class App extends Application {
         super.onCreate();
         instance = this;
         database = Room.databaseBuilder(this,AviaTicketsDatabase.class,"database").build();
+        SearchHistoryRepository.setContext(getApplicationContext());
     }
 
     public static App getInstance() {

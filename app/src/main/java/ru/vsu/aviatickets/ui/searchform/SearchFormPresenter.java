@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import ru.vsu.aviatickets.R;
+import ru.vsu.aviatickets.searchhistory.SearchHistoryRepository;
 import ru.vsu.aviatickets.ticketssearch.models.FlightType;
 import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 
@@ -48,8 +49,10 @@ public class SearchFormPresenter {
 
     public void searchTickets() {
         SearchData searchData = view.getSearchData();
-        if (checkSearchData(searchData))
+        if (checkSearchData(searchData)) {
+            SearchHistoryRepository.addSearchData(searchData);
             view.showSearchResults(searchData);
+        }
     }
 
     private boolean checkSearchData(SearchData searchData) {
