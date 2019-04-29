@@ -41,6 +41,7 @@ public class FullTripAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         private final TextView date;
         private final TextView duration;
         private final ImageView carrier;
+        private final TextView flightNumber;
 
         public TicketViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -49,6 +50,7 @@ public class FullTripAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             carrier = (ImageView) itemView.findViewById(R.id.carrier);
             date = (TextView) itemView.findViewById(R.id.date);
             duration = (TextView) itemView.findViewById(R.id.duration);
+            flightNumber = (TextView) itemView.findViewById(R.id.flightNumber);
         }
 
         public void addTicketInfo(Ticket ticket) {
@@ -60,6 +62,7 @@ public class FullTripAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             route.setText(String.format("%s - %s", ticket.getOrigin().getCode(), ticket.getDestination().getCode()));
             date.setText(DateConvert.getTimeString(ticket.getOutboundDate(), ticket.getInboundDate()));
             duration.setText(DateConvert.getDurationString(ticket.getDuration()));
+            flightNumber.setText(String.format("%s %s", ticket.getCarrier().getCode(), ticket.getFlightNumber()));
         }
     }
 

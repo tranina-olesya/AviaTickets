@@ -2,8 +2,10 @@ package ru.vsu.aviatickets.ticketssearch.providers;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -171,6 +173,10 @@ public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> implements
             trip.setInbound(inbound);
             List<PriceLink> priceLinks = formPriceLinks(response.getSkyScannerAgents(), itinerary);
             trip.setPriceLinks(priceLinks);
+            Optional<PriceLink> minPrice = trip.getPriceLinks().stream().min(Comparator.comparing(PriceLink::getPrice));
+            if (minPrice.isPresent()){
+                trip.setMinPrice(minPrice.get().getPrice());
+            }
             trips.add(trip);
         }
         return trips;
@@ -247,6 +253,7 @@ public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> implements
             ticket.setInboundDate(segment.getArrivalDateTime());
             ticket.setDuration(segment.getDuration());
             ticket.setCarrier(findCarrierById(response.getCarriers(), segment.getCarrier()));
+            ticket.setFlightNumber(segment.getFlightNumber());
             flight.getFlightParts().add(ticket);
 
         }

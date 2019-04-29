@@ -9,11 +9,13 @@ public class Trip implements Serializable {
     private Flight outbound;
     private Flight inbound;
     private List<PriceLink> priceLinks;
+    private Double minPrice;
 
-    public Trip(Flight outbound, Flight inbound, List<PriceLink> priceLinks) {
+    public Trip(Flight outbound, Flight inbound, List<PriceLink> priceLinks, Double minPrice) {
         this.outbound = outbound;
         this.inbound = inbound;
         this.priceLinks = priceLinks;
+        this.minPrice = minPrice;
     }
 
     public Trip() {
@@ -42,6 +44,14 @@ public class Trip implements Serializable {
 
     public void setPriceLinks(List<PriceLink> priceLinks) {
         this.priceLinks = priceLinks;
+    }
+
+    public Double getMinPrice() {
+        return minPrice;
+    }
+
+    public void setMinPrice(Double minPrice) {
+        this.minPrice = minPrice;
     }
 
     @Override

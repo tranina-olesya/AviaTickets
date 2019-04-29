@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/container"
     android:padding="10dp">
 
     <android.support.constraint.Guideline
@@ -27,6 +27,13 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.95" />
 
+    <TextView
+        android:id="@+id/flightNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/carrier"
+        app:layout_constraintLeft_toLeftOf="@id/guideline5" />
+
     <ImageView
         android:id="@+id/carrier"
         android:layout_width="wrap_content"
@@ -38,8 +45,8 @@
         android:id="@+id/fullRoute"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
         android:paddingBottom="10dp"
+        android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="@id/guideline5"
         app:layout_constraintTop_toBottomOf="@id/carrier" />
 
