@@ -67,4 +67,8 @@ public class SearchHistoryRepository {
         editor.putString(SEARCH_DATA_KEY, gson.toJson(searchDataList));
         editor.apply();
     }
+
+    public void removeAll() {
+        putToSharedPreferences(new ArrayList<>());
+    }
 }

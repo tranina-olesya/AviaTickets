@@ -26,4 +26,9 @@ public class SearchHistoryPresenter {
     public void itemChosen(SearchData searchData) {
         view.switchToSearchForm(searchData);
     }
+
+    public void clearHistory() {
+        model.removeAll();
+        view.notifyRemovedAll();
+    }
 }

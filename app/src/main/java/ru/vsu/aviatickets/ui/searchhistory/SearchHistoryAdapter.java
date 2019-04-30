@@ -82,4 +82,8 @@ public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdap
     public void setPresenter(SearchHistoryPresenter presenter) {
         this.presenter = presenter;
     }
+
+    public void setSearchDataList(List<SearchData> searchDataList) {
+        this.searchDataList = searchDataList;
+    }
 }

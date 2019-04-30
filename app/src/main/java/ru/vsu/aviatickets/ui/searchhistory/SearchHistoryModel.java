@@ -13,4 +13,8 @@ public class SearchHistoryModel {
     public void removeItem(int index) {
         searchHistoryRepository.removeSearchData(index);
     }
+
+    public void removeAll() {
+        searchHistoryRepository.removeAll();
+    }
 }

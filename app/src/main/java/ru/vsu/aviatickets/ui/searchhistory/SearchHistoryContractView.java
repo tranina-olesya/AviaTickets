@@ -7,5 +7,7 @@ public interface SearchHistoryContractView {
 
     void notifyRemoved(int index);
 
+    void notifyRemovedAll();
+
     void switchToSearchForm(SearchData searchData);
 }
