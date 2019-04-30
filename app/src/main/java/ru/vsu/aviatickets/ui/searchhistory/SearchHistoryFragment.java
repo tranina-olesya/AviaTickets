@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 
 import ru.vsu.aviatickets.R;
 import ru.vsu.aviatickets.searchhistory.SearchHistoryRepository;
+import ru.vsu.aviatickets.ticketssearch.models.SearchData;
+import ru.vsu.aviatickets.ui.main.MainActivity;
 import ru.vsu.aviatickets.ui.tripresults.TripResultsPresenter;
 
 public class SearchHistoryFragment extends Fragment implements SearchHistoryContractView {
@@ -43,5 +45,11 @@ public class SearchHistoryFragment extends Fragment implements SearchHistoryCont
     @Override
     public void notifyRemoved(int index) {
         adapter.notifyItemRemoved(index);
+    }
+
+    @Override
+    public void switchToSearchForm(SearchData searchData) {
+        MainActivity activity = (MainActivity) getActivity();
+        activity.setSearchFormFragmentWithSearchData(searchData);
     }
 }

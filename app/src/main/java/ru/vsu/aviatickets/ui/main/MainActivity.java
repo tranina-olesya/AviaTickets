@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import ru.vsu.aviatickets.R;
+import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 import ru.vsu.aviatickets.ui.bookmarks.BookmarksRouteFragment;
 import ru.vsu.aviatickets.ui.searchform.SearchFormFragment;
 import ru.vsu.aviatickets.ui.searchhistory.SearchHistoryFragment;
@@ -17,25 +18,28 @@ public class MainActivity extends AppCompatActivity {
 
     private FragmentManager fragmentManager;
 
+    private BottomNavigationView navigation;
+
+    private SearchFormFragment searchFormFragment = new SearchFormFragment();
+    private BookmarksRouteFragment bookmarksRouteFragment = new BookmarksRouteFragment();
+    private SearchHistoryFragment searchHistoryFragment = new SearchHistoryFragment();
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             switch (item.getItemId()) {
-                case R.id.navigation_search:
-                    fragmentTransaction.replace(R.id.fragmentContainer, new SearchFormFragment());
-                    fragmentTransaction.addToBackStack(null);
+                case R.id.navigation_search:;
+                    fragmentTransaction.replace(R.id.fragmentContainer, searchFormFragment);
                     fragmentTransaction.commit();
                     return true;
                 case R.id.navigation_bookmarks:
-                    fragmentTransaction.replace(R.id.fragmentContainer, new BookmarksRouteFragment());
-                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.replace(R.id.fragmentContainer, bookmarksRouteFragment);
                     fragmentTransaction.commit();
                     return true;
                 case R.id.navigation_history:
-                    fragmentTransaction.replace(R.id.fragmentContainer, new SearchHistoryFragment());
-                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.replace(R.id.fragmentContainer, searchHistoryFragment);
                     fragmentTransaction.commit();
                     return true;
                 default:
@@ -50,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         fragmentManager = getSupportFragmentManager();
-        BottomNavigationView navigation = findViewById(R.id.navigation);
+        navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setSelectedItemId(R.id.navigation_search);
     }
@@ -59,5 +63,13 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         fragmentManager.popBackStack();
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setSearchFormFragmentWithSearchData(SearchData searchData) {
+        navigation.setSelectedItemId(R.id.navigation_search);
+        SearchFormFragment searchFormFragment = SearchFormFragment.getInstance(searchData);
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentContainer, searchFormFragment);
+        fragmentTransaction.commit();
     }
 }

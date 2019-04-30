@@ -27,6 +27,10 @@ public class SearchFormPresenter {
         view = null;
     }
 
+    public void viewIsReady() {
+        view.fillForm();
+    }
+
     public void calendarDateFrom() {
         Calendar calendar = Calendar.getInstance();
         view.showDateFromPickerDialog(calendar.get(Calendar.YEAR),
