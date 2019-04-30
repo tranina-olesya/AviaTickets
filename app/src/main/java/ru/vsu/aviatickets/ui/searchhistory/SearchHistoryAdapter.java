@@ -12,13 +12,16 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import ru.vsu.aviatickets.App;
 import ru.vsu.aviatickets.R;
+import ru.vsu.aviatickets.searchhistory.SearchHistoryRepository;
 import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 
 public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.SearchHistoryViewHolder> {
     class SearchHistoryViewHolder extends RecyclerView.ViewHolder {
         private TextView route;
         private ImageButton deleteButton;
+
         public SearchHistoryViewHolder(@NonNull View itemView) {
             super(itemView);
             this.route = itemView.findViewById(R.id.route);
@@ -28,8 +31,11 @@ public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdap
 
     private LayoutInflater inflater;
     private List<SearchData> searchDataList;
+    private Context context;
+    private SearchHistoryPresenter presenter;
 
     public SearchHistoryAdapter(Context context, List<SearchData> searchDataList) {
+        this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.searchDataList = searchDataList;
     }
@@ -46,10 +52,21 @@ public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdap
     public void onBindViewHolder(@NonNull SearchHistoryViewHolder searchHistoryViewHolder, int index) {
         SearchData searchData = searchDataList.get(index);
         searchHistoryViewHolder.route.setText(String.format("%s - %s", searchData.getOrigin(), searchData.getDestination()));
+        searchHistoryViewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchDataList.remove(index);
+                presenter.removeItem(index);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return searchDataList.size();
+    }
+
+    public void setPresenter(SearchHistoryPresenter presenter) {
+        this.presenter = presenter;
     }
 }

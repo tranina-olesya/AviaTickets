@@ -25,7 +25,7 @@ import ru.vsu.aviatickets.R;
 import ru.vsu.aviatickets.ticketssearch.models.CabinClass;
 import ru.vsu.aviatickets.ticketssearch.models.FlightType;
 import ru.vsu.aviatickets.ticketssearch.models.SearchData;
-import ru.vsu.aviatickets.ui.tripresults.TripResultsResultsFragment;
+import ru.vsu.aviatickets.ui.tripresults.TripResultsFragment;
 
 import static android.view.MotionEvent.ACTION_UP;
 
@@ -106,7 +106,7 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
                 return false;
             }
         });
-        presenter = new SearchFormPresenter();
+        presenter = new SearchFormPresenter(new SearchFormModel());
         presenter.attachView(this);
         return view;
     }
@@ -215,7 +215,7 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
     @Override
     public void showSearchResults(SearchData searchData) {
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.fragmentContainer, TripResultsResultsFragment.getInstance(searchData));
+        transaction.add(R.id.fragmentContainer, TripResultsFragment.getInstance(searchData));
         transaction.addToBackStack(null);
         transaction.commit();
     }

@@ -16,18 +16,24 @@ public class SearchHistoryRepository {
     private static final String PREFS_NAME = "SEARCH_HISTORY_SHARED_PREF";
     private static final String SEARCH_DATA_KEY = "SEARCH_DATA";
 
-    private static Context context;
+    private Context context;
 
-    public static void setContext(Context context) {
-        SearchHistoryRepository.context = context;
+    public static SearchHistoryRepository getInstance(Context context) {
+        return new SearchHistoryRepository(context);
     }
 
-    private static SharedPreferences getSharedPreferences() {
+    private SearchHistoryRepository(Context context) {
+        this.context = context;
+        if (getAllSearchData() == null)
+            putToSharedPreferences(new ArrayList<>());
+    }
+
+    private SharedPreferences getSharedPreferences() {
         SharedPreferences sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         return sharedPreferences;
     }
 
-    public static void addSearchData(SearchData searchData) {
+    public void addSearchData(SearchData searchData) {
         List<SearchData> searchDataList = getAllSearchData();
         if (searchDataList == null)
             searchDataList = new ArrayList<>();
@@ -35,23 +41,26 @@ public class SearchHistoryRepository {
         putToSharedPreferences(searchDataList);
     }
 
-    public static void removeSearchData(int index) {
-
+    public void removeSearchData(int index) {
+        List<SearchData> searchDataList = getAllSearchData();
+        searchDataList.remove(index);
+        putToSharedPreferences(searchDataList);
     }
 
-    public static List<SearchData> getAllSearchData() {
+    public List<SearchData> getAllSearchData() {
         SharedPreferences sharedPreferences = getSharedPreferences();
         if (!sharedPreferences.contains(SEARCH_DATA_KEY))
             return null;
 
         Gson gson = new Gson();
-        Type type = new TypeToken<List<SearchData>>() {}.getType();
+        Type type = new TypeToken<List<SearchData>>() {
+        }.getType();
         String json = sharedPreferences.getString(SEARCH_DATA_KEY, "");
 
         return gson.fromJson(json, type);
     }
 
-    private static void putToSharedPreferences(List<SearchData> searchDataList) {
+    private void putToSharedPreferences(List<SearchData> searchDataList) {
         SharedPreferences sharedPreferences = getSharedPreferences();
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();

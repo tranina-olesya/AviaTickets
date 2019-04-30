@@ -10,10 +10,13 @@ import android.view.ViewGroup;
 
 import ru.vsu.aviatickets.R;
 import ru.vsu.aviatickets.searchhistory.SearchHistoryRepository;
+import ru.vsu.aviatickets.ui.tripresults.TripResultsPresenter;
 
-public class SearchHistoryFragment extends Fragment {
+public class SearchHistoryFragment extends Fragment implements SearchHistoryContractView {
 
     private RecyclerView recyclerView;
+    private SearchHistoryPresenter presenter;
+    private SearchHistoryAdapter adapter;
 
     public SearchHistoryFragment() {
     }
@@ -24,9 +27,21 @@ public class SearchHistoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search_history, container, false);
         recyclerView = view.findViewById(R.id.recyclerView);
-        SearchHistoryAdapter adapter = new SearchHistoryAdapter(getContext(), SearchHistoryRepository.getAllSearchData());
-        recyclerView.setAdapter(adapter);
+        presenter = new SearchHistoryPresenter(new SearchHistoryModel());
+        presenter.attachView(this);
+        presenter.viewIsReady();
         return view;
     }
 
+    @Override
+    public void setupAdapter() {
+        adapter = new SearchHistoryAdapter(getContext(), SearchHistoryRepository.getInstance(getContext()).getAllSearchData());
+        adapter.setPresenter(presenter);
+        recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void notifyRemoved(int index) {
+        adapter.notifyItemRemoved(index);
+    }
 }

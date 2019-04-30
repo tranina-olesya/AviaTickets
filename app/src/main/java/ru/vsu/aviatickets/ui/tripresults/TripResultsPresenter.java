@@ -14,8 +14,8 @@ public class TripResultsPresenter {
         this.model = model;
     }
 
-    public void attachView(TripResultsContractView activity) {
-        view = activity;
+    public void attachView(TripResultsContractView view) {
+        this.view = view;
     }
 
     public void detachView() {

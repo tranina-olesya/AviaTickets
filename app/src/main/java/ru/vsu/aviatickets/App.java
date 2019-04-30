@@ -14,17 +14,15 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
-        database = Room.databaseBuilder(this,AviaTicketsDatabase.class,"database").build();
-        SearchHistoryRepository.setContext(getApplicationContext());
+        database = Room.databaseBuilder(this, AviaTicketsDatabase.class, "database").build();
     }
 
     public static App getInstance() {
         return instance;
     }
 
-    public AviaTicketsDatabase getDatabase(){
+    public AviaTicketsDatabase getDatabase() {
         return database;
     }
-
 }
 

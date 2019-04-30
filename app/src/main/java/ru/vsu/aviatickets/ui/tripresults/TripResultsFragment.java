@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -21,7 +20,7 @@ import ru.vsu.aviatickets.ticketssearch.providers.KiwiProviderAPI;
 import ru.vsu.aviatickets.ticketssearch.providers.SkyScannerProviderAPI;
 import ru.vsu.aviatickets.ticketssearch.providers.TicketProviderApi;
 
-public class TripResultsResultsFragment extends Fragment implements TripResultsContractView {
+public class TripResultsFragment extends Fragment implements TripResultsContractView {
 
     private ProgressDialog progressDialog;
     private RecyclerView recyclerView;
@@ -29,11 +28,11 @@ public class TripResultsResultsFragment extends Fragment implements TripResultsC
 
     private TripResultsPresenter presenter;
 
-    public TripResultsResultsFragment() {
+    public TripResultsFragment() {
     }
 
-    public static TripResultsResultsFragment getInstance(SearchData searchData) {
-        TripResultsResultsFragment tripResultsResultsFragment = new TripResultsResultsFragment();
+    public static TripResultsFragment getInstance(SearchData searchData) {
+        TripResultsFragment tripResultsResultsFragment = new TripResultsFragment();
         tripResultsResultsFragment.searchData = searchData;
         return tripResultsResultsFragment;
     }
