@@ -68,7 +68,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/hintCityFrom"
-        android:text="Мадрид"
+        android:text="Мsfaадрид"
         app:layout_constraintLeft_toLeftOf="@id/firstColGuideline"
         app:layout_constraintRight_toRightOf="@id/secondColGuideline"
         app:layout_constraintTop_toTopOf="@id/top_guideline" />

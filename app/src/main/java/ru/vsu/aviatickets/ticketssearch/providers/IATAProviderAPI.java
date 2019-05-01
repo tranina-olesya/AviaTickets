@@ -22,15 +22,17 @@ public class IATAProviderAPI extends ProviderAPI<IATACodeAPI> {
         getApi().getRoute(query).enqueue(new Callback<Route>() {
             @Override
             public void onResponse(Call<Route> call, Response<Route> response) {
-                if (response.body() != null) {
+                if (response.body() != null && response.body().getOrigin() != null && response.body().getOrigin() != null) {
                     Route route = response.body();
                     callback.onGet(route.getOrigin().getIata(), route.getDestination().getIata());
+                } else {
+                    callback.onFail(APIError.CITY_NOT_FOUND);
                 }
             }
 
             @Override
             public void onFailure(Call<Route> call, Throwable t) {
-                callback.onFail();
+                callback.onFail(APIError.NO_RESPONSE);
             }
         });
     }

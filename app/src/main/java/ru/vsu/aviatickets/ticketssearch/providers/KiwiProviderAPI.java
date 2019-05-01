@@ -51,20 +51,20 @@ public class KiwiProviderAPI extends ProviderAPI<KiwiAPI> implements TicketProvi
                         if (response.body() != null) {
                             callback.onGet(convertResponseToTrip(response.body()));
                         } else {
-                            callback.onFail();
+                            callback.onFail(APIError.TICKETS_NOT_FOUND);
                         }
                     }
 
                     @Override
                     public void onFailure(Call<KiwiResponse> call, Throwable t) {
-                        callback.onFail();
+                        callback.onFail(APIError.NO_RESPONSE);
                     }
                 });
             }
 
             @Override
-            public void onFail() {
-                callback.onFail();
+            public void onFail(APIError error) {
+                callback.onFail(error);
             }
         });
     }

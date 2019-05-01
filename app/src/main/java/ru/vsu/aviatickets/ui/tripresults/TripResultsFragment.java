@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,5 +76,23 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
         if (progressDialog != null) {
             progressDialog.dismiss();
         }
+    }
+
+    @Override
+    public void cityNotFound() {
+        Toast toast = Toast.makeText(getContext(), "Город не найден", Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+    @Override
+    public void ticketsNotFound() {
+        Toast toast = Toast.makeText(getContext(), "Билеты не найдены", Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+    @Override
+    public void noResponse() {
+        Toast toast = Toast.makeText(getContext(), "Нет ответа", Toast.LENGTH_SHORT);
+        toast.show();
     }
 }

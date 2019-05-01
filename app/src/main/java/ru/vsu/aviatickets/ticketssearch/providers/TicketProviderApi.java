@@ -13,18 +13,18 @@ public interface TicketProviderApi {
     interface TicketsCallback {
         void onGet(List<Trip> trips);
 
-        void onFail();
+        void onFail(APIError error);
     }
 
     interface SessionKeyCallback {
         void onGet(String sessionKey);
 
-        void onFail();
+        void onFail(APIError error);
     }
 
     interface CityCallback {
         void onGet(String originCode, String destinationCode);
 
-        void onFail();
+        void onFail(APIError error);
     }
 }
