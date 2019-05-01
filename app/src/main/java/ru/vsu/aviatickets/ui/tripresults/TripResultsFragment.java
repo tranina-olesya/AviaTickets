@@ -38,19 +38,6 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
