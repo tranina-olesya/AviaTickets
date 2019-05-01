@@ -10,26 +10,27 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import ru.vsu.aviatickets.App;
 import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 
 public class SearchHistoryRepository {
+    private static SearchHistoryRepository instance;
     private static final String PREFS_NAME = "SEARCH_HISTORY_SHARED_PREF";
     private static final String SEARCH_DATA_KEY = "SEARCH_DATA";
 
-    private Context context;
-
-    public static SearchHistoryRepository getInstance(Context context) {
-        return new SearchHistoryRepository(context);
+    public static SearchHistoryRepository getInstance() {
+        if (instance == null)
+            instance = new SearchHistoryRepository();
+        return instance;
     }
 
-    private SearchHistoryRepository(Context context) {
-        this.context = context;
+    private SearchHistoryRepository() {
         if (getAllSearchData() == null)
             putToSharedPreferences(new ArrayList<>());
     }
 
-    private SharedPreferences getSharedPreferences() {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+    private static SharedPreferences getSharedPreferences() {
+        SharedPreferences sharedPreferences = App.getInstance().getBaseContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         return sharedPreferences;
     }
 
@@ -37,7 +38,7 @@ public class SearchHistoryRepository {
         List<SearchData> searchDataList = getAllSearchData();
         if (searchDataList == null)
             searchDataList = new ArrayList<>();
-        searchDataList.add(searchData);
+        searchDataList.add(0, searchData);
         putToSharedPreferences(searchDataList);
     }
 

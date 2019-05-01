@@ -13,7 +13,6 @@ import ru.vsu.aviatickets.R;
 import ru.vsu.aviatickets.searchhistory.SearchHistoryRepository;
 import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 import ru.vsu.aviatickets.ui.main.MainActivity;
-import ru.vsu.aviatickets.ui.tripresults.TripResultsPresenter;
 
 public class SearchHistoryFragment extends Fragment implements SearchHistoryContractView {
 
@@ -48,7 +47,7 @@ public class SearchHistoryFragment extends Fragment implements SearchHistoryCont
 
     @Override
     public void setupAdapter() {
-        adapter = new SearchHistoryAdapter(getContext(), SearchHistoryRepository.getInstance(getContext()).getAllSearchData());
+        adapter = new SearchHistoryAdapter(getContext(), SearchHistoryRepository.getInstance().getAllSearchData());
         adapter.setPresenter(presenter);
         recyclerView.setAdapter(adapter);
     }
@@ -60,7 +59,7 @@ public class SearchHistoryFragment extends Fragment implements SearchHistoryCont
 
     @Override
     public void notifyRemovedAll() {
-        adapter.setSearchDataList(SearchHistoryRepository.getInstance(getContext()).getAllSearchData());
+        adapter.setSearchDataList(SearchHistoryRepository.getInstance().getAllSearchData());
         adapter.notifyDataSetChanged();
     }
 

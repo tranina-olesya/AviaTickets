@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void setSearchFormFragmentWithSearchData(SearchData searchData) {
         navigation.setSelectedItemId(R.id.navigation_search);
-        SearchFormFragment searchFormFragment = SearchFormFragment.getInstance(searchData);
+        searchFormFragment = SearchFormFragment.getInstance(searchData);
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragmentContainer, searchFormFragment);
         fragmentTransaction.commit();
