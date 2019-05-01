@@ -1,6 +1,9 @@
 package ru.vsu.aviatickets.ui.searchhistory;
 
+import java.util.List;
+
 import ru.vsu.aviatickets.searchhistory.SearchHistoryRepository;
+import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 
 public class SearchHistoryModel {
     private SearchHistoryRepository searchHistoryRepository;
@@ -15,5 +18,9 @@ public class SearchHistoryModel {
 
     public void removeAll() {
         searchHistoryRepository.removeAll();
+    }
+
+    public List<SearchData> getAll() {
+        return searchHistoryRepository.getAllSearchData();
     }
 }

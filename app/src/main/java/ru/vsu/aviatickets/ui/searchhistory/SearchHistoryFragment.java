@@ -9,8 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import java.util.List;
+
 import ru.vsu.aviatickets.R;
-import ru.vsu.aviatickets.searchhistory.SearchHistoryRepository;
 import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 import ru.vsu.aviatickets.ui.main.MainActivity;
 
@@ -46,8 +47,8 @@ public class SearchHistoryFragment extends Fragment implements SearchHistoryCont
     }
 
     @Override
-    public void setupAdapter() {
-        adapter = new SearchHistoryAdapter(getContext(), SearchHistoryRepository.getInstance().getAllSearchData());
+    public void setupAdapter(List<SearchData> searchDataList) {
+        adapter = new SearchHistoryAdapter(getContext(), searchDataList);
         adapter.setPresenter(presenter);
         recyclerView.setAdapter(adapter);
     }
@@ -58,14 +59,15 @@ public class SearchHistoryFragment extends Fragment implements SearchHistoryCont
     }
 
     @Override
-    public void notifyRemovedAll() {
-        adapter.setSearchDataList(SearchHistoryRepository.getInstance().getAllSearchData());
+    public void notifyDataSetChanged(List<SearchData> searchDataList) {
+        adapter.setSearchDataList(searchDataList);
         adapter.notifyDataSetChanged();
     }
 
     @Override
     public void switchToSearchForm(SearchData searchData) {
         MainActivity activity = (MainActivity) getActivity();
-        activity.setSearchFormFragmentWithSearchData(searchData);
+        if (activity != null)
+            activity.setSearchFormFragmentWithSearchData(searchData);
     }
 }

@@ -1,5 +1,8 @@
 package ru.vsu.aviatickets.ui.searchhistory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 
 public class SearchHistoryPresenter {
@@ -15,7 +18,8 @@ public class SearchHistoryPresenter {
     }
 
     public void viewIsReady() {
-        view.setupAdapter();
+        List<SearchData> searchDataList = model.getAll();
+        view.setupAdapter(searchDataList);
     }
 
     public void removeItem(int index) {
@@ -29,6 +33,6 @@ public class SearchHistoryPresenter {
 
     public void clearHistory() {
         model.removeAll();
-        view.notifyRemovedAll();
+        view.notifyDataSetChanged(new ArrayList<>());
     }
 }
