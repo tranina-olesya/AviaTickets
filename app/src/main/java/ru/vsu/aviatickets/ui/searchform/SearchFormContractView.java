@@ -20,4 +20,6 @@ public interface SearchFormContractView {
     void errorDateOutbound(int resId);
 
     void errorDateInbound(int resId);
+
+    void fillForm();
 }

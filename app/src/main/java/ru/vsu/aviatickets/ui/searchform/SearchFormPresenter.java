@@ -5,14 +5,18 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import ru.vsu.aviatickets.App;
 import ru.vsu.aviatickets.R;
+import ru.vsu.aviatickets.searchhistory.SearchHistoryRepository;
 import ru.vsu.aviatickets.ticketssearch.models.FlightType;
 import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 
 public class SearchFormPresenter {
     private SearchFormContractView view;
+    private SearchFormModel model;
 
-    public SearchFormPresenter() {
+    public SearchFormPresenter(SearchFormModel model) {
+        this.model = model;
     }
 
     public void attachView(SearchFormContractView view) {
@@ -21,6 +25,10 @@ public class SearchFormPresenter {
 
     public void detachView() {
         view = null;
+    }
+
+    public void viewIsReady() {
+        view.fillForm();
     }
 
     public void calendarDateFrom() {
@@ -48,8 +56,11 @@ public class SearchFormPresenter {
 
     public void searchTickets() {
         SearchData searchData = view.getSearchData();
-        if (checkSearchData(searchData))
+        if (checkSearchData(searchData)) {
+            //SearchHistoryRepository.getInstance(App.getInstance().getApplicationContext()).addSearchData(searchData);
+            model.addSearchData(searchData);
             view.showSearchResults(searchData);
+        }
     }
 
     private boolean checkSearchData(SearchData searchData) {

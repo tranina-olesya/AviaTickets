@@ -25,12 +25,13 @@ import ru.vsu.aviatickets.R;
 import ru.vsu.aviatickets.ticketssearch.models.CabinClass;
 import ru.vsu.aviatickets.ticketssearch.models.FlightType;
 import ru.vsu.aviatickets.ticketssearch.models.SearchData;
-import ru.vsu.aviatickets.ui.tripresults.TripResultsResultsFragment;
+import ru.vsu.aviatickets.ui.tripresults.TripResultsFragment;
+import ru.vsu.aviatickets.ui.utils.DateConvert;
 
 import static android.view.MotionEvent.ACTION_UP;
 
 public class SearchFormFragment extends Fragment implements SearchFormContractView {
-    public static final String SEARCH_DATA = "searchData";
+    private SearchData searchData;
     private final int DRAWABLE_RIGHT = 2;
 
     private SearchFormPresenter presenter;
@@ -47,6 +48,12 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
     private CheckBox checkboxTransfer;
 
     public SearchFormFragment() {
+    }
+
+    public static SearchFormFragment getInstance(SearchData searchData) {
+        SearchFormFragment searchFormFragment = new SearchFormFragment();
+        searchFormFragment.searchData = searchData;
+        return searchFormFragment;
     }
 
     @Override
@@ -106,8 +113,9 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
                 return false;
             }
         });
-        presenter = new SearchFormPresenter();
+        presenter = new SearchFormPresenter(new SearchFormModel());
         presenter.attachView(this);
+        presenter.viewIsReady();
         return view;
     }
 
@@ -215,7 +223,7 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
     @Override
     public void showSearchResults(SearchData searchData) {
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.fragmentContainer, TripResultsResultsFragment.getInstance(searchData));
+        transaction.add(R.id.fragmentContainer, TripResultsFragment.getInstance(searchData));
         transaction.addToBackStack(null);
         transaction.commit();
     }
@@ -248,4 +256,23 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
             editTextDateTo.setError(getString(resId));
     }
 
+    @Override
+    public void fillForm() {
+        if (searchData == null)
+            return;
+        editTextOrigin.setText(searchData.getOrigin());
+        editTextDestination.setText(searchData.getDestination());
+        editTextAdultsCount.setText(String.valueOf(searchData.getAdultsCount()));
+        editTextChildrenCount.setText(String.valueOf(searchData.getChildrenCount()));
+        editTextInfantsCount.setText(String.valueOf(searchData.getInfantsCount()));
+        spinnerCabinClass.setSelection(searchData.getCabinClass() == CabinClass.ECONOMY ? 0 : 1);
+        spinnerFlightType.setSelection(searchData.getFlightType() == FlightType.ROUND ? 0 : 1);
+        editTextDateFrom.setText(DateConvert.getDateWithSlashes(searchData.getOutboundDate()));
+        editTextDateTo.setText(DateConvert.getDateWithSlashes(searchData.getInboundDate()));
+        checkboxTransfer.setChecked(searchData.getTransfers());
+    }
+
+    public void setSearchData(SearchData searchData) {
+        this.searchData = searchData;
+    }
 }
