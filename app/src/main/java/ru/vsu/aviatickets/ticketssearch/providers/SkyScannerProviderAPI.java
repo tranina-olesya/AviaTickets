@@ -43,11 +43,6 @@ public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> implements
     }
 
     @Override
-    public List<Trip> sortTickets() {
-        return null;
-    }
-
-    @Override
     public void getTickets(SearchData searchData, TicketsCallback ticketsCallback) {
         getSessionKey(searchData, new SessionKeyCallback() {
             @Override

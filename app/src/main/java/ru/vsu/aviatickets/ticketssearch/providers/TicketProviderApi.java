@@ -8,8 +8,6 @@ import ru.vsu.aviatickets.ticketssearch.models.Trip;
 public interface TicketProviderApi {
     void getTickets(SearchData searchData, TicketsCallback callback);
 
-    List<Trip> sortTickets();
-
     interface TicketsCallback {
         void onGet(List<Trip> trips);
 

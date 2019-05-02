@@ -1,16 +1,16 @@
 package ru.vsu.aviatickets.ui.tripresults;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +23,6 @@ import ru.vsu.aviatickets.ticketssearch.models.Trip;
 import ru.vsu.aviatickets.ticketssearch.providers.KiwiProviderAPI;
 import ru.vsu.aviatickets.ticketssearch.providers.SkyScannerProviderAPI;
 import ru.vsu.aviatickets.ticketssearch.providers.TicketProviderApi;
-import ru.vsu.aviatickets.ui.main.MainActivity;
 
 public class TripResultsFragment extends Fragment implements TripResultsContractView {
 
@@ -33,6 +32,7 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
 
     private TripResultsPresenter presenter;
     private TextView errorNoTicketsFound;
+    private Spinner sortFilters;
 
     public TripResultsFragment() {
     }
@@ -54,6 +54,19 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
         View view = inflater.inflate(R.layout.fragment_trip, container, false);
         recyclerView = view.findViewById(R.id.RecyclerView);
         errorNoTicketsFound = view.findViewById(R.id.errorTicketsNotFound);
+        sortFilters = view.findViewById(R.id.sortFilter);
+        fillSortFiltersSpinner();
+        sortFilters.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         List<TicketProviderApi> providers = new ArrayList<>();
         providers.add(new KiwiProviderAPI());
         providers.add(new SkyScannerProviderAPI());
@@ -88,7 +101,7 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
     @Override
     public void cityNotFound() {
         Toast toast = Toast.makeText(getContext(), R.string.cityError, Toast.LENGTH_LONG);
-        toast.setMargin(0,0.1f);
+        toast.setMargin(0, 0.1f);
         FragmentActivity activity = getActivity();
         if (activity != null)
             activity.onBackPressed();
@@ -102,11 +115,34 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
 
     @Override
     public void noResponse() {
-        Toast toast = Toast.makeText(getContext(),  R.string.responseError, Toast.LENGTH_LONG);
-        toast.setMargin(0,0.1f);
+        Toast toast = Toast.makeText(getContext(), R.string.responseError, Toast.LENGTH_LONG);
+        toast.setMargin(0, 0.1f);
         FragmentActivity activity = getActivity();
         if (activity != null)
             activity.onBackPressed();
         toast.show();
+    }
+
+    private void fillSortFiltersSpinner() {
+        String[] data = {getString(R.string.hintSortFilters), getString(R.string.spinnerSortFiltersMinPrice), getString(R.string.spinnerSortFiltersMaxPrice),
+                getString(R.string.spinnerSortFiltersMinTime), getString(R.string.spinnerSortFiltersMaxTime),
+                getString(R.string.spinnerSortFiltersMinTransfers), getString(R.string.spinnerSortFiltersMaxTransfers)};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, data) {
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View view = null;
+                if (position == 0) {
+                    TextView textView = new TextView(getContext());
+                    textView.setVisibility(View.GONE);
+                    view = textView;
+                } else {
+                    view = super.getDropDownView(position, null, parent);
+                }
+                return view;
+            }
+
+        };
+        sortFilters.setAdapter(adapter);
+        sortFilters.setPrompt(getString(R.string.hintSortFilters));
     }
 }

@@ -39,4 +39,11 @@
     <string name="cityError">Город не найден</string>
     <string name="responseError">Нет ответа</string>
     <string name="errorTicketsNotFound">Ни одного билета не найдено. \nПопробуйте ввести другие параметры поиска</string>
+    <string name="spinnerSortFiltersMinPrice">По цене ↑</string>
+    <string name="spinnerSortFiltersMaxPrice">По цене ↓</string>
+    <string name="spinnerSortFiltersMinTime">По времени ↑</string>
+    <string name="spinnerSortFiltersMaxTime">По времени ↓</string>
+    <string name="spinnerSortFiltersMinTransfers">По количеству пересадок ↑</string>
+    <string name="spinnerSortFiltersMaxTransfers">По количеству пересадок ↓</string>
+    <string name="hintSortFilters">Фильтры сортировки</string>
 </resources>

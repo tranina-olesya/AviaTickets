@@ -14,6 +14,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import ru.vsu.aviatickets.ticketssearch.api.interfaces.KiwiAPI;
 import ru.vsu.aviatickets.ticketssearch.models.Agent;
+import ru.vsu.aviatickets.ticketssearch.models.CabinClass;
 import ru.vsu.aviatickets.ticketssearch.models.Carrier;
 import ru.vsu.aviatickets.ticketssearch.models.Flight;
 import ru.vsu.aviatickets.ticketssearch.models.FlightType;
@@ -40,6 +41,10 @@ public class KiwiProviderAPI extends ProviderAPI<KiwiAPI> implements TicketProvi
         iataProviderAPI.getCityCodes(searchData.getOrigin(), searchData.getDestination(), new CityCallback() {
             @Override
             public void onGet(String originCode, String destinationCode) {
+                if (searchData.getCabinClass() == CabinClass.BUSINESS) {
+                    callback.onFail(APIError.TICKETS_NOT_FOUND);
+                    return;
+                }
                 String outboundDate = convertDateToString(searchData.getOutboundDate());
                 String inboundDate = searchData.getFlightType() == FlightType.ROUND ?
                         convertDateToString(searchData.getInboundDate()) : null;
@@ -67,11 +72,6 @@ public class KiwiProviderAPI extends ProviderAPI<KiwiAPI> implements TicketProvi
                 callback.onFail(error);
             }
         });
-    }
-
-    @Override
-    public List<Trip> sortTickets() {
-        return null;
     }
 
     @Override
