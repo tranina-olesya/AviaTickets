@@ -57,7 +57,6 @@ public class SearchFormPresenter {
     public void searchTickets() {
         SearchData searchData = view.getSearchData();
         if (checkSearchData(searchData)) {
-            //SearchHistoryRepository.getInstance(App.getInstance().getApplicationContext()).addSearchData(searchData);
             model.addSearchData(searchData);
             view.showSearchResults(searchData);
         }

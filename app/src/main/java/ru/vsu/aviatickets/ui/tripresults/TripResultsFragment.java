@@ -4,11 +4,14 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -20,6 +23,7 @@ import ru.vsu.aviatickets.ticketssearch.models.Trip;
 import ru.vsu.aviatickets.ticketssearch.providers.KiwiProviderAPI;
 import ru.vsu.aviatickets.ticketssearch.providers.SkyScannerProviderAPI;
 import ru.vsu.aviatickets.ticketssearch.providers.TicketProviderApi;
+import ru.vsu.aviatickets.ui.main.MainActivity;
 
 public class TripResultsFragment extends Fragment implements TripResultsContractView {
 
@@ -28,6 +32,7 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
     private SearchData searchData;
 
     private TripResultsPresenter presenter;
+    private TextView errorNoTicketsFound;
 
     public TripResultsFragment() {
     }
@@ -48,6 +53,7 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_trip, container, false);
         recyclerView = view.findViewById(R.id.RecyclerView);
+        errorNoTicketsFound = view.findViewById(R.id.errorTicketsNotFound);
         List<TicketProviderApi> providers = new ArrayList<>();
         providers.add(new KiwiProviderAPI());
         providers.add(new SkyScannerProviderAPI());
@@ -61,6 +67,7 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
 
     @Override
     public void showTrips(List<Trip> trips) {
+        errorNoTicketsFound.setVisibility(View.GONE);
         TripResultsAdapter adapter = new TripResultsAdapter(getContext(), trips);
         recyclerView.setAdapter(adapter);
     }
@@ -80,19 +87,26 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
 
     @Override
     public void cityNotFound() {
-        Toast toast = Toast.makeText(getContext(), "Город не найден", Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(getContext(), R.string.cityError, Toast.LENGTH_LONG);
+        toast.setMargin(0,0.1f);
+        FragmentActivity activity = getActivity();
+        if (activity != null)
+            activity.onBackPressed();
         toast.show();
     }
 
     @Override
     public void ticketsNotFound() {
-        Toast toast = Toast.makeText(getContext(), "Билеты не найдены", Toast.LENGTH_SHORT);
-        toast.show();
+        errorNoTicketsFound.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void noResponse() {
-        Toast toast = Toast.makeText(getContext(), "Нет ответа", Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(getContext(),  R.string.responseError, Toast.LENGTH_LONG);
+        toast.setMargin(0,0.1f);
+        FragmentActivity activity = getActivity();
+        if (activity != null)
+            activity.onBackPressed();
         toast.show();
     }
 }

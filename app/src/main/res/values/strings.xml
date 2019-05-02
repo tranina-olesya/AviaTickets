@@ -35,4 +35,8 @@
     <string name="errorDateOutboundAfterDateIbound">Дата возвращения должна быть после даты отправления</string>
     <string name="errorDateInPast">Выберите дату не раньше сегодняшней</string>
     <string name="clearHistoryButton">Очистить историю</string>
+    <string name="ticketsError">Билеты не найдены</string>
+    <string name="cityError">Город не найден</string>
+    <string name="responseError">Нет ответа</string>
+    <string name="errorTicketsNotFound">Ни одного билета не найдено. \nПопробуйте ввести другие параметры поиска</string>
 </resources>
