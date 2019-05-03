@@ -10,4 +10,10 @@ public interface TripResultsContractView {
     void showProgress();
 
     void hideProgress();
+
+    void cityNotFound();
+
+    void ticketsNotFound();
+
+    void noResponse();
 }

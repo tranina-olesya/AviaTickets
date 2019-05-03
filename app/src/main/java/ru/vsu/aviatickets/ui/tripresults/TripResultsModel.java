@@ -1,5 +1,7 @@
 package ru.vsu.aviatickets.ui.tripresults;
 
+import android.os.AsyncTask;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -8,9 +10,18 @@ import java.util.Optional;
 import ru.vsu.aviatickets.ticketssearch.models.PriceLink;
 import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 import ru.vsu.aviatickets.ticketssearch.models.Trip;
+import ru.vsu.aviatickets.ticketssearch.providers.APIError;
 import ru.vsu.aviatickets.ticketssearch.providers.TicketProviderApi;
+import ru.vsu.aviatickets.ticketssearch.sort.SortFilterType;
+import ru.vsu.aviatickets.ticketssearch.sort.SortTrips;
 
 public class TripResultsModel {
+    public interface ResultsCallback {
+        void onGet(List<Trip> trips);
+
+        void onFail(List<APIError> errors);
+    }
+
     private List<TicketProviderApi> providers;
 
     public TripResultsModel(List<TicketProviderApi> providers) {
@@ -19,25 +30,35 @@ public class TripResultsModel {
 
     private int count = 0;
 
-    public void loadTrips(SearchData searchData, TicketProviderApi.TicketsCallback callback) {
+    public void loadTrips(SearchData searchData, ResultsCallback callback) {
         count = 0;
-
         List<List<Trip>> result = new ArrayList<>();
+        List<APIError> errors = new ArrayList<>();
+
         for (TicketProviderApi providerAPI : providers) {
             providerAPI.getTickets(searchData, new TicketProviderApi.TicketsCallback() {
                 @Override
                 public void onGet(List<Trip> trips) {
                     count++;
                     result.add(trips);
-                    if (count == providers.size())
-                        callback.onGet(mergeTrips(result));
+                    if (count == providers.size()) {
+                        returnResults();
+                    }
                 }
 
                 @Override
-                public void onFail() {
+                public void onFail(APIError error) {
                     count++;
-                    callback.onFail();
-                    if (count == providers.size())
+                    errors.add(error);
+                    if (count == providers.size()) {
+                        returnResults();
+                    }
+                }
+
+                public void returnResults() {
+                    if (errors.size() == providers.size())
+                        callback.onFail(errors);
+                    else
                         callback.onGet(mergeTrips(result));
                 }
             });
@@ -56,7 +77,7 @@ public class TripResultsModel {
                         Trip resTrip = result.get(index);
                         resTrip.getPriceLinks().addAll(trip.getPriceLinks());
                         Optional<PriceLink> minPrice = trip.getPriceLinks().stream().min(Comparator.comparing(PriceLink::getPrice));
-                        if (minPrice.isPresent()){
+                        if (minPrice.isPresent()) {
                             resTrip.setMinPrice(minPrice.get().getPrice());
                         }
                     } else
@@ -86,5 +107,42 @@ public class TripResultsModel {
                 return i;
         }
         return -1;
+    }
+
+    public int getProvidersCount() {
+        return providers.size();
+    }
+
+    public void sortTripsByFilter(List<Trip> trips, SortFilterType sortFilterType, SortCallback callback) {
+        SortTripsAsyncTask sortTripsAsyncTask = new SortTripsAsyncTask(callback);
+        sortTripsAsyncTask.execute(trips, sortFilterType);
+    }
+
+    public static class SortTripsAsyncTask extends AsyncTask<Object, Void, List<Trip>> {
+
+        private SortCallback callback;
+
+        SortTripsAsyncTask(SortCallback callback) {
+            this.callback = callback;
+        }
+
+        @Override
+        protected void onPostExecute(List<Trip> trips) {
+            super.onPostExecute(trips);
+            if (callback != null)
+                callback.onComplete(trips);
+        }
+
+        @Override
+        protected List<Trip> doInBackground(Object... objects) {
+            List<Trip> trips = (List<Trip>) objects[0];
+            SortFilterType sortFilterType = (SortFilterType) objects[1];
+            SortTrips.sortTrips(trips, sortFilterType);
+            return trips;
+        }
+    }
+
+    interface SortCallback {
+        void onComplete(List<Trip> trips);
     }
 }

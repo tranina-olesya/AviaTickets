@@ -43,11 +43,6 @@ public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> implements
     }
 
     @Override
-    public List<Trip> sortTickets() {
-        return null;
-    }
-
-    @Override
     public void getTickets(SearchData searchData, TicketsCallback ticketsCallback) {
         getSessionKey(searchData, new SessionKeyCallback() {
             @Override
@@ -61,19 +56,19 @@ public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> implements
                             List<Trip> trips = convertResponseToTrip(body);
                             ticketsCallback.onGet(trips);
                         } else
-                            ticketsCallback.onFail();
+                            ticketsCallback.onFail(APIError.TICKETS_NOT_FOUND);
                     }
 
                     @Override
                     public void onFailure(Call<SkyScannerResponse> call, Throwable t) {
-                        ticketsCallback.onFail();
+                        ticketsCallback.onFail(APIError.NO_RESPONSE);
                     }
                 });
             }
 
             @Override
-            public void onFail() {
-                ticketsCallback.onFail();
+            public void onFail(APIError error) {
+                ticketsCallback.onFail(error);
             }
         });
     }
@@ -93,21 +88,21 @@ public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> implements
                             if (key != null) {
                                 callback.onGet(key.substring(key.lastIndexOf("/")));
                             } else
-                                callback.onFail();
+                                callback.onFail(APIError.CITY_NOT_FOUND);
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                         if (callback != null)
-                            callback.onFail();
+                            callback.onFail(APIError.NO_RESPONSE);
                     }
                 });
             }
 
             @Override
-            public void onFail() {
-
+            public void onFail(APIError error) {
+                callback.onFail(error);
             }
         });
     }
@@ -131,13 +126,13 @@ public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> implements
                         callback.onGet(results.get(0), results.get(1));
                     }
                 } else {
-                    callback.onFail();
+                    callback.onFail(APIError.CITY_NOT_FOUND);
                 }
             }
 
             @Override
             public void onFailure(Call<SkyScannerCities> call, Throwable t) {
-                callback.onFail();
+                callback.onFail(APIError.NO_RESPONSE);
             }
         });
         getApi().listPlaces(destinationQuery).enqueue(new Callback<SkyScannerCities>() {
@@ -150,13 +145,13 @@ public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> implements
                         callback.onGet(results.get(0), results.get(1));
                     }
                 } else {
-                    callback.onFail();
+                    callback.onFail(APIError.CITY_NOT_FOUND);
                 }
             }
 
             @Override
             public void onFailure(Call<SkyScannerCities> call, Throwable t) {
-                callback.onFail();
+                callback.onFail(APIError.NO_RESPONSE);
             }
         });
     }

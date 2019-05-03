@@ -61,8 +61,11 @@ public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdap
         searchHistoryViewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                searchDataList.remove(searchHistoryViewHolder.getAdapterPosition());
-                presenter.removeItem(searchHistoryViewHolder.getAdapterPosition());
+                int adapterPosition = searchHistoryViewHolder.getAdapterPosition();
+                if (adapterPosition >= 0) {
+                    searchDataList.remove(adapterPosition);
+                    presenter.removeItem(searchHistoryViewHolder.getAdapterPosition());
+                }
             }
         });
         searchHistoryViewHolder.searchHistoryItem.setOnClickListener(new View.OnClickListener() {
