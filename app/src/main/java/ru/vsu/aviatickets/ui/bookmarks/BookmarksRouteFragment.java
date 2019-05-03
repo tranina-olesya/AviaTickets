@@ -51,11 +51,5 @@ public class BookmarksRouteFragment extends Fragment implements BookmarksContrac
             activity.setSearchFormFragmentWithSearchData(searchData);
     }
 
-    @Override
-    public BookmarkRoute addBookmarkRouteData() {
-        BookmarkRoute b = new BookmarkRoute("Slava","POL",2,0,0,"",false);
-
-        return b;
-    }
 
 }

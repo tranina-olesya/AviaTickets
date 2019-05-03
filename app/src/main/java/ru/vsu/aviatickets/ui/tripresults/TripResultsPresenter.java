@@ -1,22 +1,28 @@
 package ru.vsu.aviatickets.ui.tripresults;
 
+import android.graphics.drawable.Drawable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import ru.vsu.aviatickets.bookmarks.entity.BookmarkRoute;
 import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 import ru.vsu.aviatickets.ticketssearch.models.Trip;
 import ru.vsu.aviatickets.ticketssearch.providers.APIError;
 import ru.vsu.aviatickets.ticketssearch.sort.SortFilterType;
+import ru.vsu.aviatickets.ui.bookmarks.BookmarksRouteModel;
 
 public class TripResultsPresenter {
     private TripResultsContractView view;
     private final TripResultsModel model;
+    private final BookmarkAdditionModel modelAddition;
 
     private List<Trip> lastFoundTrips;
 
-    public TripResultsPresenter(TripResultsModel model) {
+    public TripResultsPresenter(TripResultsModel model, BookmarkAdditionModel modelAddition ) {
         this.model = model;
+        this.modelAddition = modelAddition;
         lastFoundTrips = new ArrayList<>();
     }
 
@@ -77,6 +83,17 @@ public class TripResultsPresenter {
             @Override
             public void onComplete(List<Trip> trips) {
                 view.showTrips(trips);
+            }
+        });
+    }
+
+    public void addBookmark() {
+        BookmarkRoute bookmarkRoute = view.addBookmarkRouteData();
+
+        modelAddition.addBookmarkRoute(bookmarkRoute, new BookmarkAdditionModel.CompleteCallback() {
+            @Override
+            public void onComplete() {
+                // вывести сообщение
             }
         });
     }

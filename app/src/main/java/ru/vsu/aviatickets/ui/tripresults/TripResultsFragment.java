@@ -1,6 +1,7 @@
 package ru.vsu.aviatickets.ui.tripresults;
 
 import android.app.ProgressDialog;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -10,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.vsu.aviatickets.R;
+import ru.vsu.aviatickets.bookmarks.entity.BookmarkRoute;
 import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 import ru.vsu.aviatickets.ticketssearch.models.Trip;
 import ru.vsu.aviatickets.ticketssearch.providers.KiwiProviderAPI;
@@ -34,6 +38,7 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
     private TripResultsPresenter presenter;
     private TextView errorNoTicketsFound;
     private Spinner sortFilters;
+    private ImageButton addBut;
 
     public TripResultsFragment() {
     }
@@ -56,6 +61,8 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
         recyclerView = view.findViewById(R.id.RecyclerView);
         errorNoTicketsFound = view.findViewById(R.id.errorTicketsNotFound);
         sortFilters = view.findViewById(R.id.sortFilter);
+        addBut = view.findViewById(R.id.addBookmark);
+
         fillSortFiltersSpinner();
         sortFilters.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -87,12 +94,19 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
 
             }
         });
+        addBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.addBookmark();
+            }
+        });
         List<TicketProviderApi> providers = new ArrayList<>();
         providers.add(new KiwiProviderAPI());
         providers.add(new SkyScannerProviderAPI());
         TripResultsModel tripResultsModel = new TripResultsModel(providers);
+        BookmarkAdditionModel bookmarkAdditionModel = new BookmarkAdditionModel();
 
-        presenter = new TripResultsPresenter(tripResultsModel);
+        presenter = new TripResultsPresenter(tripResultsModel, bookmarkAdditionModel);
         presenter.attachView(this);
         presenter.viewIsReady(searchData);
         return view;
@@ -105,6 +119,14 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
         recyclerView.setAdapter(adapter);
     }
 
+    @Override
+    public BookmarkRoute addBookmarkRouteData() {
+        BookmarkRoute bookmarkRoute = new BookmarkRoute(searchData.getOrigin(),searchData.getDestination(),searchData.getAdultsCount(),
+                                            searchData.getChildrenCount(),searchData.getInfantsCount(),searchData.getCabinClass().toString(),
+                                            searchData.getTransfers());
+
+        return bookmarkRoute;
+    }
 
     @Override
     public void showProgress() {

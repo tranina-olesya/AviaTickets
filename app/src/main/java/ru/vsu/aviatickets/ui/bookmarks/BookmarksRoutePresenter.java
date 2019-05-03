@@ -40,17 +40,7 @@ public class BookmarksRoutePresenter {
         });
     }
 
-    public void insert() {
-        BookmarkRoute bookmarkRoute = view.addBookmarkRouteData();
 
-        model.addBookmarkRoute(bookmarkRoute, new BookmarksRouteModel.CompleteCallback() {
-            @Override
-            public void onComplete() {
-
-                loadBookmarks();
-            }
-        });
-    }
 
     public void delete(int index) {
 
