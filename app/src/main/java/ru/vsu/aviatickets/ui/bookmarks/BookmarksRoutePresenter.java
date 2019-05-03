@@ -1,15 +1,19 @@
 package ru.vsu.aviatickets.ui.bookmarks;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ru.vsu.aviatickets.bookmarks.entity.BookmarkRoute;
+import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 
 public class BookmarksRoutePresenter {
     private BookmarksContractView view;
     private final BookmarksRouteModel model;
+    public static List<BookmarkRoute> bookmarkRoutes;
 
     public BookmarksRoutePresenter(BookmarksRouteModel model) {
         this.model = model;
+        bookmarkRoutes = new ArrayList<>();
     }
 
     public void attachView(BookmarksRouteFragment activity) {
@@ -29,7 +33,9 @@ public class BookmarksRoutePresenter {
         model.outBookmarksRoute(new BookmarksRouteModel.OutBookmarkCallback() {
             @Override
             public void onLoad(List<BookmarkRoute> bookmarkRoutes) {
-                view.showBookmarksRoute(bookmarkRoutes);
+                view.setAdapter(bookmarkRoutes);
+                if (BookmarksRoutePresenter.bookmarkRoutes.size() == 0)
+                    BookmarksRoutePresenter.bookmarkRoutes.addAll(bookmarkRoutes);
             }
         });
     }
@@ -45,9 +51,10 @@ public class BookmarksRoutePresenter {
             }
         });
     }
-    public void delete() {
-        BookmarkRoute bookmarkRoute = view.deleteBookmarkRoute();
 
+    public void delete(int index) {
+
+        BookmarkRoute bookmarkRoute = bookmarkRoutes.get(index);
         model.deleteBookmarkRoute(bookmarkRoute, new BookmarksRouteModel.CompleteCallback() {
             @Override
             public void onComplete() {
@@ -55,5 +62,11 @@ public class BookmarksRoutePresenter {
                 loadBookmarks();
             }
         });
+        bookmarkRoutes.remove(index);
+    }
+
+    public void itemChosen(SearchData searchData) {
+
+        view.switchToSearchForm(searchData);
     }
 }

@@ -26,6 +26,11 @@ public class BookmarksRouteModel {
         delete.execute(value);
     }
 
+    public void getBookmarkById(Long id, OutBookmarkCallback callback){
+        BookmarksRouteGetById getById = new BookmarksRouteGetById(callback);
+        getById.execute(id);
+    }
+
     interface OutBookmarkCallback {
         void onLoad(List<BookmarkRoute> bookmarkRoutes);
     }
@@ -132,6 +137,7 @@ public class BookmarksRouteModel {
             }
         }
     }
+
     class BookmarksRouteGetById extends AsyncTask<Long, Void, BookmarkRoute> {
         private final OutBookmarkCallback callback;
 
