@@ -68,7 +68,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/hintCityFrom"
-        android:text="Мsfaадрид"
+        android:text="Лондон"
         app:layout_constraintLeft_toLeftOf="@id/firstColGuideline"
         app:layout_constraintRight_toRightOf="@id/secondColGuideline"
         app:layout_constraintTop_toTopOf="@id/top_guideline" />
@@ -78,7 +78,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/hintCityTo"
-        android:text="Лондон"
+        android:text="Москва"
         app:layout_constraintLeft_toLeftOf="@id/secondColGuideline"
         app:layout_constraintRight_toRightOf="@id/right_guideline"
         app:layout_constraintTop_toTopOf="@id/top_guideline" />
