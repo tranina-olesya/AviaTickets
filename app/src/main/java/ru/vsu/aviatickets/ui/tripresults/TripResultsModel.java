@@ -1,5 +1,7 @@
 package ru.vsu.aviatickets.ui.tripresults;
 
+import android.os.AsyncTask;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -10,6 +12,8 @@ import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 import ru.vsu.aviatickets.ticketssearch.models.Trip;
 import ru.vsu.aviatickets.ticketssearch.providers.APIError;
 import ru.vsu.aviatickets.ticketssearch.providers.TicketProviderApi;
+import ru.vsu.aviatickets.ticketssearch.sort.SortFilterType;
+import ru.vsu.aviatickets.ticketssearch.sort.SortTrips;
 
 public class TripResultsModel {
     public interface ResultsCallback {
@@ -107,5 +111,38 @@ public class TripResultsModel {
 
     public int getProvidersCount() {
         return providers.size();
+    }
+
+    public void sortTripsByFilter(List<Trip> trips, SortFilterType sortFilterType, SortCallback callback) {
+        SortTripsAsyncTask sortTripsAsyncTask = new SortTripsAsyncTask(callback);
+        sortTripsAsyncTask.execute(trips, sortFilterType);
+    }
+
+    public static class SortTripsAsyncTask extends AsyncTask<Object, Void, List<Trip>> {
+
+        private SortCallback callback;
+
+        SortTripsAsyncTask(SortCallback callback) {
+            this.callback = callback;
+        }
+
+        @Override
+        protected void onPostExecute(List<Trip> trips) {
+            super.onPostExecute(trips);
+            if (callback != null)
+                callback.onComplete(trips);
+        }
+
+        @Override
+        protected List<Trip> doInBackground(Object... objects) {
+            List<Trip> trips = (List<Trip>) objects[0];
+            SortFilterType sortFilterType = (SortFilterType) objects[1];
+            SortTrips.sortTrips(trips, sortFilterType);
+            return trips;
+        }
+    }
+
+    interface SortCallback {
+        void onComplete(List<Trip> trips);
     }
 }

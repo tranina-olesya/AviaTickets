@@ -23,6 +23,7 @@ import ru.vsu.aviatickets.ticketssearch.models.Trip;
 import ru.vsu.aviatickets.ticketssearch.providers.KiwiProviderAPI;
 import ru.vsu.aviatickets.ticketssearch.providers.SkyScannerProviderAPI;
 import ru.vsu.aviatickets.ticketssearch.providers.TicketProviderApi;
+import ru.vsu.aviatickets.ticketssearch.sort.SortFilterType;
 
 public class TripResultsFragment extends Fragment implements TripResultsContractView {
 
@@ -59,7 +60,26 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
         sortFilters.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                switch (position) {
+                    case 1:
+                        presenter.filterChosen(SortFilterType.MIN_PRICE);
+                        break;
+                    case 2:
+                        presenter.filterChosen(SortFilterType.MAX_PRICE);
+                        break;
+                    case 3:
+                        presenter.filterChosen(SortFilterType.MIN_TIME);
+                        break;
+                    case 4:
+                        presenter.filterChosen(SortFilterType.MAX_TIME);
+                        break;
+                    case 5:
+                        presenter.filterChosen(SortFilterType.MIN_TRANSFERS);
+                        break;
+                    case 6:
+                        presenter.filterChosen(SortFilterType.MAX_TRANSFERS);
+                        break;
+                }
             }
 
             @Override
