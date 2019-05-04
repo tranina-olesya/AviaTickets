@@ -1,5 +1,6 @@
 package ru.vsu.aviatickets.ui.main;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -7,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import ru.vsu.aviatickets.R;
@@ -16,6 +18,10 @@ import ru.vsu.aviatickets.ui.searchform.SearchFormFragment;
 import ru.vsu.aviatickets.ui.searchhistory.SearchHistoryFragment;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String PREFS_NAME = "SETTINGS_SHARED_PREF";
+    private static final String SEARCH_HISTORY_KEY = "SEARCH_HISTORY";
+    private SharedPreferences settingsSharedPreferences;
 
     private FragmentManager fragmentManager;
 
@@ -65,23 +71,64 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         fragmentManager = getSupportFragmentManager();
         fragmentManager.addOnBackStackChangedListener(onBackStackChangedListener);
 
         navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setSelectedItemId(R.id.navigation_search);
+
+        settingsSharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        if (getHistorySettings() == null)
+            saveHistorySettings(true);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        fragmentManager.popBackStack();
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                fragmentManager.popBackStack();
+                return true;
+            case R.id.searchHistorySettings:
+                boolean checked = item.isChecked();
+                saveHistorySettings(!checked);
+                item.setChecked(!checked);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public void setSearchFormFragmentWithSearchData(SearchData searchData) {
         navigation.setSelectedItemId(R.id.navigation_search);
         searchFormFragment = SearchFormFragment.getInstance(searchData);
         navigation.setSelectedItemId(R.id.navigation_search);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        Boolean historySettings = getHistorySettings();
+        if (historySettings != null)
+            menu.findItem(R.id.searchHistorySettings).setChecked(historySettings);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    private void saveHistorySettings(boolean value) {
+        SharedPreferences.Editor editor = settingsSharedPreferences.edit();
+        editor.putBoolean(SEARCH_HISTORY_KEY, value);
+        editor.apply();
+    }
+
+    public Boolean getHistorySettings() {
+        if (settingsSharedPreferences.contains(SEARCH_HISTORY_KEY))
+            return settingsSharedPreferences.getBoolean(SEARCH_HISTORY_KEY, false);
+        return null;
     }
 }

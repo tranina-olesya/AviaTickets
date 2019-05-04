@@ -22,4 +22,6 @@ public interface SearchFormContractView {
     void errorDateInbound(int resId);
 
     void fillForm();
+
+    boolean isSavingHistoryEnabled();
 }
