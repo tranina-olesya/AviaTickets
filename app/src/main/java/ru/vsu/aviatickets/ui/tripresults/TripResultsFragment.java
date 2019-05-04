@@ -122,8 +122,8 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
     @Override
     public BookmarkRoute addBookmarkRouteData() {
         BookmarkRoute bookmarkRoute = new BookmarkRoute(searchData.getOrigin(),searchData.getDestination(),searchData.getAdultsCount(),
-                                            searchData.getChildrenCount(),searchData.getInfantsCount(),searchData.getCabinClass().toString(),
-                                            searchData.getTransfers());
+                                            searchData.getChildrenCount(),searchData.getInfantsCount(),searchData.getFlightType().toString(),
+                                            searchData.getTransfers(),searchData.getCabinClass().toString());
 
         return bookmarkRoute;
     }
