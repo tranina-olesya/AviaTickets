@@ -1,7 +1,10 @@
 package ru.vsu.aviatickets.ui.tripresults;
 
+import android.widget.ImageButton;
+
 import java.util.List;
 
+import ru.vsu.aviatickets.bookmarks.entity.BookmarkRoute;
 import ru.vsu.aviatickets.ticketssearch.models.Trip;
 
 public interface TripResultsContractView {
@@ -16,4 +19,6 @@ public interface TripResultsContractView {
     void ticketsNotFound();
 
     void noResponse();
+
+    BookmarkRoute addBookmarkRouteData();
 }

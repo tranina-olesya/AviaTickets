@@ -15,17 +15,27 @@ public class BookmarkRoute {
     private int adultCount;
     private int childCount;
     private int infantCount;
-    private String classType;
+    private String flightType;
     private boolean transfers;
+    private String classType;
 
-    public BookmarkRoute(String origin, String destination, int adultCount, int childCount, int infantCount, String classType, boolean transfers) {
+    public BookmarkRoute(String origin, String destination, int adultCount, int childCount, int infantCount, String flightType, boolean transfers, String classType) {
         this.origin = origin;
         this.destination = destination;
         this.adultCount = adultCount;
         this.childCount = childCount;
         this.infantCount = infantCount;
-        this.classType = classType;
+        this.flightType = flightType;
         this.transfers = transfers;
+        this.classType = classType;
+    }
+
+    public String getFlightType() {
+        return flightType;
+    }
+
+    public void setFlightType(String flightType) {
+        this.flightType = flightType;
     }
 
     public Long getId() {
@@ -93,31 +103,22 @@ public class BookmarkRoute {
     }
 
     @Override
-    public String toString() {
-        return "BookmarkRoute{" +
-                "id=" + id +
-                ", origin='" + origin + '\'' +
-                ", destination='" + destination + '\'' +
-                ", adultCount=" + adultCount +
-                ", childCount=" + childCount +
-                ", infantCount=" + infantCount +
-                ", classType='" + classType + '\'' +
-                ", transfers=" + transfers +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BookmarkRoute that = (BookmarkRoute) o;
-        return Objects.equals(id, that.id);
+        return adultCount == that.adultCount &&
+                childCount == that.childCount &&
+                infantCount == that.infantCount &&
+                transfers == that.transfers &&
+                origin.equals(that.origin) &&
+                destination.equals(that.destination) &&
+                flightType.equals(that.flightType) &&
+                classType.equals(that.classType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(origin, destination, adultCount, childCount, infantCount, flightType, transfers, classType);
     }
-
-
 }

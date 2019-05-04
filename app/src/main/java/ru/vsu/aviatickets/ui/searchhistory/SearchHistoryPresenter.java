@@ -28,6 +28,7 @@ public class SearchHistoryPresenter {
     }
 
     public void itemChosen(SearchData searchData) {
+
         view.switchToSearchForm(searchData);
     }
 

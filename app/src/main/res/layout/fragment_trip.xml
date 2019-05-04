@@ -7,6 +7,16 @@
     android:background="@color/cardview_light_background"
     tools:context=".ui.main.MainActivity">
 
+    <ImageButton
+        android:id="@+id/addBookmark"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:background="@null"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/star_outline" />
+
     <Spinner
         android:textAlignment="textEnd"
         android:id="@+id/sortFilter"

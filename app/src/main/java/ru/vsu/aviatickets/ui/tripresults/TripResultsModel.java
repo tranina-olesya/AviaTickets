@@ -96,7 +96,6 @@ public class TripResultsModel {
         return -1;
     }
 
-
     private int findSimilarTripIndex(List<Trip> trips, Trip p) {
         for (int i = 0; i < trips.size(); i++) {
             if (p.getInbound().getInboundDate().equals(trips.get(i).getInbound().getInboundDate()) &&
@@ -112,6 +111,7 @@ public class TripResultsModel {
     public int getProvidersCount() {
         return providers.size();
     }
+
 
     public void sortTripsByFilter(List<Trip> trips, SortFilterType sortFilterType, SortCallback callback) {
         SortTripsAsyncTask sortTripsAsyncTask = new SortTripsAsyncTask(callback);
