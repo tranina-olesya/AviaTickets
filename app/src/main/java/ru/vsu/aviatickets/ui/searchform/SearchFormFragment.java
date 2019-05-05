@@ -25,6 +25,7 @@ import ru.vsu.aviatickets.R;
 import ru.vsu.aviatickets.ticketssearch.models.CabinClass;
 import ru.vsu.aviatickets.ticketssearch.models.FlightType;
 import ru.vsu.aviatickets.ticketssearch.models.SearchData;
+import ru.vsu.aviatickets.ui.main.MainActivity;
 import ru.vsu.aviatickets.ui.tripresults.TripResultsFragment;
 import ru.vsu.aviatickets.ui.utils.DateConvert;
 
@@ -274,5 +275,14 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
 
     public void setSearchData(SearchData searchData) {
         this.searchData = searchData;
+    }
+
+    @Override
+    public boolean isSavingHistoryEnabled() {
+        MainActivity activity = (MainActivity) getActivity();
+        if (activity != null) {
+            return activity.getHistorySettings();
+        }
+        return false;
     }
 }
