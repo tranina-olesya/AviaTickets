@@ -16,14 +16,14 @@ public class BookmarksRouteModel {
         out.execute();
     }
 
-    public void addBookmarkRoute(BookmarkRoute value, CompleteCallback callback) {
-        BookmarksRouteInsert insert = new BookmarksRouteInsert(callback);
-        insert.execute(value);
-    }
-
     public void deleteBookmarkRoute(BookmarkRoute value, CompleteCallback callback) {
         BookmarksRouteDelete delete = new BookmarksRouteDelete(callback);
         delete.execute(value);
+    }
+
+    public void getBookmarkById(Long id, OutBookmarkCallback callback){
+        BookmarksRouteGetById getById = new BookmarksRouteGetById(callback);
+        getById.execute(id);
     }
 
     interface OutBookmarkCallback {
@@ -32,40 +32,6 @@ public class BookmarksRouteModel {
 
     interface CompleteCallback {
         void onComplete();
-    }
-
-    class BookmarksRouteInsert extends AsyncTask<BookmarkRoute, Void, Void> {
-
-        private final CompleteCallback callback;
-
-        BookmarksRouteInsert(CompleteCallback callback) {
-            this.callback = callback;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-        }
-
-        @Override
-        protected Void doInBackground(BookmarkRoute... params) {
-            AviaTicketsDatabase db = App.getInstance().getDatabase();
-            BookmarkRouteDao bookmarkRouteDao = db.bookmarkRouteDao();
-
-            for (BookmarkRoute bookmarkRoute : params) {
-                bookmarkRouteDao.insert(bookmarkRoute);
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-            if (callback != null) {
-                callback.onComplete();
-            }
-        }
     }
 
     class BookmarksRouteOut extends AsyncTask<Void, Void, List<BookmarkRoute>> {
@@ -132,6 +98,7 @@ public class BookmarksRouteModel {
             }
         }
     }
+
     class BookmarksRouteGetById extends AsyncTask<Long, Void, BookmarkRoute> {
         private final OutBookmarkCallback callback;
 
