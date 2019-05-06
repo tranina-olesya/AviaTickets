@@ -155,7 +155,7 @@ public class FullTripAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             TicketViewHolder ticketViewHolder = (TicketViewHolder) viewHolder;
             ticketViewHolder.addTicketInfo(ticket);
         } else if (type == ViewHolderTypes.TICKETS_FROM.index() && ticketsFromCount > 0) {
-            Ticket ticket = trip.getOutbound().getFlightParts().get(position - 2 - ticketsToCount);
+            Ticket ticket = trip.getInbound().getFlightParts().get(position - 2 - ticketsToCount);
             TicketViewHolder ticketViewHolder = (TicketViewHolder) viewHolder;
             ticketViewHolder.addTicketInfo(ticket);
         } else if (type == ViewHolderTypes.PRICE_LINK.index()) {
