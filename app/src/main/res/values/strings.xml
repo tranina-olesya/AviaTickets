@@ -30,8 +30,8 @@
     <string name="priceLinks">Цены</string>
     <string name="buttonPrice">Купить</string>
     <string name="errorOneAdultRequiared">Необходим как минимум один взрослый пассажир</string>
-    <string name="errorDateOutbound">Выберите дату отправления (ДД/ММ/ГГГГ)</string>
-    <string name="errorDateInbound">Выберите дату возвращения (ДД/ММ/ГГГГ)</string>
+    <string name="errorDateOutbound">Выберите дату отправления\n(ДД/ММ/ГГГГ)</string>
+    <string name="errorDateInbound">Выберите дату возвращения\n(ДД/ММ/ГГГГ)</string>
     <string name="errorDateOutboundAfterDateIbound">Дата возвращения должна быть после даты отправления</string>
     <string name="errorDateInPast">Выберите дату не раньше сегодняшней</string>
     <string name="clearHistoryButton">Очистить историю</string>
