@@ -94,7 +94,7 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == ACTION_UP) {
                     if (event.getRawX() >= (editTextDateFrom.getRight() - editTextDateFrom.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        presenter.calendarDateFrom();
+                        presenter.calendarDateFrom(editTextDateFrom.getText().toString());
                         return true;
                     }
                 }
@@ -107,7 +107,13 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == ACTION_UP) {
                     if (event.getRawX() >= (editTextDateTo.getRight() - editTextDateTo.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        presenter.calendarDateTo(editTextDateFrom.getText().toString());
+                        String dateTo = editTextDateTo.getText().toString();
+                        if (dateTo != null && !dateTo.isEmpty()) {
+                            presenter.calendarDateTo(dateTo, false);
+                        } else {
+                            String date = editTextDateFrom.getText().toString();
+                            presenter.calendarDateTo(date, true);
+                        }
                         return true;
                     }
                 }
@@ -233,6 +239,12 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
     public void errorAdultCount(int resId) {
         editTextAdultsCount.requestFocus();
         editTextAdultsCount.setError(getString(resId), null);
+    }
+
+    @Override
+    public void errorInfantsCount(int resId) {
+        editTextInfantsCount.requestFocus();
+        editTextInfantsCount.setError(getString(resId), null);
     }
 
     @Override
