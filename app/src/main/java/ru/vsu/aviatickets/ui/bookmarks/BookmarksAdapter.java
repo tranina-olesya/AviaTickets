@@ -14,6 +14,9 @@ import java.util.List;
 
 import ru.vsu.aviatickets.R;
 import ru.vsu.aviatickets.bookmarks.entity.BookmarkRoute;
+import ru.vsu.aviatickets.ticketssearch.models.CabinClass;
+import ru.vsu.aviatickets.ticketssearch.models.FlightType;
+import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 
 public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.BookmarksViewHolder> {
 
@@ -44,7 +47,7 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Book
     @NonNull
     @Override
     public BookmarksViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = inflater.inflate(R.layout.serch_history_item, viewGroup, false);
+        View view = inflater.inflate(R.layout.bookmark_route, viewGroup, false);
         BookmarksViewHolder bookmarksViewHolder = new BookmarksViewHolder(view);
         return bookmarksViewHolder;
     }
@@ -55,7 +58,7 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Book
         bookmarksViewHolder.route.setText(String.format("%s - %s", searchData.getOrigin(), searchData.getDestination()));
 
 
-        //bookmarksViewHolder.passengerCounts.setText(String.format("Adults: %d  Children: %d Infants: %d ", searchData.getAdultCount(), searchData.getChildCount(), searchData.getInfantCount()));
+        bookmarksViewHolder.passengerCounts.setText(String.format("Взрослые: %d  Дети: %d  Младенцы: %d ", searchData.getAdultCount(), searchData.getChildCount(), searchData.getInfantCount()));
 
 
         bookmarksViewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -66,16 +69,17 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Book
             }
         });
 
-//        bookmarksViewHolder.bookmark.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                BookmarkRoute bookmarkRoute = searchDataList.get(bookmarksViewHolder.getAdapterPosition());
-//                SearchData searchData = new SearchData(bookmarkRoute.getOrigin(),bookmarkRoute.getDestination(),null,
-//                                            null,bookmarkRoute.getAdultCount(),bookmarkRoute.getChildCount(),bookmarkRoute.getInfantCount(),
-//                                            null,bookmarkRoute.isTransfers(),Enum.valueOf(CabinClass.class,bookmarkRoute.getClassType()));
-//                presenter.itemChosen(searchData);
-//            }
-//        });
+        bookmarksViewHolder.bookmark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BookmarkRoute bookmarkRoute = searchDataList.get(bookmarksViewHolder.getAdapterPosition());
+                SearchData searchData = new SearchData(bookmarkRoute.getOrigin(),bookmarkRoute.getDestination(),null,
+                                            null,bookmarkRoute.getAdultCount(),bookmarkRoute.getChildCount(),bookmarkRoute.getInfantCount(),
+                                            Enum.valueOf(FlightType.class,bookmarkRoute.getFlightType()),
+                                            bookmarkRoute.isTransfers(),Enum.valueOf(CabinClass.class,bookmarkRoute.getClassType()));
+                presenter.itemChosen(searchData);
+            }
+        });
     }
 
     @Override
