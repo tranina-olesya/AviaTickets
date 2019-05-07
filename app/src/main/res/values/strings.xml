@@ -49,4 +49,5 @@
     <string name="spinnerSortFiltersMaxTransfers">По количеству пересадок ↓</string>
     <string name="hintSortFilters">Фильтры сортировки</string>
     <string name="searchHistorySettings">Сохранять историю поиска</string>
+    <string name="hintDateFormat">ДД/ММ/ГГГГ</string>
 </resources>

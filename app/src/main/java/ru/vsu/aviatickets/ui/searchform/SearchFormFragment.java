@@ -130,6 +130,7 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
         String[] data = {getString(R.string.spinnerFlightTypeRound), getString(R.string.spinnerFlightTypeOneway)};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, data);
         spinnerFlightType.setAdapter(adapter);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerFlightType.setPrompt(getString(R.string.hintRouteType));
     }
 
@@ -137,6 +138,7 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
         String[] data = {getString(R.string.spinnerCabinClassEconomy), getString(R.string.spinnerCabinClassBusiness)};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, data);
         spinnerCabinClass.setAdapter(adapter);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCabinClass.setPrompt(getString(R.string.hintCabinClass));
     }
 
