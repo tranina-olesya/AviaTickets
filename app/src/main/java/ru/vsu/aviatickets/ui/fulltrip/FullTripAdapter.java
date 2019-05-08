@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 
 import ru.vsu.aviatickets.R;
 import ru.vsu.aviatickets.ticketssearch.models.PriceLink;
@@ -57,6 +59,7 @@ public class FullTripAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             Glide.with(context)
                     .load(ticket.getCarrier().getImageUrl())
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .apply(RequestOptions.bitmapTransform(new RoundedCorners(15)))
                     .into(carrier);
             fullRoute.setText(String.format("%s - %s", ticket.getOrigin().getName(), ticket.getDestination().getName()));
             route.setText(String.format("%s - %s", ticket.getOrigin().getCode(), ticket.getDestination().getCode()));
@@ -162,6 +165,7 @@ public class FullTripAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             Glide.with(context)
                     .load(priceLink.getAgents().get(0).getImageUrl())
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .apply(RequestOptions.bitmapTransform(new RoundedCorners(15)))
                     .into(priceLinkViewHolder.agentImage);
             priceLinkViewHolder.price.setText(String.valueOf(priceLink.getPrice()));
             priceLinkViewHolder.buttonPrice.setOnClickListener(new View.OnClickListener() {
