@@ -89,6 +89,10 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 fragmentManager.popBackStack();
+                fragmentManager
+                        .beginTransaction()
+                        .show(searchFormFragment)
+                        .commit();
                 return true;
             case R.id.searchHistorySettings:
                 boolean checked = item.isChecked();
@@ -130,5 +134,11 @@ public class MainActivity extends AppCompatActivity {
         if (settingsSharedPreferences.contains(SEARCH_HISTORY_KEY))
             return settingsSharedPreferences.getBoolean(SEARCH_HISTORY_KEY, false);
         return null;
+    }
+
+    public void hideSearchForm() {
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.hide(searchFormFragment);
+        transaction.commit();
     }
 }

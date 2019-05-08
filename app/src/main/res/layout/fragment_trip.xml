@@ -49,6 +49,7 @@
         android:id="@+id/errorTicketsNotFound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/alabaster"
         android:text="@string/errorTicketsNotFound"
         android:textAlignment="center"
         android:textSize="20sp"

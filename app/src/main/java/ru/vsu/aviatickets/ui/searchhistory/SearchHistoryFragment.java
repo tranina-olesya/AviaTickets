@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class SearchHistoryFragment extends Fragment implements SearchHistoryCont
     private Button clearButton;
     private SearchHistoryPresenter presenter;
     private SearchHistoryAdapter adapter;
+    private TextView noSearchHistoryTextView;
 
     public SearchHistoryFragment() {
     }
@@ -32,6 +34,7 @@ public class SearchHistoryFragment extends Fragment implements SearchHistoryCont
         View view = inflater.inflate(R.layout.fragment_search_history, container, false);
         recyclerView = view.findViewById(R.id.recyclerView);
         clearButton = view.findViewById(R.id.clearButton);
+        noSearchHistoryTextView = view.findViewById(R.id.noSearchHistory);
         clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,5 +72,17 @@ public class SearchHistoryFragment extends Fragment implements SearchHistoryCont
         MainActivity activity = (MainActivity) getActivity();
         if (activity != null)
             activity.setSearchFormFragmentWithSearchData(searchData);
+    }
+
+    @Override
+    public void showEmptyMessage() {
+        noSearchHistoryTextView.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void hideEmptyMessage() {
+        noSearchHistoryTextView.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
     }
 }

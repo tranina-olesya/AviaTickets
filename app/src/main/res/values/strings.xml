@@ -40,7 +40,7 @@
     <string name="ticketsError">Билеты не найдены</string>
     <string name="cityError">Город не найден</string>
     <string name="responseError">Нет ответа</string>
-    <string name="errorTicketsNotFound">Ни одного билета не найдено. \nПопробуйте ввести другие параметры поиска</string>
+    <string name="errorTicketsNotFound">Ни одного билета не найдено. \nПопробуйте ввести другие параметры поиска.</string>
     <string name="spinnerSortFiltersMinPrice">По цене</string>
     <string name="spinnerSortFiltersMaxPrice">По цене</string>
     <string name="spinnerSortFiltersMinTime">По времени</string>
@@ -50,4 +50,5 @@
     <string name="hintSortFilters">Фильтры сортировки</string>
     <string name="searchHistorySettings">Сохранять историю поиска</string>
     <string name="hintDateFormat">ДД/ММ/ГГГГ</string>
+    <string name="noSearchHistory">Тут пусто.\n¯\\_(ツ)_/¯</string>
 </resources>
