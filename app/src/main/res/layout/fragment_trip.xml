@@ -30,7 +30,10 @@
     <Spinner
         android:textAlignment="textStart"
         android:id="@+id/sortFilter"
-        android:padding="10dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:paddingStart="3dp"
+        android:paddingEnd="0dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/filters_spinner_background"

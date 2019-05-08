@@ -67,24 +67,32 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
         sortFilters.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                TextView textView = (TextView) view;
+                textView.setCompoundDrawablePadding(20);
                 switch (position) {
                     case 1:
                         presenter.filterChosen(SortFilterType.MIN_PRICE);
+                        textView.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.sort_ascending, 0, 0, 0);
                         break;
                     case 2:
                         presenter.filterChosen(SortFilterType.MAX_PRICE);
+                        textView.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.sort_descending, 0, 0, 0);
                         break;
                     case 3:
                         presenter.filterChosen(SortFilterType.MIN_TIME);
+                        textView.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.sort_ascending, 0, 0, 0);
                         break;
                     case 4:
                         presenter.filterChosen(SortFilterType.MAX_TIME);
+                        textView.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.sort_descending, 0, 0, 0);
                         break;
                     case 5:
                         presenter.filterChosen(SortFilterType.MIN_TRANSFERS);
+                        textView.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.sort_ascending, 0, 0, 0);
                         break;
                     case 6:
                         presenter.filterChosen(SortFilterType.MAX_TRANSFERS);
+                        textView.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.sort_descending, 0, 0, 0);
                         break;
                 }
             }
@@ -121,9 +129,9 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
 
     @Override
     public BookmarkRoute addBookmarkRouteData() {
-        BookmarkRoute bookmarkRoute = new BookmarkRoute(searchData.getOrigin(),searchData.getDestination(),searchData.getAdultsCount(),
-                                            searchData.getChildrenCount(),searchData.getInfantsCount(),searchData.getFlightType().toString(),
-                                            searchData.getTransfers(),searchData.getCabinClass().toString());
+        BookmarkRoute bookmarkRoute = new BookmarkRoute(searchData.getOrigin(), searchData.getDestination(), searchData.getAdultsCount(),
+                searchData.getChildrenCount(), searchData.getInfantsCount(), searchData.getFlightType().toString(),
+                searchData.getTransfers(), searchData.getCabinClass().toString());
 
         return bookmarkRoute;
     }
@@ -169,6 +177,9 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
         String[] data = {getString(R.string.hintSortFilters), getString(R.string.spinnerSortFiltersMinPrice), getString(R.string.spinnerSortFiltersMaxPrice),
                 getString(R.string.spinnerSortFiltersMinTime), getString(R.string.spinnerSortFiltersMaxTime),
                 getString(R.string.spinnerSortFiltersMinTransfers), getString(R.string.spinnerSortFiltersMaxTransfers)};
+        int[] imageResources = {0, R.drawable.sort_ascending, R.drawable.sort_descending,
+                R.drawable.sort_ascending, R.drawable.sort_descending,
+                R.drawable.sort_ascending, R.drawable.sort_descending};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, data) {
             @Override
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
@@ -179,11 +190,15 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
                     view = textView;
                 } else {
                     view = super.getDropDownView(position, null, parent);
+                    TextView textView = (TextView) view;
+                    textView.setCompoundDrawablesRelativeWithIntrinsicBounds(imageResources[position], 0, 0, 0);
+                    textView.setCompoundDrawablePadding(20);
                 }
                 return view;
             }
 
         };
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sortFilters.setAdapter(adapter);
         sortFilters.setPrompt(getString(R.string.hintSortFilters));
     }
