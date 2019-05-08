@@ -12,17 +12,33 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:background="@null"
-        app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/star_outline" />
+        android:layout_marginStart="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/sortFilter"
+        app:layout_constraintBottom_toBottomOf="@id/sortFilter"
+        app:srcCompat="@drawable/heart_outline" />
 
+    <ImageView
+        android:id="@+id/imageFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="30dp"
+        app:layout_constraintLeft_toRightOf="@id/addBookmark"
+        app:layout_constraintTop_toTopOf="@id/sortFilter"
+        app:layout_constraintBottom_toBottomOf="@id/sortFilter"
+        android:src="@drawable/filter_outline" />
     <Spinner
-        android:textAlignment="textEnd"
+        android:textAlignment="textStart"
         android:id="@+id/sortFilter"
         android:padding="10dp"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/filters_spinner_background"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintLeft_toRightOf="@id/imageFilter"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
@@ -40,6 +56,7 @@
         android:visibility="gone"/>
 
     <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="10dp"
         android:id="@+id/RecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"

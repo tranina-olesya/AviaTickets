@@ -2,36 +2,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="15dp"
-    android:id="@+id/container">
+    android:paddingStart="30dp"
+    android:paddingEnd="30dp"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp"
+    android:id="@+id/container"
+    android:background="@drawable/item_background"
+    android:layout_marginBottom="5dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp">
 
     <android.support.constraint.Guideline
-        android:id="@+id/firstColGuideline"
+        android:id="@+id/guideline40"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.08" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/secondColGuideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.38" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/thirdColGuideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.67" />
-
-    <android.support.constraint.Guideline
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintGuide_percent=".05"
-        android:orientation="horizontal"
-        android:id="@+id/top_guideline"/>
+        app:layout_constraintGuide_percent=".4" />
 
     <android.support.constraint.Group
         android:id="@+id/groupInbound"
@@ -43,38 +29,40 @@
     <TextView
         android:id="@+id/minPrice"
         android:layout_width="wrap_content"
-        android:textSize="20sp"
+        android:textSize="22sp"
         android:textColor="@color/colorPrimary"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="@id/firstColGuideline"
-        app:layout_constraintTop_toTopOf="@id/top_guideline" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
 
     <TextView
         android:id="@+id/placesOutbound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="@id/firstColGuideline"
+        android:layout_marginTop="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/minPrice" />
 
     <TextView
         android:id="@+id/placesInbound"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="@id/firstColGuideline"
+        app:layout_constraintLeft_toLeftOf="@id/placesOutbound"
         app:layout_constraintTop_toBottomOf="@id/timeOutbound" />
 
     <TextView
         android:id="@+id/timeOutbound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="@id/firstColGuideline"
+        app:layout_constraintLeft_toLeftOf="@id/placesOutbound"
         app:layout_constraintTop_toBottomOf="@id/placesOutbound" />
 
     <TextView
         android:id="@+id/timeInbound"
         android:layout_width="wrap_content"
         android:layout_height="22dp"
-        app:layout_constraintLeft_toLeftOf="@id/firstColGuideline"
+        app:layout_constraintLeft_toLeftOf="@id/placesInbound"
         app:layout_constraintTop_toBottomOf="@id/placesInbound" />
 
     <TextView
@@ -82,7 +70,7 @@
         android:text="@string/durationComment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="@id/secondColGuideline"
+        app:layout_constraintLeft_toLeftOf="@id/guideline40"
         app:layout_constraintTop_toTopOf="@id/placesOutbound" />
 
     <TextView
@@ -90,35 +78,42 @@
         android:text="@string/durationComment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="@id/secondColGuideline"
+        app:layout_constraintLeft_toLeftOf="@id/durationOutboundComment"
         app:layout_constraintTop_toTopOf="@id/placesInbound" />
 
     <TextView
         android:id="@+id/durationOutbound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="@id/secondColGuideline"
+        app:layout_constraintLeft_toLeftOf="@id/durationOutboundComment"
         app:layout_constraintTop_toTopOf="@id/timeOutbound" />
 
     <TextView
         android:id="@+id/durationInbound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="@id/secondColGuideline"
+        app:layout_constraintLeft_toLeftOf="@id/durationOutboundComment"
         app:layout_constraintTop_toTopOf="@id/timeInbound"/>
 
-    <TextView
+    <ImageView
         android:id="@+id/transferOutbound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="@id/thirdColGuideline"
-        app:layout_constraintTop_toTopOf="@id/durationOutboundComment"/>
+        app:layout_constraintRight_toRightOf="@id/minPrice"
+        android:scaleType="fitXY"
+        android:alpha=".6"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintTop_toTopOf="@id/durationOutboundComment"
+        app:layout_constraintBottom_toBottomOf="@id/durationOutbound"/>
 
-    <TextView
+    <ImageView
         android:id="@+id/transferInbound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="@id/thirdColGuideline"
-        app:layout_constraintTop_toTopOf="@id/durationInboundComment" />
+        app:layout_constraintLeft_toLeftOf="@id/transferOutbound"
+        android:scaleType="fitXY"
+        android:alpha=".6"
+        app:layout_constraintTop_toTopOf="@id/durationInboundComment"
+        app:layout_constraintBottom_toBottomOf="@id/durationInbound"/>
 
 </android.support.constraint.ConstraintLayout>
