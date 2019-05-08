@@ -50,7 +50,7 @@ public class KiwiProviderAPI extends ProviderAPI<KiwiAPI> implements TicketProvi
                         convertDateToString(searchData.getInboundDate()) : null;
                 getApi().getTickets(originCode, destinationCode, outboundDate, outboundDate, inboundDate, inboundDate,
                         searchData.getFlightType().toString().toLowerCase(), searchData.getAdultsCount(), searchData.getChildrenCount(),
-                        searchData.getInfantsCount(), searchData.getTransfers() ? 1 : 0).enqueue(new Callback<KiwiResponse>() {
+                        searchData.getInfantsCount(), searchData.getTransfers() ? 0 : 1).enqueue(new Callback<KiwiResponse>() {
                     @Override
                     public void onResponse(Call<KiwiResponse> call, Response<KiwiResponse> response) {
                         if (response.body() != null) {

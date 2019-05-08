@@ -139,14 +139,12 @@ public class FullTripAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         int type = viewHolder.getItemViewType();
         if (type == ViewHolderTypes.ROUTE_TO.index()) {
             TitleViewHolder titleViewHolder = (TitleViewHolder) viewHolder;
-            titleViewHolder.title.setText(String.format("%s - %s (%s - %s)",
-                    trip.getOutbound().getOrigin().getName(), trip.getOutbound().getDestination().getName(),
-                    trip.getOutbound().getOrigin().getCode(), trip.getOutbound().getDestination().getCode()));
+            titleViewHolder.title.setText(String.format("%s - %s",
+                    trip.getOutbound().getOrigin().getName(), trip.getOutbound().getDestination().getName()));
         } else if (type == ViewHolderTypes.ROUTE_FROM.index()) {
             TitleViewHolder titleViewHolder = (TitleViewHolder) viewHolder;
-            titleViewHolder.title.setText(String.format("%s - %s (%s - %s)",
-                    trip.getInbound().getOrigin().getName(), trip.getInbound().getDestination().getName(),
-                    trip.getInbound().getOrigin().getCode(), trip.getInbound().getDestination().getCode()));
+            titleViewHolder.title.setText(String.format("%s - %s",
+                    trip.getInbound().getOrigin().getName(), trip.getInbound().getDestination().getName()));
         } else if (type == ViewHolderTypes.PRICE_TITLE.index()) {
             TitleViewHolder titleViewHolder = (TitleViewHolder) viewHolder;
             titleViewHolder.title.setText(R.string.priceLinks);

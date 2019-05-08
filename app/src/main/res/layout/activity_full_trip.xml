@@ -5,15 +5,13 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fulltrip.FullTripActivity"
-    android:background="@drawable/background">
+    android:background="@drawable/background"
+    tools:context=".ui.fulltrip.FullTripActivity">
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/RecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="20dp"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        android:id="@+id/RecyclerView">
-    </android.support.v7.widget.RecyclerView>
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
 
 </LinearLayout>
