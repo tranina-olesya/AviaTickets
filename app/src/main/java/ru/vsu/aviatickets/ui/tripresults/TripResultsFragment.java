@@ -1,5 +1,6 @@
 package ru.vsu.aviatickets.ui.tripresults;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.drawable.AnimationDrawable;
@@ -8,6 +9,8 @@ import android.os.Bundle;
 import android.support.constraint.Group;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -26,12 +29,14 @@ import java.util.List;
 
 import ru.vsu.aviatickets.R;
 import ru.vsu.aviatickets.bookmarks.entity.BookmarkRoute;
+import ru.vsu.aviatickets.ticketssearch.models.FlightType;
 import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 import ru.vsu.aviatickets.ticketssearch.models.Trip;
 import ru.vsu.aviatickets.ticketssearch.providers.KiwiProviderAPI;
 import ru.vsu.aviatickets.ticketssearch.providers.SkyScannerProviderAPI;
 import ru.vsu.aviatickets.ticketssearch.providers.TicketProviderApi;
 import ru.vsu.aviatickets.ticketssearch.sort.SortFilterType;
+import ru.vsu.aviatickets.ui.utils.DateConvert;
 
 public class TripResultsFragment extends Fragment implements TripResultsContractView {
 
@@ -133,6 +138,17 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
         presenter = new TripResultsPresenter(tripResultsModel, bookmarkAdditionModel);
         presenter.attachView(this);
         presenter.viewIsReady(searchData);
+
+        FragmentActivity activity = getActivity();
+        if (activity != null) {
+            ActionBar actionBar = ((AppCompatActivity) activity).getSupportActionBar();
+            String route = String.format("%s - %s", searchData.getOrigin(), searchData.getDestination());
+            actionBar.setTitle(route);
+            String date = searchData.getFlightType() == FlightType.ONEWAY ?
+                    DateConvert.getDayMonthString(searchData.getOutboundDate()) :
+                    DateConvert.getDayMonthString(searchData.getOutboundDate(), searchData.getInboundDate());
+            actionBar.setSubtitle(date);
+        }
         return view;
     }
 
