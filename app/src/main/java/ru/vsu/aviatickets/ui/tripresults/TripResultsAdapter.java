@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.Group;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.TooltipCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,9 +80,13 @@ public class TripResultsAdapter extends RecyclerView.Adapter<TripResultsAdapter.
         viewHolder.timeOutbound.setText(DateConvert.getTimeString(trip.getOutbound().getOutboundDate(), trip.getOutbound().getInboundDate()));
         viewHolder.durationOutbound.setText(DateConvert.getDurationString(trip.getOutbound().getDuration()));
         boolean transfersOutbound = trip.getOutbound().getFlightParts().size() > 1;
+        final Context context = viewHolder.container.getContext();
         viewHolder.transferOutbound.setImageDrawable(transfersOutbound ?
-                viewHolder.container.getContext().getDrawable(R.drawable.has_transfers):
-                viewHolder.container.getContext().getDrawable(R.drawable.no_transfers));
+                context.getDrawable(R.drawable.has_transfers):
+                context.getDrawable(R.drawable.no_transfers));
+        TooltipCompat.setTooltipText(viewHolder.transferOutbound, transfersOutbound ?
+                context.getString(R.string.hasTransfers) :
+                context.getString(R.string.noTransfers));
 
         PriceLink priceLink = trip.getPriceLinks().stream().min(Comparator.comparing(PriceLink::getPrice)).get();
         viewHolder.minPrice.setText(priceLink.getPrice().toString());
@@ -93,16 +98,20 @@ public class TripResultsAdapter extends RecyclerView.Adapter<TripResultsAdapter.
             viewHolder.durationInbound.setText(DateConvert.getDurationString(trip.getInbound().getDuration()));
             boolean transfersInbound = trip.getInbound().getFlightParts().size() > 1;
             viewHolder.transferInbound.setImageDrawable(transfersInbound ?
-                    viewHolder.container.getContext().getDrawable(R.drawable.has_transfers):
-                    viewHolder.container.getContext().getDrawable(R.drawable.no_transfers));
+                    context.getDrawable(R.drawable.has_transfers):
+                    context.getDrawable(R.drawable.no_transfers));
+            TooltipCompat.setTooltipText(viewHolder.transferInbound, transfersInbound ?
+                    context.getString(R.string.hasTransfers) :
+                    context.getString(R.string.noTransfers));
         }
 
         viewHolder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(viewHolder.container.getContext(), FullTripActivity.class);
+                Context context = viewHolder.container.getContext();
+                Intent intent = new Intent(context, FullTripActivity.class);
                 intent.putExtra(TRIP_EXTRA, trip);
-                viewHolder.container.getContext().startActivity(intent);
+                context.startActivity(intent);
             }
         });
     }
