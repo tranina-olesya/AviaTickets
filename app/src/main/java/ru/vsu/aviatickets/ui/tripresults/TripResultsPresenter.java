@@ -1,7 +1,5 @@
 package ru.vsu.aviatickets.ui.tripresults;
 
-import android.graphics.drawable.Drawable;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,7 +9,6 @@ import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 import ru.vsu.aviatickets.ticketssearch.models.Trip;
 import ru.vsu.aviatickets.ticketssearch.providers.APIError;
 import ru.vsu.aviatickets.ticketssearch.sort.SortFilterType;
-import ru.vsu.aviatickets.ui.bookmarks.BookmarksRouteModel;
 
 public class TripResultsPresenter {
     private TripResultsContractView view;
@@ -41,11 +38,13 @@ public class TripResultsPresenter {
     }
 
     public void loadData(SearchData searchData) {
+        view.hideGroupTripResults();
         view.showProgress();
         model.loadTrips(searchData, new TripResultsModel.ResultsCallback() {
             @Override
             public void onGet(List<Trip> trips) {
                 view.hideProgress();
+                view.showGroupTripResults();
                 if (trips == null || trips.isEmpty())
                     view.ticketsNotFound();
                 else {
@@ -57,6 +56,7 @@ public class TripResultsPresenter {
             @Override
             public void onFail(List<APIError> errors) {
                 view.hideProgress();
+                view.showGroupTripResults();
                 if (errors.size() == model.getProvidersCount()) {
                     APIError apiError = checkForErrorType(errors);
                     if (apiError != null) {

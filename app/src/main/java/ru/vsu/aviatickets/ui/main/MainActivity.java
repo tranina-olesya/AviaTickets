@@ -71,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         fragmentManager = getSupportFragmentManager();
         fragmentManager.addOnBackStackChangedListener(onBackStackChangedListener);
 
@@ -88,11 +87,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                fragmentManager.popBackStack();
-                fragmentManager
-                        .beginTransaction()
-                        .show(searchFormFragment)
-                        .commit();
+                onBackPressed();
                 return true;
             case R.id.searchHistorySettings:
                 boolean checked = item.isChecked();
@@ -140,5 +135,15 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.hide(searchFormFragment);
         transaction.commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        fragmentManager.popBackStack();
+        fragmentManager
+                .beginTransaction()
+                .show(searchFormFragment)
+                .commit();
     }
 }

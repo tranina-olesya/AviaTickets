@@ -1,7 +1,5 @@
 package ru.vsu.aviatickets.ui.tripresults;
 
-import android.widget.ImageButton;
-
 import java.util.List;
 
 import ru.vsu.aviatickets.bookmarks.entity.BookmarkRoute;
@@ -21,4 +19,8 @@ public interface TripResultsContractView {
     void noResponse();
 
     BookmarkRoute addBookmarkRouteData();
+
+    void hideGroupTripResults();
+
+    void showGroupTripResults();
 }

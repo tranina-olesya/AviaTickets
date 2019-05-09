@@ -1,18 +1,22 @@
 package ru.vsu.aviatickets.ui.tripresults;
 
-import android.app.ProgressDialog;
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
+import android.graphics.Point;
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.constraint.Group;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,14 +35,18 @@ import ru.vsu.aviatickets.ticketssearch.sort.SortFilterType;
 
 public class TripResultsFragment extends Fragment implements TripResultsContractView {
 
-    private ProgressDialog progressDialog;
     private RecyclerView recyclerView;
     private SearchData searchData;
+    private AnimationDrawable animationDrawable;
+    private ImageView progressBar;
 
     private TripResultsPresenter presenter;
     private TextView errorNoTicketsFound;
     private Spinner sortFilters;
     private ImageButton addBut;
+
+    private Group groupTripResults;
+    private Group groupProgress;
 
     public TripResultsFragment() {
     }
@@ -62,8 +70,14 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
         errorNoTicketsFound = view.findViewById(R.id.errorTicketsNotFound);
         sortFilters = view.findViewById(R.id.sortFilter);
         addBut = view.findViewById(R.id.addBookmark);
+        progressBar = view.findViewById(R.id.progress);
+
+        groupTripResults = view.findViewById(R.id.groupResults);
+        groupProgress = view.findViewById(R.id.groupProgress);
 
         fillSortFiltersSpinner();
+        initializeProgressBar();
+
         sortFilters.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -102,12 +116,14 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
 
             }
         });
+
         addBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.addBookmark();
             }
         });
+
         List<TicketProviderApi> providers = new ArrayList<>();
         providers.add(new KiwiProviderAPI());
         providers.add(new SkyScannerProviderAPI());
@@ -123,8 +139,11 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
     @Override
     public void showTrips(List<Trip> trips) {
         errorNoTicketsFound.setVisibility(View.GONE);
-        TripResultsAdapter adapter = new TripResultsAdapter(getContext(), trips);
-        recyclerView.setAdapter(adapter);
+        FragmentActivity activity = getActivity();
+        if (activity != null) {
+            TripResultsAdapter adapter = new TripResultsAdapter(getContext(), trips);
+            recyclerView.setAdapter(adapter);
+        }
     }
 
     @Override
@@ -138,14 +157,14 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
 
     @Override
     public void showProgress() {
-        progressDialog = ProgressDialog.show(getContext(), "", getString(R.string.progressDialogTripActivity));
+        groupProgress.setVisibility(View.VISIBLE);
+        animationDrawable.start();
     }
 
     @Override
     public void hideProgress() {
-        if (progressDialog != null) {
-            progressDialog.dismiss();
-        }
+        animationDrawable.stop();
+        groupProgress.setVisibility(View.GONE);
     }
 
     @Override
@@ -171,6 +190,16 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
         if (activity != null)
             activity.onBackPressed();
         toast.show();
+    }
+
+    @Override
+    public void hideGroupTripResults() {
+        groupTripResults.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showGroupTripResults() {
+        groupTripResults.setVisibility(View.VISIBLE);
     }
 
     private void fillSortFiltersSpinner() {
@@ -201,5 +230,25 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sortFilters.setAdapter(adapter);
         sortFilters.setPrompt(getString(R.string.hintSortFilters));
+    }
+
+    private void initializeProgressBar() {
+        progressBar.setBackgroundResource(R.drawable.loading);
+        animationDrawable = (AnimationDrawable) progressBar.getBackground();
+        Bitmap b = ((BitmapDrawable) getActivity().getDrawable(R.drawable.frame_0)).getBitmap();
+
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int screenWidth = size.x;
+        int screenHeight = size.y;
+
+        int width = b.getWidth();
+        int height = b.getHeight();
+        int progressWidth = (int) (screenWidth * 0.5);
+        int progressHeight = (progressWidth * height / width);
+        progressBar.getLayoutParams().height = progressHeight;
+        progressBar.getLayoutParams().width = progressWidth;
+        progressBar.setY(screenHeight * 0.45f);
     }
 }
