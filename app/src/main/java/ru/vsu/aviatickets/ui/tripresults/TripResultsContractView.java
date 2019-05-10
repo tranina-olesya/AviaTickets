@@ -23,4 +23,8 @@ public interface TripResultsContractView {
     void hideGroupTripResults();
 
     void showGroupTripResults();
+
+    void bookmarkAdded();
+
+    void bookmarkDeleted();
 }

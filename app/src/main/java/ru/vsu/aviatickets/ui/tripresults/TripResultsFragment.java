@@ -1,6 +1,5 @@
 package ru.vsu.aviatickets.ui.tripresults;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.drawable.AnimationDrawable;
@@ -48,7 +47,7 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
     private TripResultsPresenter presenter;
     private TextView errorNoTicketsFound;
     private Spinner sortFilters;
-    private ImageButton addBut;
+    private ImageButton addButton;
 
     private Group groupTripResults;
     private Group groupProgress;
@@ -74,7 +73,7 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
         recyclerView = view.findViewById(R.id.RecyclerView);
         errorNoTicketsFound = view.findViewById(R.id.errorTicketsNotFound);
         sortFilters = view.findViewById(R.id.sortFilter);
-        addBut = view.findViewById(R.id.addBookmark);
+        addButton = view.findViewById(R.id.addBookmark);
         progressBar = view.findViewById(R.id.progress);
 
         groupTripResults = view.findViewById(R.id.groupResults);
@@ -122,10 +121,10 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
             }
         });
 
-        addBut.setOnClickListener(new View.OnClickListener() {
+        addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.addBookmark();
+                presenter.bookmarkButtonClicked();
             }
         });
 
@@ -216,6 +215,16 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
     @Override
     public void showGroupTripResults() {
         groupTripResults.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void bookmarkAdded() {
+        addButton.setImageDrawable(getResources().getDrawable(R.drawable.heart));
+    }
+
+    @Override
+    public void bookmarkDeleted() {
+        addButton.setImageDrawable(getResources().getDrawable(R.drawable.heart_outline));
     }
 
     private void fillSortFiltersSpinner() {

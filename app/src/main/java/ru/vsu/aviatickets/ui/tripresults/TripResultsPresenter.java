@@ -9,15 +9,17 @@ import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 import ru.vsu.aviatickets.ticketssearch.models.Trip;
 import ru.vsu.aviatickets.ticketssearch.providers.APIError;
 import ru.vsu.aviatickets.ticketssearch.sort.SortFilterType;
+import ru.vsu.aviatickets.ui.bookmarks.BookmarksRouteModel;
 
 public class TripResultsPresenter {
     private TripResultsContractView view;
     private final TripResultsModel model;
     private final BookmarkAdditionModel modelAddition;
+    private BookmarkRoute savedBookmark;
 
     private List<Trip> lastFoundTrips;
 
-    public TripResultsPresenter(TripResultsModel model, BookmarkAdditionModel modelAddition ) {
+    public TripResultsPresenter(TripResultsModel model, BookmarkAdditionModel modelAddition) {
         this.model = model;
         this.modelAddition = modelAddition;
         lastFoundTrips = new ArrayList<>();
@@ -32,9 +34,21 @@ public class TripResultsPresenter {
     }
 
     public void viewIsReady(SearchData searchData) {
+        checkIfBookmarkExists(searchData);
         if (searchData != null) {
             loadData(searchData);
         }
+    }
+
+    private void checkIfBookmarkExists(SearchData searchData) {
+        modelAddition.findBookmark(searchData, new BookmarkAdditionModel.BookmarkCallback() {
+            @Override
+            public void onLoad(BookmarkRoute bookmarkRoute) {
+                savedBookmark = bookmarkRoute;
+                if (savedBookmark != null)
+                    view.bookmarkAdded();
+            }
+        });
     }
 
     public void loadData(SearchData searchData) {
@@ -87,14 +101,23 @@ public class TripResultsPresenter {
         });
     }
 
-    public void addBookmark() {
+    public void bookmarkButtonClicked() {
         BookmarkRoute bookmarkRoute = view.addBookmarkRouteData();
-
-        modelAddition.addBookmarkRoute(bookmarkRoute, new BookmarkAdditionModel.CompleteCallback() {
-            @Override
-            public void onComplete() {
-                // вывести сообщение
-            }
-        });
+        if (savedBookmark == null) {
+            modelAddition.addBookmarkRoute(bookmarkRoute, new BookmarkAdditionModel.CompleteCallback() {
+                @Override
+                public void onComplete() {
+                    savedBookmark = bookmarkRoute;
+                    view.bookmarkAdded();
+                }
+            });
+        } else {
+            modelAddition.deleteBookmarkRoute(savedBookmark, new BookmarksRouteModel.CompleteCallback() {
+                @Override
+                public void onComplete() {
+                    view.bookmarkDeleted();
+                }
+            });
+        }
     }
 }

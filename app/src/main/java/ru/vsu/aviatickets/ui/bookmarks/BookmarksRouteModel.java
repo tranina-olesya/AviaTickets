@@ -30,11 +30,11 @@ public class BookmarksRouteModel {
         void onLoad(List<BookmarkRoute> bookmarkRoutes);
     }
 
-    interface CompleteCallback {
+    public interface CompleteCallback {
         void onComplete();
     }
 
-    class BookmarksRouteOut extends AsyncTask<Void, Void, List<BookmarkRoute>> {
+    static class BookmarksRouteOut extends AsyncTask<Void, Void, List<BookmarkRoute>> {
 
         private final OutBookmarkCallback callback;
 
@@ -65,11 +65,11 @@ public class BookmarksRouteModel {
         }
     }
 
-    class BookmarksRouteDelete extends AsyncTask<BookmarkRoute, Void, Void> {
+    public static class BookmarksRouteDelete extends AsyncTask<BookmarkRoute, Void, Void> {
 
         private final CompleteCallback callback;
 
-        BookmarksRouteDelete(CompleteCallback callback) {
+        public BookmarksRouteDelete(CompleteCallback callback) {
             this.callback = callback;
         }
 
@@ -99,7 +99,7 @@ public class BookmarksRouteModel {
         }
     }
 
-    class BookmarksRouteGetById extends AsyncTask<Long, Void, BookmarkRoute> {
+    static class BookmarksRouteGetById extends AsyncTask<Long, Void, BookmarkRoute> {
         private final OutBookmarkCallback callback;
 
         BookmarksRouteGetById(OutBookmarkCallback callback) {
