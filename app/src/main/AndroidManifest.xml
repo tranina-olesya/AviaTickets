@@ -13,12 +13,14 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.fulltrip.FullTripActivity"
-            android:label="@string/title_activity_full_trip">
+            android:label="@string/title_activity_full_trip"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ru.vsu.aviatickets.ui.main.MainActivity" />
         </activity>
-        <activity android:name=".ui.main.MainActivity">
+        <activity android:name=".ui.main.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
