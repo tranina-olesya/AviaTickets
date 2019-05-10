@@ -4,7 +4,14 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp">
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="5dp"
+    android:background="@drawable/item_background"
+    android:paddingStart="20dp"
+    android:paddingTop="15dp"
+    android:paddingEnd="20dp"
+    android:paddingBottom="15dp">
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline40"
@@ -13,49 +20,39 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.4" />
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.05" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline95"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.95" />
-
     <TextView
         android:id="@+id/flightNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/carrier"
-        app:layout_constraintLeft_toLeftOf="@id/guideline5" />
+        android:layout_marginTop="3dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fullRoute" />
 
     <ImageView
         android:id="@+id/carrier"
-        android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        app:layout_constraintRight_toRightOf="@id/guideline95"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/fullRoute" />
 
     <TextView
         android:id="@+id/fullRoute"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
-        android:textSize="18sp"
-        app:layout_constraintLeft_toLeftOf="@id/guideline5"
-        app:layout_constraintTop_toBottomOf="@id/carrier" />
+        android:layout_marginEnd="10dp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="19sp"
+        app:layout_constraintLeft_toLeftOf="@id/flightNumber"
+        app:layout_constraintRight_toLeftOf="@id/carrier"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/route"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="@id/guideline5"
-        app:layout_constraintTop_toBottomOf="@+id/fullRoute" />
+        app:layout_constraintLeft_toLeftOf="@id/flightNumber"
+        app:layout_constraintTop_toBottomOf="@id/flightNumber" />
 
     <TextView
         android:id="@+id/durationComment"

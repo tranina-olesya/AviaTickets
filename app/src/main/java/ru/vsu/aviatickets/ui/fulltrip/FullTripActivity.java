@@ -1,6 +1,7 @@
 package ru.vsu.aviatickets.ui.fulltrip;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
@@ -19,7 +20,11 @@ public class FullTripActivity extends AppCompatActivity {
         setContentView(R.layout.activity_full_trip);
 
         recyclerView = (RecyclerView) findViewById(R.id.RecyclerView);
-        FullTripAdapter adapter = new FullTripAdapter(this, (Trip) getIntent().getSerializableExtra(TRIP_EXTRA));
+        Trip trip = (Trip) getIntent().getSerializableExtra(TRIP_EXTRA);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null)
+            actionBar.setTitle("");
+        FullTripAdapter adapter = new FullTripAdapter(this, trip);
         recyclerView.setAdapter(adapter);
     }
 

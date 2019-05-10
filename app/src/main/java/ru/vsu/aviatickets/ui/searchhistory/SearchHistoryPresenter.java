@@ -19,7 +19,12 @@ public class SearchHistoryPresenter {
 
     public void viewIsReady() {
         List<SearchData> searchDataList = model.getAll();
-        view.setupAdapter(searchDataList);
+        if (searchDataList == null || searchDataList.isEmpty())
+            view.showEmptyMessage();
+        else {
+            view.hideEmptyMessage();
+            view.setupAdapter(searchDataList);
+        }
     }
 
     public void removeItem(int index) {
@@ -28,12 +33,12 @@ public class SearchHistoryPresenter {
     }
 
     public void itemChosen(SearchData searchData) {
-
         view.switchToSearchForm(searchData);
     }
 
     public void clearHistory() {
         model.removeAll();
         view.notifyDataSetChanged(new ArrayList<>());
+        view.showEmptyMessage();
     }
 }

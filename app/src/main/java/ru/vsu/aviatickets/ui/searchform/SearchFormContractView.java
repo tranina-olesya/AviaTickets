@@ -21,6 +21,8 @@ public interface SearchFormContractView {
 
     void errorDateInbound(int resId);
 
+    void errorInfantsCount(int resId);
+
     void fillForm();
 
     boolean isSavingHistoryEnabled();

@@ -4,10 +4,12 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.TooltipCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -23,14 +25,30 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Book
     class BookmarksViewHolder extends RecyclerView.ViewHolder {
         private ConstraintLayout bookmark;
         private TextView route;
-        private TextView passengerCounts;
+        private TextView cabinClass;
+        private TextView adultsCount;
+        private ImageView adultImage;
+        private TextView childrenCount;
+        private ImageView childImage;
+        private TextView infantsCount;
+        private ImageView infantImage;
+        private ImageView flightTypeImage;
+        private ImageView transfersImage;
         private ImageButton deleteButton;
 
         public BookmarksViewHolder(@NonNull View itemView) {
             super(itemView);
             this.bookmark = itemView.findViewById(R.id.bookmarkRoute);
             this.route = itemView.findViewById(R.id.route);
-            this.passengerCounts = itemView.findViewById(R.id.passengers);
+            this.cabinClass = itemView.findViewById(R.id.cabinClass);
+            this.adultsCount = itemView.findViewById(R.id.adultsCount);
+            this.adultImage = itemView.findViewById(R.id.adultImage);
+            this.childrenCount = itemView.findViewById(R.id.childrenCount);
+            this.childImage = itemView.findViewById(R.id.childImage);
+            this.infantsCount = itemView.findViewById(R.id.infantsCount);
+            this.infantImage = itemView.findViewById(R.id.infantImage);
+            this.flightTypeImage = itemView.findViewById(R.id.flightTypeImage);
+            this.transfersImage = itemView.findViewById(R.id.transferImage);
             this.deleteButton = itemView.findViewById(R.id.deleteButton);
         }
     }
@@ -38,8 +56,10 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Book
     private LayoutInflater inflater;
     private List<BookmarkRoute> searchDataList;
     private BookmarksRoutePresenter presenter;
+    private Context context;
 
     public BookmarksAdapter(Context context,List<BookmarkRoute> bookmarkRoutes) {
+        this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.searchDataList = bookmarkRoutes;
     }
@@ -54,12 +74,30 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Book
 
     @Override
     public void onBindViewHolder(@NonNull BookmarksViewHolder bookmarksViewHolder, int index) {
-        BookmarkRoute searchData = searchDataList.get(index);
-        bookmarksViewHolder.route.setText(String.format("%s - %s", searchData.getOrigin(), searchData.getDestination()));
+        BookmarkRoute bookmarkRoute = searchDataList.get(index);
+        bookmarksViewHolder.route.setText(String.format("%s - %s", bookmarkRoute.getOrigin(), bookmarkRoute.getDestination()));
+        bookmarksViewHolder.cabinClass.setText(bookmarkRoute.getClassType().equals(CabinClass.BUSINESS.toString()) ?
+                context.getString(R.string.spinnerCabinClassBusiness) :
+                context.getString(R.string.spinnerCabinClassEconomy));
+        bookmarksViewHolder.adultsCount.setText(String.valueOf(bookmarkRoute.getAdultCount()));
+        bookmarksViewHolder.childrenCount.setText(String.valueOf(bookmarkRoute.getChildCount()));
+        bookmarksViewHolder.infantsCount.setText(String.valueOf(bookmarkRoute.getInfantCount()));
+        bookmarksViewHolder.transfersImage.setImageDrawable(bookmarkRoute.isTransfers() ?
+                context.getDrawable(R.drawable.has_transfers_gray) :
+                context.getDrawable(R.drawable.no_transfers_gray));
+        bookmarksViewHolder.flightTypeImage.setImageDrawable(bookmarkRoute.getFlightType().equals(FlightType.ROUND.toString()) ?
+                context.getDrawable(R.drawable.flight_type_round) :
+                context.getDrawable(R.drawable.flight_type_oneway));
 
-
-        bookmarksViewHolder.passengerCounts.setText(String.format("Взрослые: %d  Дети: %d  Младенцы: %d ", searchData.getAdultCount(), searchData.getChildCount(), searchData.getInfantCount()));
-
+        TooltipCompat.setTooltipText(bookmarksViewHolder.adultImage, context.getString(R.string.hintAdultsCount));
+        TooltipCompat.setTooltipText(bookmarksViewHolder.childImage, context.getString(R.string.hintChildrenCount));
+        TooltipCompat.setTooltipText(bookmarksViewHolder.infantImage, context.getString(R.string.hintInfantsCount));
+        TooltipCompat.setTooltipText(bookmarksViewHolder.transfersImage, bookmarkRoute.isTransfers() ?
+                context.getString(R.string.hasTransfers) :
+                context.getString(R.string.noTransfers));
+        TooltipCompat.setTooltipText(bookmarksViewHolder.flightTypeImage, bookmarkRoute.getFlightType().equals(FlightType.ROUND.toString()) ?
+                context.getString(R.string.spinnerFlightTypeRound) :
+                context.getString(R.string.spinnerFlightTypeOneway));
 
         bookmarksViewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override

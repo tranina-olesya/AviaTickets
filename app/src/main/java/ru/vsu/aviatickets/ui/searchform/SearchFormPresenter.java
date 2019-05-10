@@ -29,16 +29,19 @@ public class SearchFormPresenter {
         view.fillForm();
     }
 
-    public void calendarDateFrom() {
-        Calendar calendar = Calendar.getInstance();
+    public void calendarDateFrom(String date) {
+        Calendar parseDateFrom = parseDateFrom(date);
+        Calendar calendar = parseDateFrom != null ? parseDateFrom : Calendar.getInstance();
         view.showDateFromPickerDialog(calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH));
     }
 
-    public void calendarDateTo(String date) {
+    public void calendarDateTo(String date, boolean addDays) {
         Calendar parseDateFrom = parseDateFrom(date);
         Calendar calendar = parseDateFrom != null ? parseDateFrom : Calendar.getInstance();
+        if (addDays)
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
         view.showDateToPickerDialog(calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH));
@@ -62,9 +65,14 @@ public class SearchFormPresenter {
     }
 
     private boolean checkSearchData(SearchData searchData) {
-
         if (searchData.getAdultsCount() == null || searchData.getAdultsCount() < 1) {
-            view.errorAdultCount(R.string.errorOneAdultRequiared);
+            view.errorAdultCount(R.string.errorOneAdultRequired);
+            return false;
+        } else if (searchData.getAdultsCount() + searchData.getChildrenCount() + searchData.getInfantsCount() > 8){
+            view.errorAdultCount(R.string.errorOneTooManyPassengers);
+            return false;
+        } else if (searchData.getAdultsCount() < searchData.getInfantsCount()) {
+            view.errorInfantsCount(R.string.errorInfantsMoreThanAdults);
             return false;
         } else if (searchData.getOutboundDate() == null) {
             view.errorDateOutbound(R.string.errorDateOutbound);
@@ -103,7 +111,6 @@ public class SearchFormPresenter {
             Date date = sdf.parse(strDate);
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
-            cal.add(Calendar.DAY_OF_MONTH, 1);
             return cal;
         } catch (ParseException e) {
             e.printStackTrace();

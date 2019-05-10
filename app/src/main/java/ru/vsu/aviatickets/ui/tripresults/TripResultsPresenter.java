@@ -1,7 +1,5 @@
 package ru.vsu.aviatickets.ui.tripresults;
 
-import android.graphics.drawable.Drawable;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,10 +15,11 @@ public class TripResultsPresenter {
     private TripResultsContractView view;
     private final TripResultsModel model;
     private final BookmarkAdditionModel modelAddition;
+    private BookmarkRoute savedBookmark;
 
     private List<Trip> lastFoundTrips;
 
-    public TripResultsPresenter(TripResultsModel model, BookmarkAdditionModel modelAddition ) {
+    public TripResultsPresenter(TripResultsModel model, BookmarkAdditionModel modelAddition) {
         this.model = model;
         this.modelAddition = modelAddition;
         lastFoundTrips = new ArrayList<>();
@@ -35,17 +34,31 @@ public class TripResultsPresenter {
     }
 
     public void viewIsReady(SearchData searchData) {
+        checkIfBookmarkExists(searchData);
         if (searchData != null) {
             loadData(searchData);
         }
     }
 
+    private void checkIfBookmarkExists(SearchData searchData) {
+        modelAddition.findBookmark(searchData, new BookmarkAdditionModel.BookmarkCallback() {
+            @Override
+            public void onLoad(BookmarkRoute bookmarkRoute) {
+                savedBookmark = bookmarkRoute;
+                if (savedBookmark != null)
+                    view.bookmarkAdded();
+            }
+        });
+    }
+
     public void loadData(SearchData searchData) {
+        view.hideGroupTripResults();
         view.showProgress();
         model.loadTrips(searchData, new TripResultsModel.ResultsCallback() {
             @Override
             public void onGet(List<Trip> trips) {
                 view.hideProgress();
+                view.showGroupTripResults();
                 if (trips == null || trips.isEmpty())
                     view.ticketsNotFound();
                 else {
@@ -57,6 +70,7 @@ public class TripResultsPresenter {
             @Override
             public void onFail(List<APIError> errors) {
                 view.hideProgress();
+                view.showGroupTripResults();
                 if (errors.size() == model.getProvidersCount()) {
                     APIError apiError = checkForErrorType(errors);
                     if (apiError != null) {
@@ -87,14 +101,23 @@ public class TripResultsPresenter {
         });
     }
 
-    public void addBookmark() {
+    public void bookmarkButtonClicked() {
         BookmarkRoute bookmarkRoute = view.addBookmarkRouteData();
-
-        modelAddition.addBookmarkRoute(bookmarkRoute, new BookmarkAdditionModel.CompleteCallback() {
-            @Override
-            public void onComplete() {
-                // вывести сообщение
-            }
-        });
+        if (savedBookmark == null) {
+            modelAddition.addBookmarkRoute(bookmarkRoute, new BookmarkAdditionModel.CompleteCallback() {
+                @Override
+                public void onComplete() {
+                    savedBookmark = bookmarkRoute;
+                    view.bookmarkAdded();
+                }
+            });
+        } else {
+            modelAddition.deleteBookmarkRoute(savedBookmark, new BookmarksRouteModel.CompleteCallback() {
+                @Override
+                public void onComplete() {
+                    view.bookmarkDeleted();
+                }
+            });
+        }
     }
 }

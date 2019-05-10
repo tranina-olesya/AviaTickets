@@ -12,4 +12,8 @@ public interface SearchHistoryContractView {
     void notifyDataSetChanged(List<SearchData> searchDataList);
 
     void switchToSearchForm(SearchData searchData);
+
+    void showEmptyMessage();
+
+    void hideEmptyMessage();
 }

@@ -37,18 +37,29 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            ActionBar actionBar = getSupportActionBar();
+            if (actionBar != null)
+                actionBar.setSubtitle("");
             switch (item.getItemId()) {
                 case R.id.navigation_search:
-                    fragmentTransaction.replace(R.id.fragmentContainer, searchFormFragment);
+                    fragmentTransaction
+                            .replace(R.id.fragmentContainer, searchFormFragment)
+                            .show(searchFormFragment);
                     fragmentTransaction.commit();
+                    if (actionBar != null)
+                        actionBar.setTitle(R.string.title_search);
                     return true;
                 case R.id.navigation_bookmarks:
                     fragmentTransaction.replace(R.id.fragmentContainer, bookmarksRouteFragment);
                     fragmentTransaction.commit();
+                    if (actionBar != null)
+                        actionBar.setTitle(R.string.title_bookmarks);
                     return true;
                 case R.id.navigation_history:
                     fragmentTransaction.replace(R.id.fragmentContainer, searchHistoryFragment);
                     fragmentTransaction.commit();
+                    if (actionBar != null)
+                        actionBar.setTitle(R.string.title_history);
                     return true;
                 default:
                     fragmentTransaction.commit();
@@ -71,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         fragmentManager = getSupportFragmentManager();
         fragmentManager.addOnBackStackChangedListener(onBackStackChangedListener);
 
@@ -88,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                fragmentManager.popBackStack();
+                onBackPressed();
                 return true;
             case R.id.searchHistorySettings:
                 boolean checked = item.isChecked();
@@ -130,5 +140,19 @@ public class MainActivity extends AppCompatActivity {
         if (settingsSharedPreferences.contains(SEARCH_HISTORY_KEY))
             return settingsSharedPreferences.getBoolean(SEARCH_HISTORY_KEY, false);
         return null;
+    }
+
+    public void hideSearchForm() {
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.hide(searchFormFragment);
+        transaction.commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (fragmentManager.getBackStackEntryCount() > 0) {
+            navigation.setSelectedItemId(R.id.navigation_search);
+        } else
+            super.onBackPressed();
     }
 }

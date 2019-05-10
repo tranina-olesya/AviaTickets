@@ -2,12 +2,12 @@ package ru.vsu.aviatickets.ui.searchhistory;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -18,16 +18,14 @@ import ru.vsu.aviatickets.ui.utils.DateConvert;
 
 public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.SearchHistoryViewHolder> {
     class SearchHistoryViewHolder extends RecyclerView.ViewHolder {
-        private ConstraintLayout searchHistoryItem;
-        private TextView route;
-        private TextView dates;
+        private LinearLayout searchHistoryItem;
+        private TextView text;
         private ImageButton deleteButton;
 
         public SearchHistoryViewHolder(@NonNull View itemView) {
             super(itemView);
             this.searchHistoryItem = itemView.findViewById(R.id.searchHistoryItem);
-            this.route = itemView.findViewById(R.id.route);
-            this.dates = itemView.findViewById(R.id.dates);
+            this.text = itemView.findViewById(R.id.text);
             this.deleteButton = itemView.findViewById(R.id.deleteButton);
         }
     }
@@ -52,12 +50,15 @@ public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdap
     @Override
     public void onBindViewHolder(@NonNull SearchHistoryViewHolder searchHistoryViewHolder, int index) {
         SearchData searchData = searchDataList.get(index);
-        searchHistoryViewHolder.route.setText(String.format("%s - %s", searchData.getOrigin(), searchData.getDestination()));
 
+        String dates;
         if (searchData.getInboundDate() != null)
-            searchHistoryViewHolder.dates.setText(DateConvert.getDayMonthString(searchData.getOutboundDate(), searchData.getInboundDate()));
+            dates = DateConvert.getDayMonthString(searchData.getOutboundDate(), searchData.getInboundDate());
         else
-            searchHistoryViewHolder.dates.setText(DateConvert.getDayMonthString(searchData.getOutboundDate()));
+            dates = DateConvert.getDayMonthString(searchData.getOutboundDate());
+
+        searchHistoryViewHolder.text.setText(String.format("%s - %s (%s)", searchData.getOrigin(), searchData.getDestination(), dates));
+
         searchHistoryViewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

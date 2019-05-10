@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginHorizontal="20dp"
     android:orientation="vertical"
     tools:context=".ui.searchhistory.SearchHistoryFragment">
 
@@ -13,13 +12,30 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:paddingTop="10dp"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+    <TextView
+        android:id="@+id/noSearchHistory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="@string/noSearchHistory"
+        android:textSize="22sp"
+        android:textColor="@color/alabaster"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/clearButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/button_background"
         android:gravity="center"
-        android:text="@string/clearHistoryButton" />
+        android:text="@string/clearHistoryButton"
+        android:alpha=".75"
+        android:textColor="@color/alabaster"
+        android:textSize="18sp" />
 
 </LinearLayout>

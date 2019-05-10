@@ -1,33 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bookmarkRoute"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp"
-    android:id="@+id/bookmarkRoute">
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="5dp"
+    android:background="@drawable/item_background"
+    android:paddingStart="20dp"
+    android:paddingTop="15dp"
+    android:paddingEnd="20dp"
+    android:paddingBottom="15dp">
 
     <TextView
         android:id="@+id/route"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Лондон - Москва"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/passengers"
+        android:id="@+id/cabinClass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="Эконом"
+        app:layout_constraintLeft_toLeftOf="@id/route"
         app:layout_constraintTop_toBottomOf="@id/route" />
+
+    <ImageView
+        android:id="@+id/adultImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/human_handsdown"
+        android:tooltipText="@string/hintAdultsCount"
+        app:layout_constraintLeft_toLeftOf="@id/route"
+        app:layout_constraintTop_toBottomOf="@id/cabinClass" />
+
+    <TextView
+        android:id="@id/adultsCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="1"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/adultImage"
+        app:layout_constraintLeft_toRightOf="@id/adultImage" />
+
+    <ImageView
+        android:id="@+id/childImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/child"
+        android:tooltipText="@string/hintChildrenCount"
+        app:layout_constraintBottom_toBottomOf="@id/adultImage"
+        app:layout_constraintLeft_toRightOf="@id/adultsCount"
+        app:layout_constraintTop_toTopOf="@id/adultImage" />
+
+    <TextView
+        android:id="@+id/childrenCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="1"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/adultImage"
+        app:layout_constraintLeft_toRightOf="@id/childImage" />
+
+    <ImageView
+        android:id="@+id/infantImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/baby_buggy"
+        android:tooltipText="@string/hintInfantsCount"
+        app:layout_constraintBottom_toBottomOf="@id/adultImage"
+        app:layout_constraintLeft_toRightOf="@id/childrenCount"
+        app:layout_constraintTop_toTopOf="@id/childImage" />
+
+    <TextView
+        android:id="@+id/infantsCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="1"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/adultImage"
+        app:layout_constraintLeft_toRightOf="@id/infantImage" />
+
+    <ImageView
+        android:id="@+id/flightTypeImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="@id/adultImage"
+        app:layout_constraintLeft_toRightOf="@id/infantsCount"
+        app:layout_constraintTop_toTopOf="@id/childImage" />
+
+    <ImageView
+        android:id="@+id/transferImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="@id/adultImage"
+        app:layout_constraintLeft_toRightOf="@id/flightTypeImage"
+        app:layout_constraintTop_toTopOf="@id/childImage" />
 
     <ImageButton
         android:id="@+id/deleteButton"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
+        android:alpha=".75"
         android:background="@null"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/cabinClass"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/close" />
+        app:layout_constraintTop_toTopOf="@id/route"
+        app:srcCompat="@drawable/heart_primary" />
 
 </android.support.constraint.ConstraintLayout>

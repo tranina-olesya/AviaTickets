@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.TooltipCompat;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import java.text.ParseException;
@@ -47,6 +49,7 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
     private EditText editTextChildrenCount;
     private EditText editTextInfantsCount;
     private CheckBox checkboxTransfer;
+    private ImageButton changeCities;
 
     public SearchFormFragment() {
     }
@@ -78,9 +81,25 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
         checkboxTransfer = view.findViewById(R.id.transfer);
         spinnerFlightType = view.findViewById(R.id.routeType);
         spinnerCabinClass = view.findViewById(R.id.cabinClass);
+        changeCities = view.findViewById(R.id.changeCities);
+
+        TooltipCompat.setTooltipText(editTextAdultsCount, getString(R.string.hintAdultsCount));
+        TooltipCompat.setTooltipText(editTextChildrenCount, getString(R.string.hintChildrenCount));
+        TooltipCompat.setTooltipText(editTextInfantsCount, getString(R.string.hintInfantsCount));
 
         fillRouteTypeSpinner();
         fillCabinClassSpinner();
+
+        changeCities.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String origin = editTextOrigin.getText().toString();
+                String destination = editTextDestination.getText().toString();
+
+                editTextOrigin.setText(destination);
+                editTextDestination.setText(origin);
+            }
+        });
 
         buttonSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,7 +113,7 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == ACTION_UP) {
                     if (event.getRawX() >= (editTextDateFrom.getRight() - editTextDateFrom.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        presenter.calendarDateFrom();
+                        presenter.calendarDateFrom(editTextDateFrom.getText().toString());
                         return true;
                     }
                 }
@@ -107,7 +126,13 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == ACTION_UP) {
                     if (event.getRawX() >= (editTextDateTo.getRight() - editTextDateTo.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        presenter.calendarDateTo(editTextDateFrom.getText().toString());
+                        String dateTo = editTextDateTo.getText().toString();
+                        if (dateTo != null && !dateTo.isEmpty()) {
+                            presenter.calendarDateTo(dateTo, false);
+                        } else {
+                            String date = editTextDateFrom.getText().toString();
+                            presenter.calendarDateTo(date, true);
+                        }
                         return true;
                     }
                 }
@@ -124,6 +149,7 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
         String[] data = {getString(R.string.spinnerFlightTypeRound), getString(R.string.spinnerFlightTypeOneway)};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, data);
         spinnerFlightType.setAdapter(adapter);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerFlightType.setPrompt(getString(R.string.hintRouteType));
     }
 
@@ -131,6 +157,7 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
         String[] data = {getString(R.string.spinnerCabinClassEconomy), getString(R.string.spinnerCabinClassBusiness)};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, data);
         spinnerCabinClass.setAdapter(adapter);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCabinClass.setPrompt(getString(R.string.hintCabinClass));
     }
 
@@ -224,6 +251,7 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
     @Override
     public void showSearchResults(SearchData searchData) {
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        ((MainActivity)getActivity()).hideSearchForm();
         transaction.add(R.id.fragmentContainer, TripResultsFragment.getInstance(searchData));
         transaction.addToBackStack(null);
         transaction.commit();
@@ -233,6 +261,12 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
     public void errorAdultCount(int resId) {
         editTextAdultsCount.requestFocus();
         editTextAdultsCount.setError(getString(resId), null);
+    }
+
+    @Override
+    public void errorInfantsCount(int resId) {
+        editTextInfantsCount.requestFocus();
+        editTextInfantsCount.setError(getString(resId), null);
     }
 
     @Override
