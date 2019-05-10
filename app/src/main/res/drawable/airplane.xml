@@ -4,7 +4,7 @@
     android:width="20dp"
     android:height="20dp">
     <group
-        android:rotation="89.69407"
+        android:rotation="90"
         android:pivotX="11.5"
         android:pivotY="12">
         <path

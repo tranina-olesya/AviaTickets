@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import java.text.ParseException;
@@ -48,6 +49,7 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
     private EditText editTextChildrenCount;
     private EditText editTextInfantsCount;
     private CheckBox checkboxTransfer;
+    private ImageButton changeCities;
 
     public SearchFormFragment() {
     }
@@ -79,12 +81,25 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
         checkboxTransfer = view.findViewById(R.id.transfer);
         spinnerFlightType = view.findViewById(R.id.routeType);
         spinnerCabinClass = view.findViewById(R.id.cabinClass);
+        changeCities = view.findViewById(R.id.changeCities);
+
         TooltipCompat.setTooltipText(editTextAdultsCount, getString(R.string.hintAdultsCount));
         TooltipCompat.setTooltipText(editTextChildrenCount, getString(R.string.hintChildrenCount));
         TooltipCompat.setTooltipText(editTextInfantsCount, getString(R.string.hintInfantsCount));
 
         fillRouteTypeSpinner();
         fillCabinClassSpinner();
+
+        changeCities.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String origin = editTextOrigin.getText().toString();
+                String destination = editTextDestination.getText().toString();
+
+                editTextOrigin.setText(destination);
+                editTextDestination.setText(origin);
+            }
+        });
 
         buttonSearch.setOnClickListener(new View.OnClickListener() {
             @Override

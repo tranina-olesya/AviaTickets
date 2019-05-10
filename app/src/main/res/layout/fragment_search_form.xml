@@ -38,18 +38,25 @@
         app:layout_constraintGuide_percent="0.93" />
 
     <android.support.constraint.Guideline
+        android:id="@+id/zero_col_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.45" />
+
+    <android.support.constraint.Guideline
         android:id="@+id/first_col_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.57" />
+        app:layout_constraintGuide_percent="0.55" />
 
     <android.support.constraint.Guideline
         android:id="@+id/second_col_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.69" />
+        app:layout_constraintGuide_percent="0.68" />
 
     <android.support.constraint.Guideline
         android:id="@+id/third_col_guideline"
@@ -79,12 +86,23 @@
         android:hint="@string/hintCityFrom"
         android:inputType="text"
         android:maxLines="1"
+        android:nextFocusDown="@id/cityTo"
         android:paddingStart="10dp"
         android:text="Лондон"
-        android:nextFocusDown="@id/cityTo"
         app:layout_constraintLeft_toLeftOf="@id/firstColGuideline"
-        app:layout_constraintRight_toRightOf="@id/secondColGuideline"
+        app:layout_constraintRight_toRightOf="@id/zero_col_guideline"
         app:layout_constraintTop_toTopOf="@id/top_guideline" />
+
+    <ImageButton
+        android:id="@+id/changeCities"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:src="@drawable/change_cities"
+        app:layout_constraintBottom_toBottomOf="@id/cityTo"
+        app:layout_constraintLeft_toLeftOf="@id/zero_col_guideline"
+        app:layout_constraintRight_toRightOf="@id/first_col_guideline"
+        app:layout_constraintTop_toTopOf="@id/cityTo" />
 
     <EditText
         android:id="@+id/cityTo"
@@ -93,11 +111,11 @@
         android:layout_marginBottom="10dp"
         android:hint="@string/hintCityTo"
         android:inputType="text"
-        android:nextFocusDown="@id/adultsCount"
         android:maxLines="1"
+        android:nextFocusDown="@id/adultsCount"
         android:paddingStart="10dp"
         android:text="Москва"
-        app:layout_constraintLeft_toLeftOf="@id/secondColGuideline"
+        app:layout_constraintLeft_toLeftOf="@id/first_col_guideline"
         app:layout_constraintRight_toRightOf="@id/right_guideline"
         app:layout_constraintTop_toTopOf="@id/top_guideline" />
 
@@ -109,8 +127,8 @@
         android:drawableStart="@drawable/human_handsdown"
         android:inputType="number"
         android:maxLines="1"
-        android:text="1"
         android:nextFocusDown="@id/childrenCount"
+        android:text="1"
         android:textAlignment="textEnd"
         app:layout_constraintLeft_toLeftOf="@id/first_col_guideline"
         app:layout_constraintRight_toRightOf="@id/second_col_guideline"
@@ -121,9 +139,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/child"
-        android:nextFocusDown="@id/infantsCount"
         android:inputType="number"
         android:maxLines="1"
+        android:nextFocusDown="@id/infantsCount"
         android:text="0"
         android:textAlignment="textEnd"
         app:layout_constraintLeft_toLeftOf="@id/second_col_guideline"
@@ -135,9 +153,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/baby_buggy"
-        android:nextFocusDown="@id/dateFrom"
         android:inputType="number"
         android:maxLines="1"
+        android:nextFocusDown="@id/dateFrom"
         android:text="0"
         android:textAlignment="textEnd"
         app:layout_constraintLeft_toLeftOf="@id/third_col_guideline"
