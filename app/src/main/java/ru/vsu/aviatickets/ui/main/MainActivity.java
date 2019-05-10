@@ -42,7 +42,9 @@ public class MainActivity extends AppCompatActivity {
                 actionBar.setSubtitle("");
             switch (item.getItemId()) {
                 case R.id.navigation_search:
-                    fragmentTransaction.replace(R.id.fragmentContainer, searchFormFragment);
+                    fragmentTransaction
+                            .replace(R.id.fragmentContainer, searchFormFragment)
+                            .show(searchFormFragment);
                     fragmentTransaction.commit();
                     if (actionBar != null)
                         actionBar.setTitle(R.string.title_search);
@@ -148,12 +150,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        navigation.setSelectedItemId(R.id.navigation_search);
-        fragmentManager.popBackStack();
-        fragmentManager
-                .beginTransaction()
-                .show(searchFormFragment)
-                .commit();
+        if (fragmentManager.getBackStackEntryCount() > 0) {
+            navigation.setSelectedItemId(R.id.navigation_search);
+        } else
+            super.onBackPressed();
     }
 }
