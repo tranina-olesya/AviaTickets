@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.TooltipCompat;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -78,6 +79,9 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
         checkboxTransfer = view.findViewById(R.id.transfer);
         spinnerFlightType = view.findViewById(R.id.routeType);
         spinnerCabinClass = view.findViewById(R.id.cabinClass);
+        TooltipCompat.setTooltipText(editTextAdultsCount, getString(R.string.hintAdultsCount));
+        TooltipCompat.setTooltipText(editTextChildrenCount, getString(R.string.hintChildrenCount));
+        TooltipCompat.setTooltipText(editTextInfantsCount, getString(R.string.hintInfantsCount));
 
         fillRouteTypeSpinner();
         fillCabinClassSpinner();
