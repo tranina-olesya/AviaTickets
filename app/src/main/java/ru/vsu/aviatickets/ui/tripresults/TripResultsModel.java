@@ -14,6 +14,7 @@ import ru.vsu.aviatickets.ticketssearch.providers.APIError;
 import ru.vsu.aviatickets.ticketssearch.providers.TicketProviderApi;
 import ru.vsu.aviatickets.ticketssearch.sort.SortFilterType;
 import ru.vsu.aviatickets.ticketssearch.sort.SortTrips;
+import ru.vsu.aviatickets.ticketssearch.utils.TripUtils;
 
 public class TripResultsModel {
     public interface ResultsCallback {
@@ -76,10 +77,7 @@ public class TripResultsModel {
                     if (index >= 0) {
                         Trip resTrip = result.get(index);
                         resTrip.getPriceLinks().addAll(trip.getPriceLinks());
-                        Optional<PriceLink> minPrice = trip.getPriceLinks().stream().min(Comparator.comparing(PriceLink::getPrice));
-                        if (minPrice.isPresent()) {
-                            resTrip.setMinPrice(minPrice.get().getPrice());
-                        }
+                        resTrip.setMinPrice(TripUtils.getMinPriceLink(trip.getPriceLinks()).getPrice());
                     } else
                         result.add(trip);
                 }

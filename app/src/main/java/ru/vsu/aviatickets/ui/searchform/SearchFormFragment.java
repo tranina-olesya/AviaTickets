@@ -7,11 +7,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.TooltipCompat;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -19,6 +21,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -89,6 +92,32 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
 
         fillRouteTypeSpinner();
         fillCabinClassSpinner();
+
+        spinnerFlightType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (view != null) {
+                    ((TextView) view).setCompoundDrawablesWithIntrinsicBounds(null, null, AppCompatResources.getDrawable(getContext(), R.drawable.menu_down), null);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        spinnerCabinClass.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (view != null) {
+                    ((TextView) view).setCompoundDrawablesWithIntrinsicBounds(null, null, AppCompatResources.getDrawable(getContext(), R.drawable.menu_down), null);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
         changeCities.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -251,7 +280,7 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
     @Override
     public void showSearchResults(SearchData searchData) {
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        ((MainActivity)getActivity()).hideSearchForm();
+        ((MainActivity) getActivity()).hideSearchForm();
         transaction.add(R.id.fragmentContainer, TripResultsFragment.getInstance(searchData));
         transaction.addToBackStack(null);
         transaction.commit();

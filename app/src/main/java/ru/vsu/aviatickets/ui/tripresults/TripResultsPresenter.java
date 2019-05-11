@@ -1,6 +1,7 @@
 package ru.vsu.aviatickets.ui.tripresults;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -85,7 +86,7 @@ public class TripResultsPresenter {
     }
 
     private APIError checkForErrorType(List<APIError> errors) {
-        List<APIError> apiErrors = errors.stream().distinct().collect(Collectors.toList());
+        List<APIError> apiErrors = removeDuplicates(errors);
         if (apiErrors.size() == 1) {
             return apiErrors.get(0);
         } else
@@ -119,5 +120,10 @@ public class TripResultsPresenter {
                 }
             });
         }
+    }
+
+    private List<APIError> removeDuplicates(List<APIError> apiErrors) {
+        LinkedHashSet<APIError> hashSet = new LinkedHashSet<APIError>(apiErrors);
+        return new ArrayList<>(hashSet);
     }
 }

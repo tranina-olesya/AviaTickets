@@ -31,6 +31,7 @@ import ru.vsu.aviatickets.ticketssearch.models.skyscanner.Segment;
 import ru.vsu.aviatickets.ticketssearch.models.skyscanner.SkyScannerAgent;
 import ru.vsu.aviatickets.ticketssearch.models.skyscanner.SkyScannerCarrier;
 import ru.vsu.aviatickets.ticketssearch.models.skyscanner.SkyScannerResponse;
+import ru.vsu.aviatickets.ticketssearch.utils.TripUtils;
 
 public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> implements TicketProviderApi {
     public SkyScannerProviderAPI() {
@@ -168,10 +169,8 @@ public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> implements
             trip.setInbound(inbound);
             List<PriceLink> priceLinks = formPriceLinks(response.getSkyScannerAgents(), itinerary);
             trip.setPriceLinks(priceLinks);
-            Optional<PriceLink> minPrice = trip.getPriceLinks().stream().min(Comparator.comparing(PriceLink::getPrice));
-            if (minPrice.isPresent()){
-                trip.setMinPrice(minPrice.get().getPrice());
-            }
+            trip.setMinPrice(TripUtils.getMinPriceLink(trip.getPriceLinks()).getPrice());
+
             trips.add(trip);
         }
         return trips;

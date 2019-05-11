@@ -27,6 +27,7 @@ import ru.vsu.aviatickets.ticketssearch.models.kiwi.Datum;
 import ru.vsu.aviatickets.ticketssearch.models.kiwi.KiwiResponse;
 import ru.vsu.aviatickets.ticketssearch.models.kiwi.Route;
 import ru.vsu.aviatickets.ticketssearch.models.kiwi.SearchParams;
+import ru.vsu.aviatickets.ticketssearch.utils.TripUtils;
 
 public class KiwiProviderAPI extends ProviderAPI<KiwiAPI> implements TicketProviderApi {
     private IATAProviderAPI iataProviderAPI;
@@ -98,24 +99,27 @@ public class KiwiProviderAPI extends ProviderAPI<KiwiAPI> implements TicketProvi
             trip.setPriceLinks(priceLinks);
             trip.setOutbound(formFlight(response.getSearchParams(), data, 0));
             trip.setInbound(formFlight(response.getSearchParams(), data, 1));
-            Optional<PriceLink> minPrice = trip.getPriceLinks().stream().min(Comparator.comparing(PriceLink::getPrice));
-            if (minPrice.isPresent()){
-                trip.setMinPrice(minPrice.get().getPrice());
-            }
+            trip.setMinPrice(TripUtils.getMinPriceLink(trip.getPriceLinks()).getPrice());
+
             trips.add(trip);
         }
         return trips;
     }
 
     private List<Route> getRoutesByDirection(List<Route> routes, int direction) {
-        return routes.stream().filter(r -> r.getReturn() == direction).collect(Collectors.toList());
+        List<Route> results = new ArrayList<>();
+        for (Route route : routes) {
+            if (route.getReturn() == direction)
+                results.add(route);
+        }
+        return results;
     }
 
     private List<Ticket> formTicketsList(SearchParams searchParams, Datum data, int direction) {
         List<Ticket> tickets = new ArrayList<>();
         for (Route route : getRoutesByDirection(data.getRoute(), direction)) {
             Ticket ticket = new Ticket();
-            String operatingCarrier = !route.getOperatingCarrier().isEmpty() ? route.getOperatingCarrier():route.getAirline();
+            String operatingCarrier = !route.getOperatingCarrier().isEmpty() ? route.getOperatingCarrier() : route.getAirline();
             ticket.setCarrier(new Carrier(operatingCarrier, route.getAirline(), String.format("https://pics.avs.io/120/60/%s.png", route.getAirline())));
             ticket.setOrigin(new Place(route.getFlyFrom(), searchParams.getFlyFromType(), route.getCityFrom()));
             ticket.setDestination(new Place(route.getFlyTo(), searchParams.getToType(), route.getCityTo()));

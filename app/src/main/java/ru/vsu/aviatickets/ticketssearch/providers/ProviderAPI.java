@@ -14,6 +14,7 @@ import ru.vsu.aviatickets.BuildConfig;
 import ru.vsu.aviatickets.ticketssearch.models.CabinClass;
 import ru.vsu.aviatickets.ticketssearch.models.Flight;
 import ru.vsu.aviatickets.ticketssearch.models.FlightType;
+import ru.vsu.aviatickets.ticketssearch.models.PriceLink;
 import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 import ru.vsu.aviatickets.ticketssearch.models.Trip;
 

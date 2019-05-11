@@ -9,11 +9,4 @@
                 android:color="@color/black_alpha_22"/>
         </shape>
     </item>
-    <item
-        android:drawable="@drawable/menu_down"
-        android:gravity="right"
-        android:right="10dp"
-        android:top="5dp"
-        android:left="5dp"
-        android:bottom="5dp"/>
 </layer-list>
