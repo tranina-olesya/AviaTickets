@@ -129,19 +129,6 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
             }
         });
 
-        sortFilters.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (view != null) {
-                    ((TextView) view).setCompoundDrawablesWithIntrinsicBounds(null, null, AppCompatResources.getDrawable(getContext(), R.drawable.menu_down), null);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
         List<TicketProviderApi> providers = new ArrayList<>();
         providers.add(new KiwiProviderAPI());
         providers.add(new SkyScannerProviderAPI());

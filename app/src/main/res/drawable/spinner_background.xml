@@ -9,4 +9,13 @@
                 android:color="@color/black_alpha_22"/>
         </shape>
     </item>
+    <item
+        android:bottom="5dp"
+        android:left="5dp"
+        android:right="10dp"
+        android:top="5dp">
+        <bitmap
+            android:gravity="right"
+            android:src="@drawable/arrow_down" />
+    </item>
 </layer-list>
