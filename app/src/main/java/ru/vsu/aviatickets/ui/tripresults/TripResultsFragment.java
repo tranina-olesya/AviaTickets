@@ -290,4 +290,9 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
         progressBar.getLayoutParams().width = progressWidth;
         progressBar.setY(screenHeight * 0.45f);
     }
+
+    @Override
+    public SearchData getSearchData() {
+        return searchData;
+    }
 }

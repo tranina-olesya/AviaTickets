@@ -103,12 +103,12 @@ public class TripResultsPresenter {
     }
 
     public void bookmarkButtonClicked() {
-        BookmarkRoute bookmarkRoute = view.addBookmarkRouteData();
         if (savedBookmark == null) {
+            BookmarkRoute bookmarkRoute = view.addBookmarkRouteData();
             modelAddition.addBookmarkRoute(bookmarkRoute, new BookmarkAdditionModel.CompleteCallback() {
                 @Override
                 public void onComplete() {
-                    savedBookmark = bookmarkRoute;
+                    checkIfBookmarkExists(view.getSearchData());
                     view.bookmarkAdded();
                 }
             });
@@ -116,6 +116,7 @@ public class TripResultsPresenter {
             modelAddition.deleteBookmarkRoute(savedBookmark, new BookmarksRouteModel.CompleteCallback() {
                 @Override
                 public void onComplete() {
+                    savedBookmark = null;
                     view.bookmarkDeleted();
                 }
             });
