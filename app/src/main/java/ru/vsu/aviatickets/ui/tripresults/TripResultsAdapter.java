@@ -21,6 +21,7 @@ import ru.vsu.aviatickets.ticketssearch.models.PriceLink;
 import ru.vsu.aviatickets.ticketssearch.models.Trip;
 import ru.vsu.aviatickets.ui.fulltrip.FullTripActivity;
 import ru.vsu.aviatickets.ui.utils.DateConvert;
+import ru.vsu.aviatickets.ui.utils.StringUtils;
 
 import static ru.vsu.aviatickets.ui.fulltrip.FullTripActivity.TRIP_EXTRA;
 
@@ -88,8 +89,10 @@ public class TripResultsAdapter extends RecyclerView.Adapter<TripResultsAdapter.
                 context.getString(R.string.hasTransfers) :
                 context.getString(R.string.noTransfers));
 
-        PriceLink priceLink = trip.getPriceLinks().stream().min(Comparator.comparing(PriceLink::getPrice)).get();
-        viewHolder.minPrice.setText(priceLink.getPrice().toString());
+        viewHolder.minPrice.setText(String.format("%s %s %s",
+                context.getString(R.string.fromPrice),
+                StringUtils.formatPrice(trip.getMinPrice()),
+                context.getString(R.string.moneySymbol)));
 
         if (trip.getInbound() != null) {
             viewHolder.groupInbound.setVisibility(View.VISIBLE);
