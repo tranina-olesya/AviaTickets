@@ -282,4 +282,14 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
     public SearchData getSearchData() {
         return searchData;
     }
+
+    @Override
+    public void disableBookmarksButton() {
+        addButton.setEnabled(false);
+    }
+
+    @Override
+    public void enableBookmarksButton() {
+        addButton.setEnabled(true);
+    }
 }

@@ -30,4 +30,8 @@ public interface TripResultsContractView {
     void bookmarkDeleted();
 
     SearchData getSearchData();
+
+    void disableBookmarksButton();
+
+    void enableBookmarksButton();
 }

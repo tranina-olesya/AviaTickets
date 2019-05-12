@@ -103,6 +103,7 @@ public class TripResultsPresenter {
     }
 
     public void bookmarkButtonClicked() {
+        view.disableBookmarksButton();
         if (savedBookmark == null) {
             BookmarkRoute bookmarkRoute = view.addBookmarkRouteData();
             modelAddition.addBookmarkRoute(bookmarkRoute, new BookmarkAdditionModel.CompleteCallback() {
@@ -110,6 +111,7 @@ public class TripResultsPresenter {
                 public void onComplete() {
                     checkIfBookmarkExists(view.getSearchData());
                     view.bookmarkAdded();
+                    view.enableBookmarksButton();
                 }
             });
         } else {
@@ -118,6 +120,7 @@ public class TripResultsPresenter {
                 public void onComplete() {
                     savedBookmark = null;
                     view.bookmarkDeleted();
+                    view.enableBookmarksButton();
                 }
             });
         }
