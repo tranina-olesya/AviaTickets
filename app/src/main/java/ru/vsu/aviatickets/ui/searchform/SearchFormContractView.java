@@ -26,4 +26,6 @@ public interface SearchFormContractView {
     void fillForm();
 
     boolean isSavingHistoryEnabled();
+
+    void hideKeyboard();
 }

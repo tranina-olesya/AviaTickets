@@ -23,6 +23,7 @@ import ru.vsu.aviatickets.ticketssearch.models.PriceLink;
 import ru.vsu.aviatickets.ticketssearch.models.Ticket;
 import ru.vsu.aviatickets.ticketssearch.models.Trip;
 import ru.vsu.aviatickets.ui.utils.DateConvert;
+import ru.vsu.aviatickets.ui.utils.StringUtils;
 
 import static android.content.Intent.ACTION_VIEW;
 
@@ -167,7 +168,9 @@ public class FullTripAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .apply(RequestOptions.bitmapTransform(new RoundedCorners(15)))
                     .into(priceLinkViewHolder.agentImage);
-            priceLinkViewHolder.price.setText(String.valueOf(priceLink.getPrice()));
+            priceLinkViewHolder.price.setText(String.format("%s %s",
+                    StringUtils.formatPrice(priceLink.getPrice()),
+                    context.getString(R.string.moneySymbol)));
             priceLinkViewHolder.buttonPrice.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -1,5 +1,6 @@
 package ru.vsu.aviatickets.ui.searchform;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -251,7 +253,7 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
     @Override
     public void showSearchResults(SearchData searchData) {
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        ((MainActivity)getActivity()).hideSearchForm();
+        ((MainActivity) getActivity()).hideSearchForm();
         transaction.add(R.id.fragmentContainer, TripResultsFragment.getInstance(searchData));
         transaction.addToBackStack(null);
         transaction.commit();
@@ -318,5 +320,18 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
             return activity.getHistorySettings();
         }
         return false;
+    }
+
+    @Override
+    public void hideKeyboard() {
+        Activity activity = getActivity();
+        if (activity != null) {
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+            View view = activity.getCurrentFocus();
+            if (view == null) {
+                view = new View(activity);
+            }
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 }

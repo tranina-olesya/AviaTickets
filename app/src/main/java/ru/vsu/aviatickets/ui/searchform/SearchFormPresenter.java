@@ -56,6 +56,7 @@ public class SearchFormPresenter {
     }
 
     public void searchTickets() {
+        view.hideKeyboard();
         SearchData searchData = view.getSearchData();
         if (checkSearchData(searchData)) {
             if (view.isSavingHistoryEnabled())

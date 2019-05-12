@@ -3,6 +3,7 @@ package ru.vsu.aviatickets.ui.tripresults;
 import java.util.List;
 
 import ru.vsu.aviatickets.bookmarks.entity.BookmarkRoute;
+import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 import ru.vsu.aviatickets.ticketssearch.models.Trip;
 
 public interface TripResultsContractView {
@@ -27,4 +28,10 @@ public interface TripResultsContractView {
     void bookmarkAdded();
 
     void bookmarkDeleted();
+
+    SearchData getSearchData();
+
+    void disableBookmarksButton();
+
+    void enableBookmarksButton();
 }

@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.RecyclerView;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -275,5 +276,20 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
         progressBar.getLayoutParams().height = progressHeight;
         progressBar.getLayoutParams().width = progressWidth;
         progressBar.setY(screenHeight * 0.45f);
+    }
+
+    @Override
+    public SearchData getSearchData() {
+        return searchData;
+    }
+
+    @Override
+    public void disableBookmarksButton() {
+        addButton.setEnabled(false);
+    }
+
+    @Override
+    public void enableBookmarksButton() {
+        addButton.setEnabled(true);
     }
 }
