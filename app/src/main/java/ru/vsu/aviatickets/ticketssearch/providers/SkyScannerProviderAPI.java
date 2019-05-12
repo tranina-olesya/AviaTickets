@@ -81,7 +81,7 @@ public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> implements
                 getApi().createSession(convertDateToString(searchData.getOutboundDate()),
                         searchData.getFlightType() == FlightType.ROUND ? convertDateToString(searchData.getOutboundDate()) : null,
                         searchData.getCabinClass().toString(), searchData.getAdultsCount(), searchData.getChildrenCount(), searchData.getInfantsCount(),
-                        "RU", "RUB", "ru-RU", originCode, destinationCode).enqueue(new Callback<ResponseBody>() {
+                        "RU", "RUB", "ru-RU", originCode, destinationCode, true).enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (callback != null) {

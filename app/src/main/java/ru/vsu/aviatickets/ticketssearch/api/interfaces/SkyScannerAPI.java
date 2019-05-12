@@ -21,7 +21,7 @@ public interface SkyScannerAPI {
                                      @Field("cabinClass") String cabinClass,
                                      @Field("adults") int adults, @Field("children") int children, @Field("infants") int infants,
                                      @Field("country") String countryCode, @Field("currency") String currency, @Field("locale") String locale, @Field("originPlace") String originPlace,
-                                     @Field("destinationPlace") String destinationPlace);
+                                     @Field("destinationPlace") String destinationPlace, @Field("groupPricing") boolean groupPricing);
 
     @Headers({"X-RapidAPI-Key: 5218bbef51msh474a4c05a0b5196p1fd9c4jsn18c6c2615b8d"})
     @GET("/apiservices/autosuggest/v1.0/RU/RUB/ru-RU/")
