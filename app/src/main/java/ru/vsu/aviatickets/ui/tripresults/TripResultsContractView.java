@@ -7,7 +7,7 @@ import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 import ru.vsu.aviatickets.ticketssearch.models.Trip;
 
 public interface TripResultsContractView {
-    void showTrips(List<Trip> trips);
+    void showTrips();
 
     void showProgress();
 
@@ -34,4 +34,8 @@ public interface TripResultsContractView {
     void disableBookmarksButton();
 
     void enableBookmarksButton();
+
+    void setLoadedTrips(List<Trip> loadedTrips);
+
+    void loadMore();
 }

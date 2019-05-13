@@ -24,6 +24,7 @@ import android.widget.Spinner;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import ru.vsu.aviatickets.R;
 import ru.vsu.aviatickets.ticketssearch.models.CabinClass;
@@ -195,7 +196,7 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
         searchData.setFlightType(flightType);
 
         String pattern = "dd/MM/yyyy";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
         try {
             searchData.setOutboundDate(simpleDateFormat.parse(editTextDateFrom.getText().toString()));
         } catch (ParseException e) {
