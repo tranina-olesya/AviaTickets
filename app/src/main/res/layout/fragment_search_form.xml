@@ -121,6 +121,7 @@
 
     <EditText
         android:id="@+id/adultsCount"
+        android:maxLength="1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -136,6 +137,7 @@
 
     <EditText
         android:id="@+id/childrenCount"
+        android:maxLength="1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/child"
@@ -150,6 +152,7 @@
 
     <EditText
         android:id="@+id/infantsCount"
+        android:maxLength="1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/baby_buggy"
