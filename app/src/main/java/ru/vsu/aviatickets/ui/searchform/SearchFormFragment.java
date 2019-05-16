@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -21,6 +22,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -140,6 +142,19 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
                     }
                 }
                 return false;
+            }
+        });
+
+        spinnerFlightType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                TextView textView = (TextView) view;
+                presenter.flightTypeChanged(textView.getText().equals(getString(R.string.spinnerFlightTypeOneway)) ?
+                        FlightType.ONEWAY : FlightType.ROUND);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
             }
         });
         presenter = new SearchFormPresenter(new SearchFormModel());
@@ -334,5 +349,15 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
             }
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+
+    @Override
+    public void disableDateToInput() {
+        editTextDateTo.setEnabled(false);
+    }
+
+    @Override
+    public void enableDateToInput() {
+        editTextDateTo.setEnabled(true);
     }
 }

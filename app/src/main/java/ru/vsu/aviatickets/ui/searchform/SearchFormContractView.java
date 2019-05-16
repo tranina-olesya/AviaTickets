@@ -28,4 +28,8 @@ public interface SearchFormContractView {
     boolean isSavingHistoryEnabled();
 
     void hideKeyboard();
+
+    void disableDateToInput();
+
+    void enableDateToInput();
 }

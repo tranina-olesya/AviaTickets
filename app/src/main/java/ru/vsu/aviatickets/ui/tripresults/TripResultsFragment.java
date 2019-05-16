@@ -159,7 +159,7 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
             actionBar.setSubtitle(date);
         }
 
-        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);

@@ -119,4 +119,11 @@ public class SearchFormPresenter {
             return null;
         }
     }
+
+    public void flightTypeChanged(FlightType flightType) {
+        if (flightType == FlightType.ONEWAY)
+            view.disableDateToInput();
+        else
+            view.enableDateToInput();
+    }
 }
