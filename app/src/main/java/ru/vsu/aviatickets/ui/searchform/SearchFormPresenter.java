@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import ru.vsu.aviatickets.R;
 import ru.vsu.aviatickets.ticketssearch.models.FlightType;
@@ -108,7 +109,7 @@ public class SearchFormPresenter {
 
     private Calendar parseDateFrom(String strDate) {
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
             Date date = sdf.parse(strDate);
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
@@ -117,5 +118,12 @@ public class SearchFormPresenter {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public void flightTypeChanged(FlightType flightType) {
+        if (flightType == FlightType.ONEWAY)
+            view.disableDateToInput();
+        else
+            view.enableDateToInput();
     }
 }

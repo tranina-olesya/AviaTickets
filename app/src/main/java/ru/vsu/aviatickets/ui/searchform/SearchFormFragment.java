@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -21,9 +22,11 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import ru.vsu.aviatickets.R;
 import ru.vsu.aviatickets.ticketssearch.models.CabinClass;
@@ -141,6 +144,19 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
                 return false;
             }
         });
+
+        spinnerFlightType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                TextView textView = (TextView) view;
+                presenter.flightTypeChanged(textView.getText().equals(getString(R.string.spinnerFlightTypeOneway)) ?
+                        FlightType.ONEWAY : FlightType.ROUND);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
         presenter = new SearchFormPresenter(new SearchFormModel());
         presenter.attachView(this);
         presenter.viewIsReady();
@@ -194,22 +210,10 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
                 FlightType.ROUND : FlightType.ONEWAY;
         searchData.setFlightType(flightType);
 
-        String pattern = "dd/MM/yyyy";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        try {
-            searchData.setOutboundDate(simpleDateFormat.parse(editTextDateFrom.getText().toString()));
-        } catch (ParseException e) {
-            searchData.setOutboundDate(null);
-            e.printStackTrace();
-        }
+        searchData.setOutboundDate(DateConvert.getDateFromStringWithSlashes(editTextDateFrom.getText().toString()));
 
         if (flightType == FlightType.ROUND) {
-            try {
-                searchData.setInboundDate(simpleDateFormat.parse(editTextDateTo.getText().toString()));
-            } catch (ParseException e) {
-                searchData.setInboundDate(null);
-                e.printStackTrace();
-            }
+            searchData.setInboundDate(DateConvert.getDateFromStringWithSlashes(editTextDateTo.getText().toString()));
         }
         return searchData;
     }
@@ -333,5 +337,15 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
             }
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+
+    @Override
+    public void disableDateToInput() {
+        editTextDateTo.setEnabled(false);
+    }
+
+    @Override
+    public void enableDateToInput() {
+        editTextDateTo.setEnabled(true);
     }
 }

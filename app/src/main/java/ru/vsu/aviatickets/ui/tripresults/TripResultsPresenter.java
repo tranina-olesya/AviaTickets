@@ -64,7 +64,7 @@ public class TripResultsPresenter {
                     view.ticketsNotFound();
                 else {
                     lastFoundTrips = trips;
-                    view.showTrips(lastFoundTrips);
+                    updateViewTrips(trips);
                 }
             }
 
@@ -85,6 +85,12 @@ public class TripResultsPresenter {
         });
     }
 
+    private void updateViewTrips(List<Trip> trips) {
+        view.setLoadedTrips(trips);
+        view.showTrips();
+        view.loadMore();
+    }
+
     private APIError checkForErrorType(List<APIError> errors) {
         List<APIError> apiErrors = removeDuplicates(errors);
         if (apiErrors.size() == 1) {
@@ -97,7 +103,7 @@ public class TripResultsPresenter {
         model.sortTripsByFilter(lastFoundTrips, sortFilterType, new TripResultsModel.SortCallback() {
             @Override
             public void onComplete(List<Trip> trips) {
-                view.showTrips(trips);
+                updateViewTrips(trips);
             }
         });
     }

@@ -5,12 +5,14 @@ import android.graphics.Point;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.constraint.Group;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.content.res.AppCompatResources;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -41,6 +43,7 @@ import ru.vsu.aviatickets.ui.utils.DateConvert;
 public class TripResultsFragment extends Fragment implements TripResultsContractView {
 
     private RecyclerView recyclerView;
+    private TripResultsAdapter adapter;
     private SearchData searchData;
     private AnimationDrawable animationDrawable;
     private ImageView progressBar;
@@ -52,6 +55,9 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
 
     private Group groupTripResults;
     private Group groupProgress;
+
+    private List<Trip> loadedTrips;
+    private List<Trip> shownTrips;
 
     public TripResultsFragment() {
     }
@@ -129,6 +135,9 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
             }
         });
 
+        loadedTrips = new ArrayList<>();
+        shownTrips = new ArrayList<>();
+
         List<TicketProviderApi> providers = new ArrayList<>();
         providers.add(new KiwiProviderAPI());
         providers.add(new SkyScannerProviderAPI());
@@ -149,15 +158,32 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
                     DateConvert.getDayMonthString(searchData.getOutboundDate(), searchData.getInboundDate());
             actionBar.setSubtitle(date);
         }
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                if (linearLayoutManager != null && linearLayoutManager.findLastCompletelyVisibleItemPosition() == shownTrips.size() - 5) {
+                    loadMore();
+                }
+            }
+        });
         return view;
     }
 
     @Override
-    public void showTrips(List<Trip> trips) {
+    public void showTrips() {
         errorNoTicketsFound.setVisibility(View.GONE);
         FragmentActivity activity = getActivity();
         if (activity != null) {
-            TripResultsAdapter adapter = new TripResultsAdapter(getContext(), trips);
+            shownTrips = new ArrayList<>();
+            adapter = new TripResultsAdapter(getContext(), shownTrips);
             recyclerView.setAdapter(adapter);
         }
     }
@@ -291,5 +317,21 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
     @Override
     public void enableBookmarksButton() {
         addButton.setEnabled(true);
+    }
+
+    @Override
+    public void setLoadedTrips(List<Trip> loadedTrips) {
+        this.loadedTrips = loadedTrips;
+    }
+
+    @Override
+    public void loadMore() {
+        int shownTripsSize = shownTrips.size();
+        int loadedTripsSize = loadedTrips.size();
+        if (loadedTripsSize > 0) {
+            int addItemsCount = Math.min(loadedTripsSize - shownTripsSize, 10);
+            shownTrips.addAll(loadedTrips.subList(shownTripsSize, shownTripsSize + addItemsCount));
+            adapter.notifyItemRangeChanged(shownTripsSize, addItemsCount);
+        }
     }
 }
