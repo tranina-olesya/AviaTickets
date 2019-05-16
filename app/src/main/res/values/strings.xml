@@ -53,4 +53,6 @@
     <string name="noSearchHistory">Тут пусто.\n¯\\_(ツ)_/¯</string>
     <string name="fromPrice">от</string>
     <string name="moneySymbol">₽</string>
+    <string name="AdultCountFill">1</string>
+    <string name="ChildrenCountFill">0</string>
 </resources>

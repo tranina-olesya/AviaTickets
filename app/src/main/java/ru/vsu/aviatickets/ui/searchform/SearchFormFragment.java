@@ -210,22 +210,10 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
                 FlightType.ROUND : FlightType.ONEWAY;
         searchData.setFlightType(flightType);
 
-        String pattern = "dd/MM/yyyy";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
-        try {
-            searchData.setOutboundDate(simpleDateFormat.parse(editTextDateFrom.getText().toString()));
-        } catch (ParseException e) {
-            searchData.setOutboundDate(null);
-            e.printStackTrace();
-        }
+        searchData.setOutboundDate(DateConvert.getDateFromStringWithSlashes(editTextDateFrom.getText().toString()));
 
         if (flightType == FlightType.ROUND) {
-            try {
-                searchData.setInboundDate(simpleDateFormat.parse(editTextDateTo.getText().toString()));
-            } catch (ParseException e) {
-                searchData.setInboundDate(null);
-                e.printStackTrace();
-            }
+            searchData.setInboundDate(DateConvert.getDateFromStringWithSlashes(editTextDateTo.getText().toString()));
         }
         return searchData;
     }
