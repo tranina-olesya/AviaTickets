@@ -9,6 +9,8 @@ import java.util.Locale;
 import ru.vsu.aviatickets.R;
 import ru.vsu.aviatickets.ticketssearch.models.FlightType;
 import ru.vsu.aviatickets.ticketssearch.models.SearchData;
+import ru.vsu.aviatickets.ticketssearch.providers.APIError;
+import ru.vsu.aviatickets.ticketssearch.providers.TicketProviderApi;
 
 public class SearchFormPresenter {
     private SearchFormContractView view;
@@ -20,10 +22,6 @@ public class SearchFormPresenter {
 
     public void attachView(SearchFormContractView view) {
         this.view = view;
-    }
-
-    public void detachView() {
-        view = null;
     }
 
     public void viewIsReady() {
@@ -60,9 +58,31 @@ public class SearchFormPresenter {
         view.hideKeyboard();
         SearchData searchData = view.getSearchData();
         if (checkSearchData(searchData)) {
-            if (view.isSavingHistoryEnabled())
-                model.addSearchData(searchData);
-            view.showSearchResults(searchData);
+            view.showProgress();
+            model.searchTickets(searchData, new TicketProviderApi.CityCallback() {
+                @Override
+                public void onGet(String originCode, String destinationCode) {
+                    view.hideProgress();
+                    searchData.getOrigin().setCode(originCode);
+                    searchData.getDestination().setCode(destinationCode);
+                    if (view.isSavingHistoryEnabled())
+                        model.addSearchData(searchData);
+                    view.showSearchResults(searchData);
+                }
+
+                @Override
+                public void onFail(APIError error) {
+                    switch (error) {
+                        case NO_RESPONSE:
+                            view.noResponse();
+                            break;
+                        case CITY_NOT_FOUND:
+                            view.cityNotFound();
+                            break;
+                    }
+                    view.hideProgress();
+                }
+            });
         }
     }
 
@@ -70,7 +90,7 @@ public class SearchFormPresenter {
         if (searchData.getAdultsCount() == null || searchData.getAdultsCount() < 1) {
             view.errorAdultCount(R.string.errorOneAdultRequired);
             return false;
-        } else if (searchData.getAdultsCount() + searchData.getChildrenCount() + searchData.getInfantsCount() > 8){
+        } else if (searchData.getAdultsCount() + searchData.getChildrenCount() + searchData.getInfantsCount() > 8) {
             view.errorAdultCount(R.string.errorOneTooManyPassengers);
             return false;
         } else if (searchData.getAdultsCount() < searchData.getInfantsCount()) {

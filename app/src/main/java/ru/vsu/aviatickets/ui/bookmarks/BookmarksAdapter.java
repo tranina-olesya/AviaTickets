@@ -19,6 +19,7 @@ import ru.vsu.aviatickets.bookmarks.entity.BookmarkRoute;
 import ru.vsu.aviatickets.ticketssearch.models.CabinClass;
 import ru.vsu.aviatickets.ticketssearch.models.FlightType;
 import ru.vsu.aviatickets.ticketssearch.models.SearchData;
+import ru.vsu.aviatickets.ticketssearch.models.SearchPlace;
 
 public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.BookmarksViewHolder> {
 
@@ -111,7 +112,7 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Book
             @Override
             public void onClick(View v) {
                 BookmarkRoute bookmarkRoute = searchDataList.get(bookmarksViewHolder.getAdapterPosition());
-                SearchData searchData = new SearchData(bookmarkRoute.getOrigin(),bookmarkRoute.getDestination(),null,
+                SearchData searchData = new SearchData(new SearchPlace(bookmarkRoute.getOrigin()), new SearchPlace(bookmarkRoute.getDestination()),null,
                                             null,bookmarkRoute.getAdultCount(),bookmarkRoute.getChildCount(),bookmarkRoute.getInfantCount(),
                                             Enum.valueOf(FlightType.class,bookmarkRoute.getFlightType()),
                                             bookmarkRoute.isTransfers(),Enum.valueOf(CabinClass.class,bookmarkRoute.getClassType()));
@@ -128,9 +129,4 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Book
     public void setPresenter(BookmarksRoutePresenter presenter) {
         this.presenter = presenter;
     }
-
-    public void setSearchDataList(List<BookmarkRoute> searchDataList) {
-        this.searchDataList = searchDataList;
-    }
-
 }

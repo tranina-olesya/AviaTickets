@@ -3,7 +3,6 @@ package ru.vsu.aviatickets.ui.tripresults;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import ru.vsu.aviatickets.bookmarks.entity.BookmarkRoute;
 import ru.vsu.aviatickets.ticketssearch.models.SearchData;
@@ -28,10 +27,6 @@ public class TripResultsPresenter {
 
     public void attachView(TripResultsContractView view) {
         this.view = view;
-    }
-
-    public void detachView() {
-        view = null;
     }
 
     public void viewIsReady(SearchData searchData) {
@@ -75,9 +70,7 @@ public class TripResultsPresenter {
                 if (errors.size() == model.getProvidersCount()) {
                     APIError apiError = checkForErrorType(errors);
                     if (apiError != null) {
-                        if (apiError == APIError.CITY_NOT_FOUND)
-                            view.cityNotFound();
-                        else if (apiError == APIError.NO_RESPONSE)
+                        if (apiError == APIError.NO_RESPONSE)
                             view.noResponse();
                     }
                 }

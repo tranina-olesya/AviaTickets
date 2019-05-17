@@ -30,6 +30,9 @@ public class SearchHistoryPresenter {
     public void removeItem(int index) {
         model.removeItem(index);
         view.notifyRemoved(index);
+        if (model.getItemCount() == 0) {
+            view.showEmptyMessage();
+        }
     }
 
     public void itemChosen(SearchData searchData) {

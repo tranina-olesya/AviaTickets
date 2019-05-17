@@ -2,11 +2,8 @@ package ru.vsu.aviatickets.ticketssearch.providers;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,47 +27,34 @@ import ru.vsu.aviatickets.ticketssearch.models.kiwi.SearchParams;
 import ru.vsu.aviatickets.ticketssearch.utils.TripUtils;
 
 public class KiwiProviderAPI extends ProviderAPI<KiwiAPI> implements TicketProviderApi {
-    private IATAProviderAPI iataProviderAPI;
-
     public KiwiProviderAPI() {
         super("https://api.skypicker.com");
-        iataProviderAPI = new IATAProviderAPI();
     }
 
     @Override
     public void getTickets(SearchData searchData, TicketsCallback callback) {
-        iataProviderAPI.getCityCodes(searchData.getOrigin(), searchData.getDestination(), new CityCallback() {
+        if (searchData.getCabinClass() == CabinClass.BUSINESS) {
+            callback.onFail(APIError.TICKETS_NOT_FOUND);
+            return;
+        }
+        String outboundDate = convertDateToString(searchData.getOutboundDate());
+        String inboundDate = searchData.getFlightType() == FlightType.ROUND ?
+                convertDateToString(searchData.getInboundDate()) : null;
+        getApi().getTickets(searchData.getOrigin().getCode(), searchData.getDestination().getCode(), outboundDate, outboundDate, inboundDate, inboundDate,
+                searchData.getFlightType().toString().toLowerCase(), searchData.getAdultsCount(), searchData.getChildrenCount(),
+                searchData.getInfantsCount(), searchData.getTransfers() ? 0 : 1).enqueue(new Callback<KiwiResponse>() {
             @Override
-            public void onGet(String originCode, String destinationCode) {
-                if (searchData.getCabinClass() == CabinClass.BUSINESS) {
+            public void onResponse(Call<KiwiResponse> call, Response<KiwiResponse> response) {
+                if (response.body() != null) {
+                    callback.onGet(convertResponseToTrip(response.body()));
+                } else {
                     callback.onFail(APIError.TICKETS_NOT_FOUND);
-                    return;
                 }
-                String outboundDate = convertDateToString(searchData.getOutboundDate());
-                String inboundDate = searchData.getFlightType() == FlightType.ROUND ?
-                        convertDateToString(searchData.getInboundDate()) : null;
-                getApi().getTickets(originCode, destinationCode, outboundDate, outboundDate, inboundDate, inboundDate,
-                        searchData.getFlightType().toString().toLowerCase(), searchData.getAdultsCount(), searchData.getChildrenCount(),
-                        searchData.getInfantsCount(), searchData.getTransfers() ? 0 : 1).enqueue(new Callback<KiwiResponse>() {
-                    @Override
-                    public void onResponse(Call<KiwiResponse> call, Response<KiwiResponse> response) {
-                        if (response.body() != null) {
-                            callback.onGet(convertResponseToTrip(response.body()));
-                        } else {
-                            callback.onFail(APIError.TICKETS_NOT_FOUND);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<KiwiResponse> call, Throwable t) {
-                        callback.onFail(APIError.NO_RESPONSE);
-                    }
-                });
             }
 
             @Override
-            public void onFail(APIError error) {
-                callback.onFail(error);
+            public void onFailure(Call<KiwiResponse> call, Throwable t) {
+                callback.onFail(APIError.NO_RESPONSE);
             }
         });
     }

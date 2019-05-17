@@ -11,7 +11,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Display;
@@ -151,7 +150,7 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
         FragmentActivity activity = getActivity();
         if (activity != null) {
             ActionBar actionBar = ((AppCompatActivity) activity).getSupportActionBar();
-            String route = String.format("%s - %s", searchData.getOrigin(), searchData.getDestination());
+            String route = String.format("%s - %s", searchData.getOrigin().getName(), searchData.getDestination().getName());
             actionBar.setTitle(route);
             String date = searchData.getFlightType() == FlightType.ONEWAY ?
                     DateConvert.getDayMonthString(searchData.getOutboundDate()) :
@@ -190,7 +189,7 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
 
     @Override
     public BookmarkRoute addBookmarkRouteData() {
-        BookmarkRoute bookmarkRoute = new BookmarkRoute(searchData.getOrigin(), searchData.getDestination(), searchData.getAdultsCount(),
+        BookmarkRoute bookmarkRoute = new BookmarkRoute(searchData.getOrigin().getName(), searchData.getDestination().getName(), searchData.getAdultsCount(),
                 searchData.getChildrenCount(), searchData.getInfantsCount(), searchData.getFlightType().toString(),
                 searchData.getTransfers(), searchData.getCabinClass().toString());
 
@@ -207,16 +206,6 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
     public void hideProgress() {
         animationDrawable.stop();
         groupProgress.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void cityNotFound() {
-        Toast toast = Toast.makeText(getContext(), R.string.cityError, Toast.LENGTH_LONG);
-        toast.setMargin(0, 0.1f);
-        FragmentActivity activity = getActivity();
-        if (activity != null)
-            activity.onBackPressed();
-        toast.show();
     }
 
     @Override
@@ -326,12 +315,15 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
 
     @Override
     public void loadMore() {
-        int shownTripsSize = shownTrips.size();
-        int loadedTripsSize = loadedTrips.size();
-        if (loadedTripsSize > 0) {
-            int addItemsCount = Math.min(loadedTripsSize - shownTripsSize, 10);
-            shownTrips.addAll(loadedTrips.subList(shownTripsSize, shownTripsSize + addItemsCount));
-            adapter.notifyItemRangeChanged(shownTripsSize, addItemsCount);
+        FragmentActivity activity = getActivity();
+        if (activity != null && shownTrips != null && loadedTrips != null) {
+            int shownTripsSize = shownTrips.size();
+            int loadedTripsSize = loadedTrips.size();
+            if (loadedTripsSize > 0) {
+                int addItemsCount = Math.min(loadedTripsSize - shownTripsSize, 10);
+                shownTrips.addAll(loadedTrips.subList(shownTripsSize, shownTripsSize + addItemsCount));
+                adapter.notifyItemRangeChanged(shownTripsSize, addItemsCount);
+            }
         }
     }
 }
