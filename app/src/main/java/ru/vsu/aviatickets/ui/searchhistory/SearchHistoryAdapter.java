@@ -57,7 +57,7 @@ public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdap
         else
             dates = DateConvert.getDayMonthString(searchData.getOutboundDate());
 
-        searchHistoryViewHolder.text.setText(String.format("%s - %s (%s)", searchData.getOrigin(), searchData.getDestination(), dates));
+        searchHistoryViewHolder.text.setText(String.format("%s - %s (%s)", searchData.getOrigin().getName(), searchData.getDestination().getName(), dates));
 
         searchHistoryViewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override

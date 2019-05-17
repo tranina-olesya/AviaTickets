@@ -2,8 +2,6 @@ package ru.vsu.aviatickets.ui.tripresults;
 
 import android.os.AsyncTask;
 
-import java.util.List;
-
 import ru.vsu.aviatickets.App;
 import ru.vsu.aviatickets.bookmarks.entity.BookmarkRoute;
 import ru.vsu.aviatickets.bookmarks.logic.AviaTicketsDatabase;
@@ -18,7 +16,7 @@ public class BookmarkAdditionModel {
         insert.execute(value);
     }
 
-    static class  BookmarksRouteInsert extends AsyncTask<BookmarkRoute, Void, Void> {
+    static class BookmarksRouteInsert extends AsyncTask<BookmarkRoute, Void, Void> {
 
         private final CompleteCallback callback;
 
@@ -52,7 +50,7 @@ public class BookmarkAdditionModel {
         }
     }
 
-    public void findBookmark(SearchData searchData, BookmarkCallback callback){
+    public void findBookmark(SearchData searchData, BookmarkCallback callback) {
         BookmarksRouteFind bookmarksRouteFind = new BookmarksRouteFind(callback);
         bookmarksRouteFind.execute(searchData);
     }
@@ -75,7 +73,7 @@ public class BookmarkAdditionModel {
             AviaTicketsDatabase db = App.getInstance().getDatabase();
             BookmarkRouteDao bookmarkRouteDao = db.bookmarkRouteDao();
             SearchData searchData = params[0];
-            return bookmarkRouteDao.findByAllParams(searchData.getOrigin(), searchData.getDestination(),
+            return bookmarkRouteDao.findByAllParams(searchData.getOrigin().getName(), searchData.getDestination().getName(),
                     searchData.getAdultsCount(), searchData.getChildrenCount(), searchData.getInfantsCount(),
                     searchData.getFlightType().toString(), searchData.getTransfers(), searchData.getCabinClass().toString());
         }

@@ -14,247 +14,274 @@
         android:background="@drawable/item_background"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent">
 
-    <android.support.constraint.Guideline
-        android:id="@+id/bottomGuideLine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".75" />
+        <android.support.constraint.Guideline
+            android:id="@+id/bottomGuideLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".75" />
 
-    <android.support.constraint.Guideline
-        android:id="@+id/firstColGuideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.07" />
+        <android.support.constraint.Guideline
+            android:id="@+id/firstColGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.07" />
 
-    <android.support.constraint.Guideline
-        android:id="@+id/right_guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.93" />
+        <android.support.constraint.Guideline
+            android:id="@+id/right_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.93" />
 
-    <android.support.constraint.Guideline
-        android:id="@+id/zero_col_guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.45" />
+        <android.support.constraint.Guideline
+            android:id="@+id/zero_col_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.45" />
 
-    <android.support.constraint.Guideline
-        android:id="@+id/first_col_guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.55" />
+        <android.support.constraint.Guideline
+            android:id="@+id/first_col_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.55" />
 
-    <android.support.constraint.Guideline
-        android:id="@+id/second_col_guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.68" />
+        <android.support.constraint.Guideline
+            android:id="@+id/second_col_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.68" />
 
-    <android.support.constraint.Guideline
-        android:id="@+id/third_col_guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.81" />
+        <android.support.constraint.Guideline
+            android:id="@+id/third_col_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.81" />
 
-    <android.support.constraint.Guideline
-        android:id="@+id/top_guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".04" />
+        <android.support.constraint.Guideline
+            android:id="@+id/top_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".04" />
 
-    <android.support.constraint.Guideline
-        android:id="@+id/secondColGuideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
+        <android.support.constraint.Guideline
+            android:id="@+id/secondColGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
 
-    <EditText
-        android:id="@+id/cityFrom"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/hintCityFrom"
-        android:inputType="text"
-        android:maxLines="1"
-        android:nextFocusDown="@id/cityTo"
-        android:paddingStart="10dp"
-        android:text="Лондон"
-        app:layout_constraintLeft_toLeftOf="@id/firstColGuideline"
-        app:layout_constraintRight_toRightOf="@id/zero_col_guideline"
-        app:layout_constraintTop_toTopOf="@id/top_guideline" />
+        <EditText
+            android:id="@+id/cityFrom"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/hintCityFrom"
+            android:inputType="text"
+            android:maxLines="1"
+            android:nextFocusDown="@id/cityTo"
+            android:paddingStart="10dp"
+            android:text="Лондон"
+            app:layout_constraintLeft_toLeftOf="@id/firstColGuideline"
+            app:layout_constraintRight_toRightOf="@id/zero_col_guideline"
+            app:layout_constraintTop_toTopOf="@id/top_guideline" />
 
-    <ImageButton
-        android:id="@+id/changeCities"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:src="@drawable/change_cities"
-        app:layout_constraintBottom_toBottomOf="@id/cityTo"
-        app:layout_constraintLeft_toLeftOf="@id/zero_col_guideline"
-        app:layout_constraintRight_toRightOf="@id/first_col_guideline"
-        app:layout_constraintTop_toTopOf="@id/cityTo" />
+        <android.support.constraint.Group
+            android:id="@+id/groupProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="progressCityTo, progressCityFrom" />
 
-    <EditText
-        android:id="@+id/cityTo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:hint="@string/hintCityTo"
-        android:inputType="text"
-        android:maxLines="1"
-        android:nextFocusDown="@id/adultsCount"
-        android:paddingStart="10dp"
-        android:text="Москва"
-        app:layout_constraintLeft_toLeftOf="@id/first_col_guideline"
-        app:layout_constraintRight_toRightOf="@id/right_guideline"
-        app:layout_constraintTop_toTopOf="@id/top_guideline" />
+        <ProgressBar
+            android:id="@+id/progressCityTo"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="10dp"
+            app:layout_constraintBottom_toBottomOf="@id/cityTo"
+            app:layout_constraintRight_toRightOf="@id/cityTo"
+            app:layout_constraintTop_toTopOf="@id/cityTo" />
 
-    <EditText
-        android:id="@+id/adultsCount"
-        android:maxLength="1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:drawableStart="@drawable/human_handsdown"
-        android:inputType="number"
-        android:maxLines="1"
-        android:nextFocusDown="@id/childrenCount"
-        android:text="@string/AdultCountFill"
-        android:textAlignment="textEnd"
-        app:layout_constraintLeft_toLeftOf="@id/first_col_guideline"
-        app:layout_constraintRight_toRightOf="@id/second_col_guideline"
-        app:layout_constraintTop_toBottomOf="@id/cabinClass" />
+        <ProgressBar
+            android:id="@+id/progressCityFrom"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="10dp"
+            app:layout_constraintBottom_toBottomOf="@id/cityFrom"
+            app:layout_constraintRight_toRightOf="@id/cityFrom"
+            app:layout_constraintTop_toTopOf="@id/cityFrom" />
 
-    <EditText
-        android:id="@+id/childrenCount"
-        android:maxLength="1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/child"
-        android:inputType="number"
-        android:maxLines="1"
-        android:nextFocusDown="@id/infantsCount"
-        android:text="@string/ChildrenCountFill"
-        android:textAlignment="textEnd"
-        app:layout_constraintLeft_toLeftOf="@id/second_col_guideline"
-        app:layout_constraintRight_toRightOf="@id/third_col_guideline"
-        app:layout_constraintTop_toTopOf="@id/adultsCount" />
+        <ImageButton
+            android:id="@+id/changeCities"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:src="@drawable/change_cities"
+            app:layout_constraintBottom_toBottomOf="@id/cityTo"
+            app:layout_constraintLeft_toLeftOf="@id/zero_col_guideline"
+            app:layout_constraintRight_toRightOf="@id/first_col_guideline"
+            app:layout_constraintTop_toTopOf="@id/cityTo" />
 
-    <EditText
-        android:id="@+id/infantsCount"
-        android:maxLength="1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/baby_buggy"
-        android:inputType="number"
-        android:maxLines="1"
-        android:nextFocusDown="@id/dateFrom"
-        android:text="@string/ChildrenCountFill"
-        android:textAlignment="textEnd"
-        app:layout_constraintLeft_toLeftOf="@id/third_col_guideline"
-        app:layout_constraintRight_toRightOf="@id/right_guideline"
-        app:layout_constraintTop_toTopOf="@id/adultsCount" />
+        <EditText
+            android:id="@+id/cityTo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:hint="@string/hintCityTo"
+            android:inputType="text"
+            android:maxLines="1"
+            android:nextFocusDown="@id/adultsCount"
+            android:paddingStart="10dp"
+            android:text="Москва"
+            app:layout_constraintLeft_toLeftOf="@id/first_col_guideline"
+            app:layout_constraintRight_toRightOf="@id/right_guideline"
+            app:layout_constraintTop_toTopOf="@id/top_guideline" />
 
-    <CheckBox
-        android:id="@+id/transfer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:checked="true"
-        android:text="@string/hintTransfer"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@id/adultsCount"
-        app:layout_constraintLeft_toLeftOf="@id/firstColGuideline"
-        app:layout_constraintTop_toTopOf="@id/adultsCount" />
+        <EditText
+            android:id="@+id/adultsCount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:drawableStart="@drawable/human_handsdown"
+            android:inputType="number"
+            android:maxLength="1"
+            android:maxLines="1"
+            android:nextFocusDown="@id/childrenCount"
+            android:text="@string/AdultCountFill"
+            android:textAlignment="textEnd"
+            app:layout_constraintLeft_toLeftOf="@id/first_col_guideline"
+            app:layout_constraintRight_toRightOf="@id/second_col_guideline"
+            app:layout_constraintTop_toBottomOf="@id/cabinClass" />
 
-    <Spinner
-        android:id="@+id/routeType"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/spinner_background"
-        android:paddingStart="2dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:paddingEnd="0dp"
-        app:layout_constraintLeft_toLeftOf="@id/firstColGuideline"
-        app:layout_constraintRight_toRightOf="@id/secondColGuideline"
-        app:layout_constraintTop_toBottomOf="@id/cityTo" />
+        <EditText
+            android:id="@+id/childrenCount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/child"
+            android:inputType="number"
+            android:maxLength="1"
+            android:maxLines="1"
+            android:nextFocusDown="@id/infantsCount"
+            android:text="@string/ChildrenCountFill"
+            android:textAlignment="textEnd"
+            app:layout_constraintLeft_toLeftOf="@id/second_col_guideline"
+            app:layout_constraintRight_toRightOf="@id/third_col_guideline"
+            app:layout_constraintTop_toTopOf="@id/adultsCount" />
 
-    <Spinner
-        android:id="@+id/cabinClass"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/spinner_background"
-        android:paddingStart="2dp"
-        android:paddingEnd="0dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        app:layout_constraintBottom_toBottomOf="@id/routeType"
-        app:layout_constraintLeft_toLeftOf="@id/secondColGuideline"
-        app:layout_constraintRight_toRightOf="@id/right_guideline"
-        app:layout_constraintTop_toTopOf="@id/routeType" />
+        <EditText
+            android:id="@+id/infantsCount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/baby_buggy"
+            android:inputType="number"
+            android:maxLength="1"
+            android:maxLines="1"
+            android:nextFocusDown="@id/dateFrom"
+            android:text="@string/ChildrenCountFill"
+            android:textAlignment="textEnd"
+            app:layout_constraintLeft_toLeftOf="@id/third_col_guideline"
+            app:layout_constraintRight_toRightOf="@id/right_guideline"
+            app:layout_constraintTop_toTopOf="@id/adultsCount" />
 
-    <EditText
-        android:id="@+id/dateFrom"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:drawableEnd="@drawable/calendar_month_outline"
-        android:hint="@string/hintDateFormat"
-        android:inputType="date"
-        android:maxLines="1"
-        android:nextFocusDown="@id/dateTo"
-        android:paddingStart="10dp"
-        app:layout_constraintLeft_toLeftOf="@id/firstColGuideline"
-        app:layout_constraintRight_toRightOf="@id/secondColGuideline"
-        app:layout_constraintTop_toBottomOf="@id/adultsCount" />
+        <CheckBox
+            android:id="@+id/transfer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:checked="true"
+            android:text="@string/hintTransfer"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/adultsCount"
+            app:layout_constraintLeft_toLeftOf="@id/firstColGuideline"
+            app:layout_constraintTop_toTopOf="@id/adultsCount" />
 
-    <EditText
-        android:id="@+id/dateTo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:drawableEnd="@drawable/calendar_month_outline"
-        android:hint="@string/hintDateFormat"
-        android:inputType="date"
-        android:maxLines="1"
-        android:paddingStart="10dp"
-        app:layout_constraintLeft_toLeftOf="@id/secondColGuideline"
-        app:layout_constraintRight_toRightOf="@id/right_guideline"
-        app:layout_constraintTop_toTopOf="@id/dateFrom" />
+        <Spinner
+            android:id="@+id/routeType"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/spinner_background"
+            android:paddingStart="2dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="0dp"
+            android:paddingBottom="5dp"
+            app:layout_constraintLeft_toLeftOf="@id/firstColGuideline"
+            app:layout_constraintRight_toRightOf="@id/secondColGuideline"
+            app:layout_constraintTop_toBottomOf="@id/cityTo" />
 
-    <Button
-        android:id="@+id/buttonSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:alpha=".75"
-        android:background="@drawable/button_background"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
-        android:text="@string/buttonTrips"
-        android:textColor="@color/alabaster"
-        android:textSize="16sp"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dateTo" />
-</android.support.constraint.ConstraintLayout>
+        <Spinner
+            android:id="@+id/cabinClass"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/spinner_background"
+            android:paddingStart="2dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="0dp"
+            android:paddingBottom="5dp"
+            app:layout_constraintBottom_toBottomOf="@id/routeType"
+            app:layout_constraintLeft_toLeftOf="@id/secondColGuideline"
+            app:layout_constraintRight_toRightOf="@id/right_guideline"
+            app:layout_constraintTop_toTopOf="@id/routeType" />
+
+        <EditText
+            android:id="@+id/dateFrom"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:drawableEnd="@drawable/calendar_month_outline"
+            android:hint="@string/hintDateFormat"
+            android:inputType="date"
+            android:maxLines="1"
+            android:nextFocusDown="@id/dateTo"
+            android:paddingStart="10dp"
+            app:layout_constraintLeft_toLeftOf="@id/firstColGuideline"
+            app:layout_constraintRight_toRightOf="@id/secondColGuideline"
+            app:layout_constraintTop_toBottomOf="@id/adultsCount" />
+
+        <EditText
+            android:id="@+id/dateTo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/calendar_month_outline"
+            android:hint="@string/hintDateFormat"
+            android:inputType="date"
+            android:maxLines="1"
+            android:paddingStart="10dp"
+            app:layout_constraintLeft_toLeftOf="@id/secondColGuideline"
+            app:layout_constraintRight_toRightOf="@id/right_guideline"
+            app:layout_constraintTop_toTopOf="@id/dateFrom" />
+
+        <Button
+            android:id="@+id/buttonSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:alpha=".75"
+            android:background="@drawable/button_background"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:text="@string/buttonTrips"
+            android:textColor="@color/alabaster"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dateTo" />
     </android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.constraint.Group;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.TooltipCompat;
@@ -23,15 +24,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
+import android.widget.Toast;
 
 import ru.vsu.aviatickets.R;
 import ru.vsu.aviatickets.ticketssearch.models.CabinClass;
 import ru.vsu.aviatickets.ticketssearch.models.FlightType;
 import ru.vsu.aviatickets.ticketssearch.models.SearchData;
+import ru.vsu.aviatickets.ticketssearch.models.SearchPlace;
 import ru.vsu.aviatickets.ui.main.MainActivity;
 import ru.vsu.aviatickets.ui.tripresults.TripResultsFragment;
 import ru.vsu.aviatickets.ui.utils.DateConvert;
@@ -55,6 +54,7 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
     private EditText editTextInfantsCount;
     private CheckBox checkboxTransfer;
     private ImageButton changeCities;
+    private Group progressGroup;
 
     public SearchFormFragment() {
     }
@@ -87,6 +87,7 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
         spinnerFlightType = view.findViewById(R.id.routeType);
         spinnerCabinClass = view.findViewById(R.id.cabinClass);
         changeCities = view.findViewById(R.id.changeCities);
+        progressGroup = view.findViewById(R.id.groupProgress);
 
         TooltipCompat.setTooltipText(editTextAdultsCount, getString(R.string.hintAdultsCount));
         TooltipCompat.setTooltipText(editTextChildrenCount, getString(R.string.hintChildrenCount));
@@ -149,8 +150,9 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 TextView textView = (TextView) view;
-                presenter.flightTypeChanged(textView.getText().equals(getString(R.string.spinnerFlightTypeOneway)) ?
-                        FlightType.ONEWAY : FlightType.ROUND);
+                if (view != null)
+                    presenter.flightTypeChanged(textView.getText().equals(getString(R.string.spinnerFlightTypeOneway)) ?
+                            FlightType.ONEWAY : FlightType.ROUND);
             }
 
             @Override
@@ -188,8 +190,8 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
     @Override
     public SearchData getSearchData() {
         SearchData searchData = new SearchData();
-        searchData.setOrigin(editTextOrigin.getText().toString());
-        searchData.setDestination(editTextDestination.getText().toString());
+        searchData.setOrigin(new SearchPlace(editTextOrigin.getText().toString(), null));
+        searchData.setDestination(new SearchPlace(editTextDestination.getText().toString(), null));
         if (editTextAdultsCount.getText() != null && !editTextAdultsCount.getText().toString().isEmpty())
             searchData.setAdultsCount(Integer.parseInt(editTextAdultsCount.getText().toString()));
         if (editTextChildrenCount.getText() != null && !editTextChildrenCount.getText().toString().isEmpty())
@@ -301,8 +303,8 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
     public void fillForm() {
         if (searchData == null)
             return;
-        editTextOrigin.setText(searchData.getOrigin());
-        editTextDestination.setText(searchData.getDestination());
+        editTextOrigin.setText(searchData.getOrigin().getName());
+        editTextDestination.setText(searchData.getDestination().getName());
         editTextAdultsCount.setText(String.valueOf(searchData.getAdultsCount()));
         editTextChildrenCount.setText(String.valueOf(searchData.getChildrenCount()));
         editTextInfantsCount.setText(String.valueOf(searchData.getInfantsCount()));
@@ -341,11 +343,37 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
 
     @Override
     public void disableDateToInput() {
+        editTextDateTo.setError(null);
         editTextDateTo.setEnabled(false);
     }
 
     @Override
     public void enableDateToInput() {
         editTextDateTo.setEnabled(true);
+    }
+
+
+    @Override
+    public void cityNotFound() {
+        Toast toast = Toast.makeText(getContext(), R.string.cityError, Toast.LENGTH_LONG);
+        toast.setMargin(0, 0.1f);
+        toast.show();
+    }
+
+    @Override
+    public void showProgress() {
+        progressGroup.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        progressGroup.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void noResponse() {
+        Toast toast = Toast.makeText(getContext(), R.string.responseError, Toast.LENGTH_LONG);
+        toast.setMargin(0, 0.1f);
+        toast.show();
     }
 }

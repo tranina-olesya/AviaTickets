@@ -32,4 +32,12 @@ public interface SearchFormContractView {
     void disableDateToInput();
 
     void enableDateToInput();
+
+    void cityNotFound();
+
+    void showProgress();
+
+    void hideProgress();
+
+    void noResponse();
 }

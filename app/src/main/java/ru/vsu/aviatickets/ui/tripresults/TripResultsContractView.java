@@ -13,8 +13,6 @@ public interface TripResultsContractView {
 
     void hideProgress();
 
-    void cityNotFound();
-
     void ticketsNotFound();
 
     void noResponse();

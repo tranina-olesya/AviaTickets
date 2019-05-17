@@ -23,4 +23,8 @@ public class SearchHistoryModel {
     public List<SearchData> getAll() {
         return searchHistoryRepository.getAllSearchData();
     }
+
+    public int getItemCount() {
+        return searchHistoryRepository.getAllSearchData().size();
+    }
 }

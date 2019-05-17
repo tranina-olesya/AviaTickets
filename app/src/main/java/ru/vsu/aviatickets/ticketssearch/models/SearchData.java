@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class SearchData implements Serializable {
-    private String origin;
-    private String destination;
+    private SearchPlace origin;
+    private SearchPlace destination;
     private Date outboundDate;
     private Date inboundDate;
     private Integer adultsCount;
@@ -15,7 +15,7 @@ public class SearchData implements Serializable {
     private boolean transfers;
     private CabinClass cabinClass;
 
-    public SearchData(String origin, String destination, Date outboundDate, Date inboundDate, Integer adultsCount, Integer childrenCount, Integer infantsCount, FlightType flightType, boolean transfers, CabinClass cabinClass) {
+    public SearchData(SearchPlace origin, SearchPlace destination, Date outboundDate, Date inboundDate, Integer adultsCount, Integer childrenCount, Integer infantsCount, FlightType flightType, boolean transfers, CabinClass cabinClass) {
         this.origin = origin;
         this.destination = destination;
         this.outboundDate = outboundDate;
@@ -31,19 +31,19 @@ public class SearchData implements Serializable {
     public SearchData() {
     }
 
-    public String getOrigin() {
+    public SearchPlace getOrigin() {
         return origin;
     }
 
-    public void setOrigin(String origin) {
+    public void setOrigin(SearchPlace origin) {
         this.origin = origin;
     }
 
-    public String getDestination() {
+    public SearchPlace getDestination() {
         return destination;
     }
 
-    public void setDestination(String destination) {
+    public void setDestination(SearchPlace destination) {
         this.destination = destination;
     }
 

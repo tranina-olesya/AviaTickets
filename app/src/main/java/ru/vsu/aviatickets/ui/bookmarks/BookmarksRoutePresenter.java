@@ -20,11 +20,6 @@ public class BookmarksRoutePresenter {
         view = activity;
     }
 
-    public void detachView() {
-        view = null;
-    }
-
-
     public void viewIsReady() {
         loadBookmarks();
     }

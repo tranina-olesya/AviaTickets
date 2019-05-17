@@ -2,10 +2,8 @@ package ru.vsu.aviatickets.ticketssearch.providers;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -23,13 +21,13 @@ import ru.vsu.aviatickets.ticketssearch.models.Ticket;
 import ru.vsu.aviatickets.ticketssearch.models.Trip;
 import ru.vsu.aviatickets.ticketssearch.models.skyscanner.Itinerary;
 import ru.vsu.aviatickets.ticketssearch.models.skyscanner.Leg;
-import ru.vsu.aviatickets.ticketssearch.models.skyscanner.SkyScannerCities;
-import ru.vsu.aviatickets.ticketssearch.models.skyscanner.SkyScannerCity;
-import ru.vsu.aviatickets.ticketssearch.models.skyscanner.SkyScannerPlace;
 import ru.vsu.aviatickets.ticketssearch.models.skyscanner.PricingOption;
 import ru.vsu.aviatickets.ticketssearch.models.skyscanner.Segment;
 import ru.vsu.aviatickets.ticketssearch.models.skyscanner.SkyScannerAgent;
 import ru.vsu.aviatickets.ticketssearch.models.skyscanner.SkyScannerCarrier;
+import ru.vsu.aviatickets.ticketssearch.models.skyscanner.SkyScannerCities;
+import ru.vsu.aviatickets.ticketssearch.models.skyscanner.SkyScannerCity;
+import ru.vsu.aviatickets.ticketssearch.models.skyscanner.SkyScannerPlace;
 import ru.vsu.aviatickets.ticketssearch.models.skyscanner.SkyScannerResponse;
 import ru.vsu.aviatickets.ticketssearch.utils.TripUtils;
 
@@ -75,7 +73,7 @@ public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> implements
     }
 
     private void getSessionKey(SearchData searchData, final SessionKeyCallback callback) {
-        getCities(searchData.getOrigin(), searchData.getDestination(), new CityCallback() {
+        getCities(searchData.getOrigin().getName(), searchData.getDestination().getName(), new CityCallback() {
             @Override
             public void onGet(String originCode, String destinationCode) {
                 getApi().createSession(convertDateToString(searchData.getOutboundDate()),
@@ -114,7 +112,7 @@ public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> implements
         return simpleDateFormat.format(date);
     }
 
-    private void getCities(String originQuery, String destinationQuery, CityCallback callback) {
+    public void getCities(String originQuery, String destinationQuery, CityCallback callback) {
         List<String> results = new ArrayList<>();
 
         getApi().listPlaces(originQuery).enqueue(new Callback<SkyScannerCities>() {

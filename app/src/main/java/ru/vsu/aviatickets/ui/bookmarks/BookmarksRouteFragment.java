@@ -50,6 +50,4 @@ public class BookmarksRouteFragment extends Fragment implements BookmarksContrac
         if (activity != null)
             activity.setSearchFormFragmentWithSearchData(searchData);
     }
-
-
 }
