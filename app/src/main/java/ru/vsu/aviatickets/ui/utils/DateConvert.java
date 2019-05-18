@@ -9,15 +9,17 @@ public class DateConvert {
 
     public static String getTimeString(Date first, Date second) {
         String pattern = "HH:mm";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
         return String.format("%s - %s", simpleDateFormat.format(first), simpleDateFormat.format(second));
     }
 
     public static String getDurationString(Integer duration) {
+        if (duration == null || duration < 0)
+            return null;
         int hours = duration / 60;
         int minutes = duration % 60;
-        String hoursStr = (hours < 10 ? "0" : "") + String.valueOf(hours);
-        String minutesStr = (minutes < 10 ? "0" : "") + String.valueOf(minutes);
+        String hoursStr = (hours < 10 ? "0" : "") + hours;
+        String minutesStr = (minutes < 10 ? "0" : "") + minutes;
         return String.format("%s:%s", hoursStr, minutesStr);
     }
 

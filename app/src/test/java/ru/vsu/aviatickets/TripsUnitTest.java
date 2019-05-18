@@ -10,10 +10,12 @@ import java.util.List;
 import ru.vsu.aviatickets.ticketssearch.models.Carrier;
 import ru.vsu.aviatickets.ticketssearch.models.Flight;
 import ru.vsu.aviatickets.ticketssearch.models.Place;
+import ru.vsu.aviatickets.ticketssearch.models.PriceLink;
 import ru.vsu.aviatickets.ticketssearch.models.Ticket;
 import ru.vsu.aviatickets.ticketssearch.models.Trip;
 import ru.vsu.aviatickets.ticketssearch.sort.SortFilterType;
 import ru.vsu.aviatickets.ticketssearch.sort.SortTrips;
+import ru.vsu.aviatickets.ticketssearch.utils.TripUtils;
 import ru.vsu.aviatickets.ui.utils.DateConvert;
 
 import static org.junit.Assert.assertEquals;
@@ -111,5 +113,16 @@ public class TripsUnitTest {
         result.add(trips.get(1));
         SortTrips.sortTrips(trips, SortFilterType.MAX_TIME);
         assertEquals(trips, result);
+    }
+
+    @Test
+    public void price_shouldFindMinPriceLink() {
+        List<PriceLink> priceLinks = new ArrayList<>();
+        priceLinks.add(new PriceLink(null, 900.0, null));
+        priceLinks.add(new PriceLink(null, 1200.0, null));
+        priceLinks.add(new PriceLink(null, 712.2, null));
+        priceLinks.add(new PriceLink(null, 871.0, null));
+        PriceLink minPriceLink = TripUtils.getMinPriceLink(priceLinks);
+        assertEquals(minPriceLink, priceLinks.get(2));
     }
 }
