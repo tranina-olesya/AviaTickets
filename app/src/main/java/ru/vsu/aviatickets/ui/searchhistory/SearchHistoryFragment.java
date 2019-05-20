@@ -78,11 +78,13 @@ public class SearchHistoryFragment extends Fragment implements SearchHistoryCont
     public void showEmptyMessage() {
         noSearchHistoryTextView.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.GONE);
+        clearButton.setVisibility(View.GONE);
     }
 
     @Override
     public void hideEmptyMessage() {
         noSearchHistoryTextView.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
+        clearButton.setVisibility(View.VISIBLE);
     }
 }

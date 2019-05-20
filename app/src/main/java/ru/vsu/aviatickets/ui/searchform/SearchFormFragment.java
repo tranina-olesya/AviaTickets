@@ -38,9 +38,8 @@ import ru.vsu.aviatickets.ui.utils.DateConvert;
 import static android.view.MotionEvent.ACTION_UP;
 
 public class SearchFormFragment extends Fragment implements SearchFormContractView {
-    private SearchData searchData;
     private final int DRAWABLE_RIGHT = 2;
-
+    private SearchData searchData;
     private SearchFormPresenter presenter;
 
     private Spinner spinnerFlightType;
@@ -185,6 +184,7 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        hideProgress();
     }
 
     @Override
@@ -218,6 +218,10 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
             searchData.setInboundDate(DateConvert.getDateFromStringWithSlashes(editTextDateTo.getText().toString()));
         }
         return searchData;
+    }
+
+    public void setSearchData(SearchData searchData) {
+        this.searchData = searchData;
     }
 
     @Override
@@ -315,10 +319,6 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
         checkboxTransfer.setChecked(searchData.getTransfers());
     }
 
-    public void setSearchData(SearchData searchData) {
-        this.searchData = searchData;
-    }
-
     @Override
     public boolean isSavingHistoryEnabled() {
         MainActivity activity = (MainActivity) getActivity();
@@ -367,7 +367,8 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
 
     @Override
     public void hideProgress() {
-        progressGroup.setVisibility(View.GONE);
+        if (progressGroup != null)
+            progressGroup.setVisibility(View.GONE);
     }
 
     @Override
