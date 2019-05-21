@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class BookmarksRouteFragment extends Fragment implements BookmarksContrac
     private RecyclerView recyclerView;
     private BookmarksRoutePresenter presenter;
     private BookmarksAdapter adapter;
+    private TextView noBookmarksTextView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,7 @@ public class BookmarksRouteFragment extends Fragment implements BookmarksContrac
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bookmarks_route, container, false);
         recyclerView = view.findViewById(R.id.recyclerView);
+        noBookmarksTextView = view.findViewById(R.id.noBookmarks);
         BookmarksRouteModel model = new BookmarksRouteModel();
         presenter = new BookmarksRoutePresenter(model);
         presenter.attachView(this);
@@ -49,5 +52,22 @@ public class BookmarksRouteFragment extends Fragment implements BookmarksContrac
         MainActivity activity = (MainActivity) getActivity();
         if (activity != null)
             activity.setSearchFormFragmentWithSearchData(searchData);
+    }
+
+    @Override
+    public void itemRemoved(int index) {
+        adapter.notifyItemRemoved(index);
+    }
+
+    @Override
+    public void showEmptyMessage() {
+        noBookmarksTextView.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void hideEmptyMessage() {
+        noBookmarksTextView.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
     }
 }

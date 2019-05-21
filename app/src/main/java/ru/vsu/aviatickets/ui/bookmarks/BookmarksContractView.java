@@ -7,5 +7,12 @@ import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 
 public interface BookmarksContractView {
     void setAdapter(List<BookmarkRoute> bookmarkRoutes);
+
     void switchToSearchForm(SearchData searchData);
+
+    void itemRemoved(int index);
+
+    void showEmptyMessage();
+
+    void hideEmptyMessage();
 }

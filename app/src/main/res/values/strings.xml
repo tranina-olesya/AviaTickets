@@ -51,6 +51,7 @@
     <string name="searchHistorySettings">Сохранять историю поиска</string>
     <string name="hintDateFormat">ДД/ММ/ГГГГ</string>
     <string name="noSearchHistory">Тут пусто.\n¯\\_(ツ)_/¯</string>
+    <string name="noBookmarks">Тут пусто.\n¯\\_(ツ)_/¯</string>
     <string name="fromPrice">от</string>
     <string name="moneySymbol">₽</string>
     <string name="AdultCountFill">1</string>

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.widget.TextViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -171,6 +172,7 @@ public class FullTripAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             priceLinkViewHolder.price.setText(String.format("%s %s",
                     StringUtils.formatPrice(priceLink.getPrice()),
                     context.getString(R.string.moneySymbol)));
+            TextViewCompat.setAutoSizeTextTypeWithDefaults(priceLinkViewHolder.price, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
             priceLinkViewHolder.buttonPrice.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -8,6 +8,8 @@ import android.support.v7.widget.TooltipCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -103,7 +105,6 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Book
         bookmarksViewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                searchDataList.remove(bookmarksViewHolder.getAdapterPosition());
                 presenter.delete(bookmarksViewHolder.getAdapterPosition());
             }
         });
