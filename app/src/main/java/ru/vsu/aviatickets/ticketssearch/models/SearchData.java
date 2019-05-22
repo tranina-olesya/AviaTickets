@@ -2,6 +2,7 @@ package ru.vsu.aviatickets.ticketssearch.models;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 public class SearchData implements Serializable {
     private SearchPlace origin;
@@ -109,5 +110,27 @@ public class SearchData implements Serializable {
 
     public void setCabinClass(CabinClass cabinClass) {
         this.cabinClass = cabinClass;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SearchData that = (SearchData) o;
+        return transfers == that.transfers &&
+                Objects.equals(origin, that.origin) &&
+                Objects.equals(destination, that.destination) &&
+                Objects.equals(outboundDate, that.outboundDate) &&
+                Objects.equals(inboundDate, that.inboundDate) &&
+                Objects.equals(adultsCount, that.adultsCount) &&
+                Objects.equals(childrenCount, that.childrenCount) &&
+                Objects.equals(infantsCount, that.infantsCount) &&
+                flightType == that.flightType &&
+                cabinClass == that.cabinClass;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(origin, destination, outboundDate, inboundDate, adultsCount, childrenCount, infantsCount, flightType, transfers, cabinClass);
     }
 }

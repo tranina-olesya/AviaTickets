@@ -14,6 +14,7 @@ import java.util.List;
 import ru.vsu.aviatickets.bookmarks.entity.BookmarkRoute;
 import ru.vsu.aviatickets.bookmarks.logic.AviaTicketsDatabase;
 import ru.vsu.aviatickets.bookmarks.logic.BookmarkRouteDao;
+import ru.vsu.aviatickets.helpers.BookmarkRouteTestHelper;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
