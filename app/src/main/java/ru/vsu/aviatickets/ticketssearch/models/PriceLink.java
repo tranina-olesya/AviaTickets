@@ -2,6 +2,7 @@ package ru.vsu.aviatickets.ticketssearch.models;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 public class PriceLink implements Serializable {
     private List<Agent> agents;
@@ -39,5 +40,20 @@ public class PriceLink implements Serializable {
 
     public void setDeepLink(String deepLink) {
         this.deepLink = deepLink;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PriceLink priceLink = (PriceLink) o;
+        return Objects.equals(agents, priceLink.agents) &&
+                Objects.equals(price, priceLink.price) &&
+                Objects.equals(deepLink, priceLink.deepLink);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(agents, price, deepLink);
     }
 }

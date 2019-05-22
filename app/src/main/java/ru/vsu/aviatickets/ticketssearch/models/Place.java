@@ -56,7 +56,6 @@ public class Place implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
         Place place = (Place) o;
         return Objects.equals(code, place.code) &&
                 Objects.equals(type, place.type);

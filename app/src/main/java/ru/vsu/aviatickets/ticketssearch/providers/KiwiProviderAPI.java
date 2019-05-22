@@ -70,7 +70,7 @@ public class KiwiProviderAPI extends ProviderAPI<KiwiAPI> implements TicketProvi
         return simpleDateFormat.format(date);
     }
 
-    private List<Trip> convertResponseToTrip(KiwiResponse response) {
+    public List<Trip> convertResponseToTrip(KiwiResponse response) {
         List<Trip> trips = new ArrayList<>();
         for (Datum data : response.getData()) {
             Trip trip = new Trip();

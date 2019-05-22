@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Agent implements Serializable {
     @SerializedName("Name")
@@ -36,5 +37,19 @@ public class Agent implements Serializable {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Agent agent = (Agent) o;
+        return Objects.equals(name, agent.name) &&
+                Objects.equals(imageUrl, agent.imageUrl);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, imageUrl);
     }
 }
