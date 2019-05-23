@@ -15,10 +15,17 @@ import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 
 public class SearchHistoryRepository {
     private static SearchHistoryRepository instance;
-    private static final String PREFS_NAME = "SEARCH_HISTORY_SHARED_PREF";
+    private static final String PREFS_NAME_DEFAULT = "SEARCH_HISTORY_SHARED_PREF";
     private static final String SEARCH_DATA_KEY = "SEARCH_DATA";
 
+    private static String prefsName = PREFS_NAME_DEFAULT;
+
     public static SearchHistoryRepository getInstance() {
+        return getInstance(PREFS_NAME_DEFAULT);
+    }
+
+    public static SearchHistoryRepository getInstance(String name) {
+        prefsName = name;
         if (instance == null)
             instance = new SearchHistoryRepository();
         return instance;
@@ -30,7 +37,7 @@ public class SearchHistoryRepository {
     }
 
     private static SharedPreferences getSharedPreferences() {
-        SharedPreferences sharedPreferences = App.getInstance().getBaseContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = App.getInstance().getBaseContext().getSharedPreferences(prefsName, Context.MODE_PRIVATE);
         return sharedPreferences;
     }
 

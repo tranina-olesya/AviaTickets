@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.constraint.Group;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.TooltipCompat;
 import android.view.LayoutInflater;
@@ -262,11 +263,14 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
 
     @Override
     public void showSearchResults(SearchData searchData) {
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        ((MainActivity) getActivity()).hideSearchForm();
-        transaction.add(R.id.fragmentContainer, TripResultsFragment.getInstance(searchData));
-        transaction.addToBackStack(null);
-        transaction.commit();
+        FragmentActivity activity = getActivity();
+        if (activity != null) {
+            FragmentTransaction transaction = (FragmentTransaction) activity.getSupportFragmentManager().beginTransaction();
+            ((MainActivity) getActivity()).hideSearchForm();
+            transaction.add(R.id.fragmentContainer, TripResultsFragment.getInstance(searchData));
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
     }
 
     @Override

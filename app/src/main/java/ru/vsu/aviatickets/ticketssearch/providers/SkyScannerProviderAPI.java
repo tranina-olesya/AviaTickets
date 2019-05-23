@@ -15,6 +15,7 @@ import ru.vsu.aviatickets.ticketssearch.models.Agent;
 import ru.vsu.aviatickets.ticketssearch.models.Carrier;
 import ru.vsu.aviatickets.ticketssearch.models.Flight;
 import ru.vsu.aviatickets.ticketssearch.models.FlightType;
+import ru.vsu.aviatickets.ticketssearch.models.Place;
 import ru.vsu.aviatickets.ticketssearch.models.PriceLink;
 import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 import ru.vsu.aviatickets.ticketssearch.models.Ticket;
@@ -155,7 +156,7 @@ public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> implements
         });
     }
 
-    private List<Trip> convertResponseToTrip(SkyScannerResponse response) {
+    public List<Trip> convertResponseToTrip(SkyScannerResponse response) {
         List<Trip> trips = new ArrayList<>();
         for (final Itinerary itinerary : response.getItineraries()) {
             Trip trip = new Trip();
@@ -258,7 +259,7 @@ public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> implements
             PriceLink priceLink = new PriceLink();
             List<Agent> agents = new ArrayList<>();
             for (Integer agentId : pricingOption.getAgents()) {
-                SkyScannerAgent agent = findAgentById(skyScannerAgents, agentId);
+                Agent agent = findAgentById(skyScannerAgents, agentId);
                 agents.add(new Agent(agent.getName(), agent.getImageUrl()));
             }
             priceLink.setAgents(agents);
@@ -268,7 +269,6 @@ public class SkyScannerProviderAPI extends ProviderAPI<SkyScannerAPI> implements
         }
         return priceLinks;
     }
-
 }
 
 
