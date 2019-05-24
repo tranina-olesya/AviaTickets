@@ -1,4 +1,4 @@
-package ru.vsu.aviatickets;
+package ru.vsu.aviatickets.searchhistory;
 
 
 import android.support.test.runner.AndroidJUnit4;
@@ -11,7 +11,6 @@ import org.junit.runner.RunWith;
 import java.util.List;
 
 import ru.vsu.aviatickets.helpers.SearchDataTestHelper;
-import ru.vsu.aviatickets.searchhistory.SearchHistoryRepository;
 import ru.vsu.aviatickets.ticketssearch.models.SearchData;
 
 import static org.junit.Assert.assertEquals;
