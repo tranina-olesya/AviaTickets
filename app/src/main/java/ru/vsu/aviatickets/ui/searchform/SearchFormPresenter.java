@@ -6,11 +6,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import ru.vsu.aviatickets.App;
 import ru.vsu.aviatickets.R;
-import ru.vsu.aviatickets.ticketssearch.models.FlightType;
-import ru.vsu.aviatickets.ticketssearch.models.SearchData;
-import ru.vsu.aviatickets.ticketssearch.providers.APIError;
-import ru.vsu.aviatickets.ticketssearch.providers.TicketProviderApi;
+import ru.vsu.aviatickets.api.entities.SearchHistoryEntry;
+import ru.vsu.aviatickets.api.entities.tripmodels.FlightType;
+import ru.vsu.aviatickets.api.entities.tripmodels.SearchData;
+import ru.vsu.aviatickets.api.providers.TripAPIProvider;
 
 public class SearchFormPresenter {
     private SearchFormContractView view;
@@ -59,27 +60,27 @@ public class SearchFormPresenter {
         SearchData searchData = view.getSearchData();
         if (checkSearchData(searchData)) {
             view.showProgress();
-            model.searchTickets(searchData, new TicketProviderApi.CityCallback() {
+            model.searchCities(searchData, new TripAPIProvider.CityCallback() {
                 @Override
-                public void onGet(String originCode, String destinationCode) {
+                public void onComplete(String originCode, String destinationCode) {
                     view.hideProgress();
                     searchData.getOrigin().setCode(originCode);
                     searchData.getDestination().setCode(destinationCode);
                     if (view.isSavingHistoryEnabled())
-                        model.addSearchData(searchData);
+                        model.addSearchData(new SearchHistoryEntry(App.getUserCode(), searchData), null);
                     view.showSearchResults(searchData);
                 }
 
                 @Override
-                public void onFail(APIError error) {
-                    switch (error) {
-                        case NO_RESPONSE:
-                            view.noResponse();
-                            break;
-                        case CITY_NOT_FOUND:
-                            view.cityNotFound();
-                            break;
-                    }
+                public void onFail(/*APIError error*/) {
+//                    switch (error) {
+//                        case NO_RESPONSE:
+//                            view.noResponse();
+//                            break;
+//                        case CITY_NOT_FOUND:
+//                            view.cityNotFound();
+//                            break;
+//                    }
                     view.hideProgress();
                 }
             });

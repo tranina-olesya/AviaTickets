@@ -1,23 +1,27 @@
 package ru.vsu.aviatickets.ui.searchform;
 
-import ru.vsu.aviatickets.searchhistory.SearchHistoryRepository;
-import ru.vsu.aviatickets.ticketssearch.models.SearchData;
-import ru.vsu.aviatickets.ticketssearch.providers.IATAProviderAPI;
-import ru.vsu.aviatickets.ticketssearch.providers.TicketProviderApi;
+import ru.vsu.aviatickets.api.CompleteCallback;
+import ru.vsu.aviatickets.api.entities.SearchHistoryEntry;
+import ru.vsu.aviatickets.api.entities.tripmodels.SearchData;
+import ru.vsu.aviatickets.api.providers.SearchHistoryAPIProvider;
+import ru.vsu.aviatickets.api.providers.TripAPIProvider;
 
 public class SearchFormModel {
-    private SearchHistoryRepository searchHistoryRepository;
-    private IATAProviderAPI iataProviderAPI = new IATAProviderAPI();
+
+    private TripAPIProvider tripAPIProvider;
+    private SearchHistoryAPIProvider searchHistoryAPIProvider;
 
     public SearchFormModel() {
-        searchHistoryRepository = SearchHistoryRepository.getInstance();
+        this.tripAPIProvider = new TripAPIProvider();
+        this.searchHistoryAPIProvider = new SearchHistoryAPIProvider();
     }
 
-    public void addSearchData(SearchData searchData) {
-        searchHistoryRepository.addSearchData(searchData);
+    public void addSearchData(SearchHistoryEntry searchHistoryEntry, CompleteCallback callback) {
+        searchHistoryAPIProvider.addSearchHistoryEntry(searchHistoryEntry, callback);
     }
 
-    public void searchTickets(SearchData searchData, TicketProviderApi.CityCallback callback) {
-        iataProviderAPI.getCityCodes(searchData.getOrigin().getName(), searchData.getDestination().getName(), callback);
+    public void searchCities(SearchData searchData, TripAPIProvider.CityCallback callback) {
+        tripAPIProvider.getCityCode(searchData.getOrigin().getName(), searchData.getDestination().getName(), callback);
+//        iataProviderAPI.getCityCodes(searchData.getOrigin().getName(), searchData.getDestination().getName(), callback);
     }
 }

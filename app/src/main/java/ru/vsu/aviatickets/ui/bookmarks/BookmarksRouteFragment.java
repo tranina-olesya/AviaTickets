@@ -11,8 +11,8 @@ import android.widget.TextView;
 import java.util.List;
 
 import ru.vsu.aviatickets.R;
-import ru.vsu.aviatickets.bookmarks.entity.BookmarkRoute;
-import ru.vsu.aviatickets.ticketssearch.models.SearchData;
+import ru.vsu.aviatickets.api.entities.BookmarkRoute;
+import ru.vsu.aviatickets.api.entities.tripmodels.SearchData;
 import ru.vsu.aviatickets.ui.main.MainActivity;
 
 

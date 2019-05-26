@@ -13,12 +13,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.Comparator;
 import java.util.List;
 
 import ru.vsu.aviatickets.R;
-import ru.vsu.aviatickets.ticketssearch.models.PriceLink;
-import ru.vsu.aviatickets.ticketssearch.models.Trip;
+import ru.vsu.aviatickets.api.entities.tripmodels.Trip;
 import ru.vsu.aviatickets.ui.fulltrip.FullTripActivity;
 import ru.vsu.aviatickets.ui.utils.DateConvert;
 import ru.vsu.aviatickets.ui.utils.StringUtils;

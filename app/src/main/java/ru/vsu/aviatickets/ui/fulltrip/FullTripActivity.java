@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 
 import ru.vsu.aviatickets.R;
-import ru.vsu.aviatickets.ticketssearch.models.Trip;
+import ru.vsu.aviatickets.api.entities.tripmodels.Trip;
 
 public class FullTripActivity extends AppCompatActivity {
     public static final String TRIP_EXTRA = "trip";

@@ -2,7 +2,7 @@ package ru.vsu.aviatickets.ticketssearch.utils;
 
 import java.util.List;
 
-import ru.vsu.aviatickets.ticketssearch.models.PriceLink;
+import ru.vsu.aviatickets.api.entities.tripmodels.PriceLink;
 
 public class TripUtils {
     public static PriceLink getMinPriceLink(List<PriceLink> priceLinks) {

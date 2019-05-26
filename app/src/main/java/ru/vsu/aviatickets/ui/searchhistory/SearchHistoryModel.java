@@ -1,30 +1,25 @@
 package ru.vsu.aviatickets.ui.searchhistory;
 
-import java.util.List;
-
-import ru.vsu.aviatickets.searchhistory.SearchHistoryRepository;
-import ru.vsu.aviatickets.ticketssearch.models.SearchData;
+import ru.vsu.aviatickets.api.CompleteCallback;
+import ru.vsu.aviatickets.api.providers.SearchHistoryAPIProvider;
 
 public class SearchHistoryModel {
-    private SearchHistoryRepository searchHistoryRepository;
+
+    private SearchHistoryAPIProvider searchHistoryAPIProvider;
 
     public SearchHistoryModel() {
-        searchHistoryRepository = SearchHistoryRepository.getInstance();
+        this.searchHistoryAPIProvider = new SearchHistoryAPIProvider();
     }
 
-    public void removeItem(int index) {
-        searchHistoryRepository.removeSearchData(index);
+    public void removeItem(Long id, CompleteCallback callback) {
+        searchHistoryAPIProvider.deleteSearchHistoryEntry(id, callback);
     }
 
-    public void removeAll() {
-        searchHistoryRepository.removeAll();
+    public void removeAll(CompleteCallback callback) {
+        searchHistoryAPIProvider.deleteAllSearchHistory(callback);
     }
 
-    public List<SearchData> getAll() {
-        return searchHistoryRepository.getAllSearchData();
-    }
-
-    public int getItemCount() {
-        return searchHistoryRepository.getAllSearchData().size();
+    public void getAll(SearchHistoryAPIProvider.SearchHistoryCallback callback) {
+        searchHistoryAPIProvider.getSearchHistory(callback);
     }
 }

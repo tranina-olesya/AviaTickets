@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 
-import ru.vsu.aviatickets.bookmarks.entity.BookmarkRoute;
-import ru.vsu.aviatickets.ticketssearch.models.SearchData;
-import ru.vsu.aviatickets.ticketssearch.models.Trip;
-import ru.vsu.aviatickets.ticketssearch.providers.APIError;
+import ru.vsu.aviatickets.api.CompleteCallback;
+import ru.vsu.aviatickets.api.entities.BookmarkRoute;
+import ru.vsu.aviatickets.api.entities.tripmodels.SearchData;
+import ru.vsu.aviatickets.api.entities.tripmodels.Trip;
+import ru.vsu.aviatickets.api.providers.APIError;
+import ru.vsu.aviatickets.api.providers.BookmarkAPIProvider;
+import ru.vsu.aviatickets.api.providers.TripAPIProvider;
 import ru.vsu.aviatickets.ticketssearch.sort.SortFilterType;
 import ru.vsu.aviatickets.ui.bookmarks.BookmarksRouteModel;
 
@@ -37,12 +40,17 @@ public class TripResultsPresenter {
     }
 
     private void checkIfBookmarkExists(SearchData searchData) {
-        modelAddition.findBookmark(searchData, new BookmarkAdditionModel.BookmarkCallback() {
+        modelAddition.findBookmark(searchData, new BookmarkAPIProvider.BookmarkCallback() {
             @Override
-            public void onLoad(BookmarkRoute bookmarkRoute) {
+            public void onComplete(BookmarkRoute bookmarkRoute) {
                 savedBookmark = bookmarkRoute;
                 if (savedBookmark != null)
                     view.bookmarkAdded();
+            }
+
+            @Override
+            public void onFail() {
+
             }
         });
     }
@@ -50,9 +58,9 @@ public class TripResultsPresenter {
     public void loadData(SearchData searchData) {
         view.hideGroupTripResults();
         view.showProgress();
-        model.loadTrips(searchData, new TripResultsModel.ResultsCallback() {
+        model.loadTrips(searchData, new TripAPIProvider.TripsCallback() {
             @Override
-            public void onGet(List<Trip> trips) {
+            public void onComplete(List<Trip> trips) {
                 view.hideProgress();
                 view.showGroupTripResults();
                 if (trips == null || trips.isEmpty())
@@ -64,16 +72,16 @@ public class TripResultsPresenter {
             }
 
             @Override
-            public void onFail(List<APIError> errors) {
+            public void onFail(/*List<APIError> errors*/) {
                 view.hideProgress();
                 view.showGroupTripResults();
-                if (errors.size() == model.getProvidersCount()) {
-                    APIError apiError = checkForErrorType(errors);
-                    if (apiError != null) {
-                        if (apiError == APIError.NO_RESPONSE)
-                            view.noResponse();
-                    }
-                }
+//                if (errors.size() == model.getProvidersCount()) {
+//                    APIError apiError = checkForErrorType(errors);
+//                    if (apiError != null) {
+//                        if (apiError == APIError.NO_RESPONSE)
+//                            view.noResponse();
+//                    }
+//                }
             }
         });
     }
@@ -105,21 +113,31 @@ public class TripResultsPresenter {
         view.disableBookmarksButton();
         if (savedBookmark == null) {
             BookmarkRoute bookmarkRoute = view.addBookmarkRouteData();
-            modelAddition.addBookmarkRoute(bookmarkRoute, new BookmarkAdditionModel.CompleteCallback() {
+            modelAddition.addBookmarkRoute(bookmarkRoute, new CompleteCallback() {
                 @Override
                 public void onComplete() {
                     checkIfBookmarkExists(view.getSearchData());
                     view.bookmarkAdded();
                     view.enableBookmarksButton();
                 }
+
+                @Override
+                public void onFail() {
+
+                }
             });
         } else {
-            modelAddition.deleteBookmarkRoute(savedBookmark, new BookmarksRouteModel.CompleteCallback() {
+            modelAddition.deleteBookmarkRoute(savedBookmark, new CompleteCallback() {
                 @Override
                 public void onComplete() {
                     savedBookmark = null;
                     view.bookmarkDeleted();
                     view.enableBookmarksButton();
+                }
+
+                @Override
+                public void onFail() {
+
                 }
             });
         }

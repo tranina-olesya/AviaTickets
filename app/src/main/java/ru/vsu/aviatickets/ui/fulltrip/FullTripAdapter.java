@@ -20,9 +20,9 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 
 import ru.vsu.aviatickets.R;
-import ru.vsu.aviatickets.ticketssearch.models.PriceLink;
-import ru.vsu.aviatickets.ticketssearch.models.Ticket;
-import ru.vsu.aviatickets.ticketssearch.models.Trip;
+import ru.vsu.aviatickets.api.entities.tripmodels.PriceLink;
+import ru.vsu.aviatickets.api.entities.tripmodels.Ticket;
+import ru.vsu.aviatickets.api.entities.tripmodels.Trip;
 import ru.vsu.aviatickets.ui.utils.DateConvert;
 import ru.vsu.aviatickets.ui.utils.StringUtils;
 

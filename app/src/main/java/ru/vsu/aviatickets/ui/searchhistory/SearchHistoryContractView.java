@@ -2,14 +2,15 @@ package ru.vsu.aviatickets.ui.searchhistory;
 
 import java.util.List;
 
-import ru.vsu.aviatickets.ticketssearch.models.SearchData;
+import ru.vsu.aviatickets.api.entities.SearchHistoryEntry;
+import ru.vsu.aviatickets.api.entities.tripmodels.SearchData;
 
 public interface SearchHistoryContractView {
-    void setupAdapter(List<SearchData> searchDataList);
+    void setupAdapter(List<SearchHistoryEntry> searchDataList);
 
     void notifyRemoved(int index);
 
-    void notifyDataSetChanged(List<SearchData> searchDataList);
+    void notifyDataSetChanged(List<SearchHistoryEntry> searchHistoryEntries);
 
     void switchToSearchForm(SearchData searchData);
 

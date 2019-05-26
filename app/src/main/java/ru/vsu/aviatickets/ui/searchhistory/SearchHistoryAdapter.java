@@ -13,30 +13,17 @@ import android.widget.TextView;
 import java.util.List;
 
 import ru.vsu.aviatickets.R;
-import ru.vsu.aviatickets.ticketssearch.models.SearchData;
+import ru.vsu.aviatickets.api.entities.SearchHistoryEntry;
+import ru.vsu.aviatickets.api.entities.tripmodels.SearchData;
 import ru.vsu.aviatickets.ui.utils.DateConvert;
 
 public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.SearchHistoryViewHolder> {
-    class SearchHistoryViewHolder extends RecyclerView.ViewHolder {
-        private LinearLayout searchHistoryItem;
-        private TextView text;
-        private ImageButton deleteButton;
-
-        public SearchHistoryViewHolder(@NonNull View itemView) {
-            super(itemView);
-            this.searchHistoryItem = itemView.findViewById(R.id.searchHistoryItem);
-            this.text = itemView.findViewById(R.id.text);
-            this.deleteButton = itemView.findViewById(R.id.deleteButton);
-        }
-    }
-
     private LayoutInflater inflater;
-    private List<SearchData> searchDataList;
+    private List<SearchHistoryEntry> searchHistoryEntries;
     private SearchHistoryPresenter presenter;
-
-    public SearchHistoryAdapter(Context context, List<SearchData> searchDataList) {
+    public SearchHistoryAdapter(Context context, List<SearchHistoryEntry> searchHistoryEntries) {
         this.inflater = LayoutInflater.from(context);
-        this.searchDataList = searchDataList;
+        this.searchHistoryEntries = searchHistoryEntries;
     }
 
     @NonNull
@@ -49,22 +36,21 @@ public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdap
 
     @Override
     public void onBindViewHolder(@NonNull SearchHistoryViewHolder searchHistoryViewHolder, int index) {
-        SearchData searchData = searchDataList.get(index);
+        SearchHistoryEntry searchHistoryEntry = searchHistoryEntries.get(index);
 
         String dates;
-        if (searchData.getInboundDate() != null)
-            dates = DateConvert.getDayMonthString(searchData.getOutboundDate(), searchData.getInboundDate());
+        if (searchHistoryEntry.getInboundDate() != null)
+            dates = DateConvert.getDayMonthString(searchHistoryEntry.getOutboundDate(), searchHistoryEntry.getInboundDate());
         else
-            dates = DateConvert.getDayMonthString(searchData.getOutboundDate());
+            dates = DateConvert.getDayMonthString(searchHistoryEntry.getOutboundDate());
 
-        searchHistoryViewHolder.text.setText(String.format("%s - %s (%s)", searchData.getOrigin().getName(), searchData.getDestination().getName(), dates));
+        searchHistoryViewHolder.text.setText(String.format("%s - %s (%s)", searchHistoryEntry.getOrigin(), searchHistoryEntry.getDestination(), dates));
 
         searchHistoryViewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int adapterPosition = searchHistoryViewHolder.getAdapterPosition();
                 if (adapterPosition >= 0) {
-                    searchDataList.remove(adapterPosition);
                     presenter.removeItem(searchHistoryViewHolder.getAdapterPosition());
                 }
             }
@@ -72,22 +58,35 @@ public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdap
         searchHistoryViewHolder.searchHistoryItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SearchData searchData = searchDataList.get(searchHistoryViewHolder.getAdapterPosition());
-                presenter.itemChosen(searchData);
+                SearchHistoryEntry historyEntry = searchHistoryEntries.get(searchHistoryViewHolder.getAdapterPosition());
+                presenter.itemChosen(historyEntry);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return searchDataList.size();
+        return searchHistoryEntries.size();
     }
 
     public void setPresenter(SearchHistoryPresenter presenter) {
         this.presenter = presenter;
     }
 
-    public void setSearchDataList(List<SearchData> searchDataList) {
-        this.searchDataList = searchDataList;
+    public void setSearchDataList(List<SearchHistoryEntry> searchHistoryEntries) {
+        this.searchHistoryEntries = searchHistoryEntries;
+    }
+
+    class SearchHistoryViewHolder extends RecyclerView.ViewHolder {
+        private LinearLayout searchHistoryItem;
+        private TextView text;
+        private ImageButton deleteButton;
+
+        public SearchHistoryViewHolder(@NonNull View itemView) {
+            super(itemView);
+            this.searchHistoryItem = itemView.findViewById(R.id.searchHistoryItem);
+            this.text = itemView.findViewById(R.id.text);
+            this.deleteButton = itemView.findViewById(R.id.deleteButton);
+        }
     }
 }

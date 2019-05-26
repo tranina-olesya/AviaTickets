@@ -4,8 +4,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import ru.vsu.aviatickets.ticketssearch.models.Flight;
-import ru.vsu.aviatickets.ticketssearch.models.Trip;
+import ru.vsu.aviatickets.api.entities.tripmodels.Flight;
+import ru.vsu.aviatickets.api.entities.tripmodels.Trip;
 
 public class SortTrips {
 

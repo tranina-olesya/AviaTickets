@@ -13,7 +13,8 @@ import android.widget.TextView;
 import java.util.List;
 
 import ru.vsu.aviatickets.R;
-import ru.vsu.aviatickets.ticketssearch.models.SearchData;
+import ru.vsu.aviatickets.api.entities.SearchHistoryEntry;
+import ru.vsu.aviatickets.api.entities.tripmodels.SearchData;
 import ru.vsu.aviatickets.ui.main.MainActivity;
 
 public class SearchHistoryFragment extends Fragment implements SearchHistoryContractView {
@@ -50,8 +51,8 @@ public class SearchHistoryFragment extends Fragment implements SearchHistoryCont
     }
 
     @Override
-    public void setupAdapter(List<SearchData> searchDataList) {
-        adapter = new SearchHistoryAdapter(getContext(), searchDataList);
+    public void setupAdapter(List<SearchHistoryEntry> searchHistoryEntries) {
+        adapter = new SearchHistoryAdapter(getContext(), searchHistoryEntries);
         adapter.setPresenter(presenter);
         recyclerView.setAdapter(adapter);
     }
@@ -62,8 +63,8 @@ public class SearchHistoryFragment extends Fragment implements SearchHistoryCont
     }
 
     @Override
-    public void notifyDataSetChanged(List<SearchData> searchDataList) {
-        adapter.setSearchDataList(searchDataList);
+    public void notifyDataSetChanged(List<SearchHistoryEntry> searchHistoryEntries) {
+        adapter.setSearchDataList(searchHistoryEntries);
         adapter.notifyDataSetChanged();
     }
 

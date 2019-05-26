@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import ru.vsu.aviatickets.ticketssearch.models.Carrier;
-import ru.vsu.aviatickets.ticketssearch.models.Flight;
-import ru.vsu.aviatickets.ticketssearch.models.Place;
-import ru.vsu.aviatickets.ticketssearch.models.PriceLink;
-import ru.vsu.aviatickets.ticketssearch.models.Ticket;
-import ru.vsu.aviatickets.ticketssearch.models.Trip;
+import ru.vsu.aviatickets.api.entities.tripmodels.Carrier;
+import ru.vsu.aviatickets.api.entities.tripmodels.Flight;
+import ru.vsu.aviatickets.api.entities.tripmodels.Place;
+import ru.vsu.aviatickets.api.entities.tripmodels.PriceLink;
+import ru.vsu.aviatickets.api.entities.tripmodels.Ticket;
+import ru.vsu.aviatickets.api.entities.tripmodels.Trip;
 import ru.vsu.aviatickets.ticketssearch.sort.SortFilterType;
 import ru.vsu.aviatickets.ticketssearch.sort.SortTrips;
 import ru.vsu.aviatickets.ticketssearch.utils.TripUtils;

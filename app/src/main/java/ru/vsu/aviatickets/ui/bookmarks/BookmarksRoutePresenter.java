@@ -3,8 +3,10 @@ package ru.vsu.aviatickets.ui.bookmarks;
 import java.util.ArrayList;
 import java.util.List;
 
-import ru.vsu.aviatickets.bookmarks.entity.BookmarkRoute;
-import ru.vsu.aviatickets.ticketssearch.models.SearchData;
+import ru.vsu.aviatickets.api.CompleteCallback;
+import ru.vsu.aviatickets.api.entities.BookmarkRoute;
+import ru.vsu.aviatickets.api.entities.tripmodels.SearchData;
+import ru.vsu.aviatickets.api.providers.BookmarkAPIProvider;
 
 public class BookmarksRoutePresenter {
     public static List<BookmarkRoute> bookmarkRoutes;
@@ -25,9 +27,9 @@ public class BookmarksRoutePresenter {
     }
 
     public void loadBookmarks() {
-        model.outBookmarksRoute(new BookmarksRouteModel.OutBookmarkCallback() {
+        model.outBookmarksRoute(new BookmarkAPIProvider.BookmarksCallback() {
             @Override
-            public void onLoad(List<BookmarkRoute> bookmarkRoutes) {
+            public void onComplete(List<BookmarkRoute> bookmarkRoutes) {
                 if (bookmarkRoutes == null || bookmarkRoutes.isEmpty())
                     view.showEmptyMessage();
                 else {
@@ -36,13 +38,18 @@ public class BookmarksRoutePresenter {
                     view.setAdapter(bookmarkRoutes);
                 }
             }
+
+            @Override
+            public void onFail() {
+
+            }
         });
     }
 
 
     public void delete(int index) {
         BookmarkRoute bookmarkRoute = bookmarkRoutes.get(index);
-        model.deleteBookmarkRoute(bookmarkRoute, new BookmarksRouteModel.CompleteCallback() {
+        model.deleteBookmarkRoute(bookmarkRoute, new CompleteCallback() {
             @Override
             public void onComplete() {
                 bookmarkRoutes.remove(index);
@@ -50,6 +57,11 @@ public class BookmarksRoutePresenter {
                 if (bookmarkRoutes.isEmpty()) {
                     view.showEmptyMessage();
                 }
+            }
+
+            @Override
+            public void onFail() {
+
             }
         });
     }

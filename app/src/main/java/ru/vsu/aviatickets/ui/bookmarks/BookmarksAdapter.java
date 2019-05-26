@@ -8,8 +8,6 @@ import android.support.v7.widget.TooltipCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,51 +15,19 @@ import android.widget.TextView;
 import java.util.List;
 
 import ru.vsu.aviatickets.R;
-import ru.vsu.aviatickets.bookmarks.entity.BookmarkRoute;
-import ru.vsu.aviatickets.ticketssearch.models.CabinClass;
-import ru.vsu.aviatickets.ticketssearch.models.FlightType;
-import ru.vsu.aviatickets.ticketssearch.models.SearchData;
-import ru.vsu.aviatickets.ticketssearch.models.SearchPlace;
+import ru.vsu.aviatickets.api.entities.BookmarkRoute;
+import ru.vsu.aviatickets.api.entities.tripmodels.CabinClass;
+import ru.vsu.aviatickets.api.entities.tripmodels.FlightType;
+import ru.vsu.aviatickets.api.entities.tripmodels.SearchData;
+import ru.vsu.aviatickets.api.entities.tripmodels.SearchPlace;
 
 public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.BookmarksViewHolder> {
-
-    class BookmarksViewHolder extends RecyclerView.ViewHolder {
-        private ConstraintLayout bookmark;
-        private TextView route;
-        private TextView cabinClass;
-        private TextView adultsCount;
-        private ImageView adultImage;
-        private TextView childrenCount;
-        private ImageView childImage;
-        private TextView infantsCount;
-        private ImageView infantImage;
-        private ImageView flightTypeImage;
-        private ImageView transfersImage;
-        private ImageButton deleteButton;
-
-        public BookmarksViewHolder(@NonNull View itemView) {
-            super(itemView);
-            this.bookmark = itemView.findViewById(R.id.bookmarkRoute);
-            this.route = itemView.findViewById(R.id.route);
-            this.cabinClass = itemView.findViewById(R.id.cabinClass);
-            this.adultsCount = itemView.findViewById(R.id.adultsCount);
-            this.adultImage = itemView.findViewById(R.id.adultImage);
-            this.childrenCount = itemView.findViewById(R.id.childrenCount);
-            this.childImage = itemView.findViewById(R.id.childImage);
-            this.infantsCount = itemView.findViewById(R.id.infantsCount);
-            this.infantImage = itemView.findViewById(R.id.infantImage);
-            this.flightTypeImage = itemView.findViewById(R.id.flightTypeImage);
-            this.transfersImage = itemView.findViewById(R.id.transferImage);
-            this.deleteButton = itemView.findViewById(R.id.deleteButton);
-        }
-    }
 
     private LayoutInflater inflater;
     private List<BookmarkRoute> searchDataList;
     private BookmarksRoutePresenter presenter;
     private Context context;
-
-    public BookmarksAdapter(Context context,List<BookmarkRoute> bookmarkRoutes) {
+    public BookmarksAdapter(Context context, List<BookmarkRoute> bookmarkRoutes) {
         this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.searchDataList = bookmarkRoutes;
@@ -113,10 +79,9 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Book
             @Override
             public void onClick(View v) {
                 BookmarkRoute bookmarkRoute = searchDataList.get(bookmarksViewHolder.getAdapterPosition());
-                SearchData searchData = new SearchData(new SearchPlace(bookmarkRoute.getOrigin()), new SearchPlace(bookmarkRoute.getDestination()),null,
-                                            null,bookmarkRoute.getAdultCount(),bookmarkRoute.getChildCount(),bookmarkRoute.getInfantCount(),
-                                            Enum.valueOf(FlightType.class,bookmarkRoute.getFlightType()),
-                                            bookmarkRoute.isTransfers(),Enum.valueOf(CabinClass.class,bookmarkRoute.getClassType()));
+                SearchData searchData = new SearchData(new SearchPlace(bookmarkRoute.getOrigin()), new SearchPlace(bookmarkRoute.getDestination()), null,
+                        null, bookmarkRoute.getAdultCount(), bookmarkRoute.getChildCount(), bookmarkRoute.getInfantCount(),
+                        bookmarkRoute.getFlightType(), bookmarkRoute.isTransfers(), bookmarkRoute.getClassType());
                 presenter.itemChosen(searchData);
             }
         });
@@ -129,5 +94,36 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Book
 
     public void setPresenter(BookmarksRoutePresenter presenter) {
         this.presenter = presenter;
+    }
+
+    class BookmarksViewHolder extends RecyclerView.ViewHolder {
+        private ConstraintLayout bookmark;
+        private TextView route;
+        private TextView cabinClass;
+        private TextView adultsCount;
+        private ImageView adultImage;
+        private TextView childrenCount;
+        private ImageView childImage;
+        private TextView infantsCount;
+        private ImageView infantImage;
+        private ImageView flightTypeImage;
+        private ImageView transfersImage;
+        private ImageButton deleteButton;
+
+        public BookmarksViewHolder(@NonNull View itemView) {
+            super(itemView);
+            this.bookmark = itemView.findViewById(R.id.bookmarkRoute);
+            this.route = itemView.findViewById(R.id.route);
+            this.cabinClass = itemView.findViewById(R.id.cabinClass);
+            this.adultsCount = itemView.findViewById(R.id.adultsCount);
+            this.adultImage = itemView.findViewById(R.id.adultImage);
+            this.childrenCount = itemView.findViewById(R.id.childrenCount);
+            this.childImage = itemView.findViewById(R.id.childImage);
+            this.infantsCount = itemView.findViewById(R.id.infantsCount);
+            this.infantImage = itemView.findViewById(R.id.infantImage);
+            this.flightTypeImage = itemView.findViewById(R.id.flightTypeImage);
+            this.transfersImage = itemView.findViewById(R.id.transferImage);
+            this.deleteButton = itemView.findViewById(R.id.deleteButton);
+        }
     }
 }

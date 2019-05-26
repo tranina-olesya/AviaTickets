@@ -28,10 +28,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import ru.vsu.aviatickets.R;
-import ru.vsu.aviatickets.ticketssearch.models.CabinClass;
-import ru.vsu.aviatickets.ticketssearch.models.FlightType;
-import ru.vsu.aviatickets.ticketssearch.models.SearchData;
-import ru.vsu.aviatickets.ticketssearch.models.SearchPlace;
+import ru.vsu.aviatickets.api.entities.tripmodels.CabinClass;
+import ru.vsu.aviatickets.api.entities.tripmodels.FlightType;
+import ru.vsu.aviatickets.api.entities.tripmodels.SearchData;
+import ru.vsu.aviatickets.api.entities.tripmodels.SearchPlace;
 import ru.vsu.aviatickets.ui.main.MainActivity;
 import ru.vsu.aviatickets.ui.tripresults.TripResultsFragment;
 import ru.vsu.aviatickets.ui.utils.DateConvert;

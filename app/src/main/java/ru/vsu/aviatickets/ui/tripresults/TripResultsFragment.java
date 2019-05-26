@@ -29,13 +29,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.vsu.aviatickets.R;
-import ru.vsu.aviatickets.bookmarks.entity.BookmarkRoute;
-import ru.vsu.aviatickets.ticketssearch.models.FlightType;
-import ru.vsu.aviatickets.ticketssearch.models.SearchData;
-import ru.vsu.aviatickets.ticketssearch.models.Trip;
-import ru.vsu.aviatickets.ticketssearch.providers.KiwiProviderAPI;
-import ru.vsu.aviatickets.ticketssearch.providers.SkyScannerProviderAPI;
-import ru.vsu.aviatickets.ticketssearch.providers.TicketProviderApi;
+import ru.vsu.aviatickets.api.entities.BookmarkRoute;
+import ru.vsu.aviatickets.api.entities.tripmodels.FlightType;
+import ru.vsu.aviatickets.api.entities.tripmodels.SearchData;
+import ru.vsu.aviatickets.api.entities.tripmodels.Trip;
 import ru.vsu.aviatickets.ticketssearch.sort.SortFilterType;
 import ru.vsu.aviatickets.ui.utils.DateConvert;
 
@@ -137,10 +134,7 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
         loadedTrips = new ArrayList<>();
         shownTrips = new ArrayList<>();
 
-        List<TicketProviderApi> providers = new ArrayList<>();
-        providers.add(new KiwiProviderAPI());
-        providers.add(new SkyScannerProviderAPI());
-        TripResultsModel tripResultsModel = new TripResultsModel(providers);
+        TripResultsModel tripResultsModel = new TripResultsModel();
         BookmarkAdditionModel bookmarkAdditionModel = new BookmarkAdditionModel();
 
         presenter = new TripResultsPresenter(tripResultsModel, bookmarkAdditionModel);
@@ -190,8 +184,8 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
     @Override
     public BookmarkRoute addBookmarkRouteData() {
         BookmarkRoute bookmarkRoute = new BookmarkRoute(searchData.getOrigin().getName(), searchData.getDestination().getName(), searchData.getAdultsCount(),
-                searchData.getChildrenCount(), searchData.getInfantsCount(), searchData.getFlightType().toString(),
-                searchData.getTransfers(), searchData.getCabinClass().toString());
+                searchData.getChildrenCount(), searchData.getInfantsCount(), searchData.getFlightType(),
+                searchData.getTransfers(), searchData.getCabinClass());
 
         return bookmarkRoute;
     }

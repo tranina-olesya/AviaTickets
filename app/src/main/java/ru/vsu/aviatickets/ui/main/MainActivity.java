@@ -12,7 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import ru.vsu.aviatickets.R;
-import ru.vsu.aviatickets.ticketssearch.models.SearchData;
+import ru.vsu.aviatickets.api.entities.tripmodels.SearchData;
 import ru.vsu.aviatickets.ui.bookmarks.BookmarksRouteFragment;
 import ru.vsu.aviatickets.ui.searchform.SearchFormFragment;
 import ru.vsu.aviatickets.ui.searchhistory.SearchHistoryFragment;

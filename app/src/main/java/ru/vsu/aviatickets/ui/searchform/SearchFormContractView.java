@@ -1,6 +1,6 @@
 package ru.vsu.aviatickets.ui.searchform;
 
-import ru.vsu.aviatickets.ticketssearch.models.SearchData;
+import ru.vsu.aviatickets.api.entities.tripmodels.SearchData;
 
 public interface SearchFormContractView {
     SearchData getSearchData();
