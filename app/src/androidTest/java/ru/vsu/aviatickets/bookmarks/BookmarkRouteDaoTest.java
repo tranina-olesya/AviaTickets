@@ -1,4 +1,4 @@
-package ru.vsu.aviatickets;
+package ru.vsu.aviatickets.bookmarks;
 
 import android.arch.persistence.room.Room;
 import android.support.test.InstrumentationRegistry;
