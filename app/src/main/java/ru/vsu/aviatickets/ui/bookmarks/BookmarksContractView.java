@@ -15,4 +15,18 @@ public interface BookmarksContractView {
     void showEmptyMessage();
 
     void hideEmptyMessage();
+
+    void showBookmarkList();
+
+    void hideBookmarkList();
+
+    void showNoResponseToast();
+
+    void showLoading();
+
+    void hideLoading();
+
+    void showUpdateButton();
+
+    void hideUpdateButton();
 }

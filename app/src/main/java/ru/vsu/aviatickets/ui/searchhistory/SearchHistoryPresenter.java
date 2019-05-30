@@ -28,22 +28,33 @@ public class SearchHistoryPresenter {
         loadData();
     }
 
-    private void loadData() {
+    public void loadData() {
+        view.hideEmptyMessage();
+        view.hideSearchHistoryList();
+        view.showLoading();
         model.getAll(new SearchHistoryAPIProvider.SearchHistoryCallback() {
             @Override
             public void onLoad(List<SearchHistoryEntry> searchHistoryEntrihistoryEntryList) {
                 searchHistoryEntries = searchHistoryEntrihistoryEntryList;
-                if (searchHistoryEntries == null || searchHistoryEntries.isEmpty())
+                if (searchHistoryEntries == null || searchHistoryEntries.isEmpty()) {
+                    view.hideSearchHistoryList();
                     view.showEmptyMessage();
+                }
                 else {
                     view.hideEmptyMessage();
+                    view.showSearchHistoryList();
                     view.setupAdapter(searchHistoryEntries);
                 }
+                view.hideUpdateButton();
+                view.hideLoading();
             }
 
             @Override
             public void onFail() {
-
+                view.hideLoading();
+                view.showEmptyMessage();
+                view.showUpdateButton();
+                view.showNoResponseToast();
             }
         });
     }
@@ -55,14 +66,15 @@ public class SearchHistoryPresenter {
             public void onComplete() {
                 searchHistoryEntries.remove(index);
                 view.notifyRemoved(index);
-                if (searchHistoryEntries.size() == 0) {
+                if (searchHistoryEntries.isEmpty()) {
+                    view.hideSearchHistoryList();
                     view.showEmptyMessage();
                 }
             }
 
             @Override
             public void onFail() {
-
+                view.showNoResponseToast();
             }
         });
     }
@@ -82,12 +94,13 @@ public class SearchHistoryPresenter {
             @Override
             public void onComplete() {
                 view.notifyDataSetChanged(new ArrayList<>());
+                view.hideSearchHistoryList();
                 view.showEmptyMessage();
             }
 
             @Override
             public void onFail() {
-
+                view.showNoResponseToast();
             }
         });
     }

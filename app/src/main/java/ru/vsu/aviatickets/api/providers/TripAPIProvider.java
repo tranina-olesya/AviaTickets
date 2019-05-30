@@ -30,13 +30,13 @@ public class TripAPIProvider extends ProviderAPI<TripAPI> {
                     if (body != null)
                         callback.onComplete(body.getOrigin().getIata(), body.getDestination().getIata());
                     else
-                        callback.onFail();
+                        callback.onFail(APIError.CITY_NOT_FOUND);
                 }
             }
 
             @Override
             public void onFailure(Call<Route> call, Throwable t) {
-                callback.onFail();
+                callback.onFail(APIError.NO_RESPONSE);
             }
         });
     }
@@ -54,14 +54,14 @@ public class TripAPIProvider extends ProviderAPI<TripAPI> {
                     if (body != null)
                         callback.onComplete(body);
                     else
-                        callback.onFail();
+                        callback.onFail(APIError.TICKETS_NOT_FOUND);
                 }
             }
 
             @Override
             public void onFailure(Call<List<Trip>> call, Throwable t) {
                 if (callback != null)
-                    callback.onFail();
+                    callback.onFail(APIError.NO_RESPONSE);
             }
         });
     }
@@ -69,13 +69,13 @@ public class TripAPIProvider extends ProviderAPI<TripAPI> {
     public interface CityCallback {
         void onComplete(String origin, String destination);
 
-        void onFail();
+        void onFail(APIError error);
     }
 
     public interface TripsCallback {
         void onComplete(List<Trip> trips);
 
-        void onFail();
+        void onFail(APIError error);
     }
 
     private String convertDate(Date date) {

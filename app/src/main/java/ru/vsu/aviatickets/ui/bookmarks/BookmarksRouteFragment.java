@@ -6,7 +6,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -21,6 +24,10 @@ public class BookmarksRouteFragment extends Fragment implements BookmarksContrac
     private BookmarksRoutePresenter presenter;
     private BookmarksAdapter adapter;
     private TextView noBookmarksTextView;
+    private ProgressBar progressBar;
+    private View view;
+    private TextView loadingBookmarkText;
+    private Button updateButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,6 +40,16 @@ public class BookmarksRouteFragment extends Fragment implements BookmarksContrac
         View view = inflater.inflate(R.layout.fragment_bookmarks_route, container, false);
         recyclerView = view.findViewById(R.id.recyclerView);
         noBookmarksTextView = view.findViewById(R.id.noBookmarks);
+        progressBar = view.findViewById(R.id.progress);
+        updateButton = view.findViewById(R.id.updateButton);
+        this.view = view.findViewById(R.id.view);
+        loadingBookmarkText = view.findViewById(R.id.loadingText);
+        updateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.loadBookmarks();
+            }
+        });
         BookmarksRouteModel model = new BookmarksRouteModel();
         presenter = new BookmarksRoutePresenter(model);
         presenter.attachView(this);
@@ -41,10 +58,12 @@ public class BookmarksRouteFragment extends Fragment implements BookmarksContrac
     }
 
     @Override
-    public void setAdapter(List<BookmarkRoute> bookmarkRoutes){
-        adapter = new BookmarksAdapter(getContext(), bookmarkRoutes);
-        adapter.setPresenter(presenter);
-        recyclerView.setAdapter(adapter);
+    public void setAdapter(List<BookmarkRoute> bookmarkRoutes) {
+        if (getActivity() != null) {
+            adapter = new BookmarksAdapter(getContext(), bookmarkRoutes);
+            adapter.setPresenter(presenter);
+            recyclerView.setAdapter(adapter);
+        }
     }
 
     @Override
@@ -69,5 +88,47 @@ public class BookmarksRouteFragment extends Fragment implements BookmarksContrac
     public void hideEmptyMessage() {
         noBookmarksTextView.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showBookmarkList() {
+        recyclerView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideBookmarkList() {
+        recyclerView.setVisibility(View.GONE);
+    }
+    @Override
+    public void showNoResponseToast() {
+        if (getActivity() != null) {
+            Toast toast = Toast.makeText(getContext(), R.string.responseError, Toast.LENGTH_LONG);
+            toast.setMargin(0, 0.1f);
+            toast.show();
+        }
+    }
+
+    @Override
+    public void showLoading() {
+        progressBar.setVisibility(View.VISIBLE);
+        view.setVisibility(View.VISIBLE);
+        loadingBookmarkText.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideLoading() {
+        progressBar.setVisibility(View.GONE);
+        view.setVisibility(View.GONE);
+        loadingBookmarkText.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showUpdateButton() {
+        updateButton.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideUpdateButton() {
+        updateButton.setVisibility(View.GONE);
     }
 }

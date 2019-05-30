@@ -320,4 +320,13 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
             }
         }
     }
+
+    @Override
+    public void showNoResponseToast() {
+        if (getActivity() != null) {
+            Toast toast = Toast.makeText(getContext(), R.string.responseError, Toast.LENGTH_LONG);
+            toast.setMargin(0, 0.1f);
+            toast.show();
+        }
+    }
 }

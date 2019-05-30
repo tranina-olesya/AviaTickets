@@ -8,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -24,6 +26,10 @@ public class SearchHistoryFragment extends Fragment implements SearchHistoryCont
     private SearchHistoryPresenter presenter;
     private SearchHistoryAdapter adapter;
     private TextView noSearchHistoryTextView;
+    private ProgressBar progressBar;
+    private View view;
+    private TextView loadingHistoryText;
+    private Button updateButton;
 
     public SearchHistoryFragment() {
     }
@@ -36,10 +42,21 @@ public class SearchHistoryFragment extends Fragment implements SearchHistoryCont
         recyclerView = view.findViewById(R.id.recyclerView);
         clearButton = view.findViewById(R.id.clearButton);
         noSearchHistoryTextView = view.findViewById(R.id.noSearchHistory);
+        progressBar = view.findViewById(R.id.progress);
+        updateButton = view.findViewById(R.id.updateButton);
+        this.view = view.findViewById(R.id.view);
+        loadingHistoryText = view.findViewById(R.id.loadingText);
         clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.clearHistory();
+            }
+        });
+
+        updateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.loadData();
             }
         });
 
@@ -52,9 +69,11 @@ public class SearchHistoryFragment extends Fragment implements SearchHistoryCont
 
     @Override
     public void setupAdapter(List<SearchHistoryEntry> searchHistoryEntries) {
-        adapter = new SearchHistoryAdapter(getContext(), searchHistoryEntries);
-        adapter.setPresenter(presenter);
-        recyclerView.setAdapter(adapter);
+        if (getActivity() != null) {
+            adapter = new SearchHistoryAdapter(getContext(), searchHistoryEntries);
+            adapter.setPresenter(presenter);
+            recyclerView.setAdapter(adapter);
+        }
     }
 
     @Override
@@ -78,14 +97,55 @@ public class SearchHistoryFragment extends Fragment implements SearchHistoryCont
     @Override
     public void showEmptyMessage() {
         noSearchHistoryTextView.setVisibility(View.VISIBLE);
-        recyclerView.setVisibility(View.GONE);
-        clearButton.setVisibility(View.GONE);
     }
 
     @Override
     public void hideEmptyMessage() {
         noSearchHistoryTextView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showSearchHistoryList() {
         recyclerView.setVisibility(View.VISIBLE);
         clearButton.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideSearchHistoryList() {
+        recyclerView.setVisibility(View.GONE);
+        clearButton.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showNoResponseToast() {
+        if (getActivity() != null) {
+            Toast toast = Toast.makeText(getContext(), R.string.responseError, Toast.LENGTH_LONG);
+            toast.setMargin(0, 0.1f);
+            toast.show();
+        }
+    }
+
+    @Override
+    public void showLoading() {
+        progressBar.setVisibility(View.VISIBLE);
+        view.setVisibility(View.VISIBLE);
+        loadingHistoryText.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideLoading() {
+        progressBar.setVisibility(View.GONE);
+        view.setVisibility(View.GONE);
+        loadingHistoryText.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showUpdateButton() {
+        updateButton.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideUpdateButton() {
+        updateButton.setVisibility(View.GONE);
     }
 }

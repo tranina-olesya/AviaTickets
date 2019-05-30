@@ -12,7 +12,6 @@ import ru.vsu.aviatickets.api.providers.APIError;
 import ru.vsu.aviatickets.api.providers.BookmarkAPIProvider;
 import ru.vsu.aviatickets.api.providers.TripAPIProvider;
 import ru.vsu.aviatickets.ticketssearch.sort.SortFilterType;
-import ru.vsu.aviatickets.ui.bookmarks.BookmarksRouteModel;
 
 public class TripResultsPresenter {
     private TripResultsContractView view;
@@ -50,7 +49,7 @@ public class TripResultsPresenter {
 
             @Override
             public void onFail() {
-
+//                view.showNoResponseToast();
             }
         });
     }
@@ -72,16 +71,13 @@ public class TripResultsPresenter {
             }
 
             @Override
-            public void onFail(/*List<APIError> errors*/) {
+            public void onFail(APIError error) {
                 view.hideProgress();
                 view.showGroupTripResults();
-//                if (errors.size() == model.getProvidersCount()) {
-//                    APIError apiError = checkForErrorType(errors);
-//                    if (apiError != null) {
-//                        if (apiError == APIError.NO_RESPONSE)
-//                            view.noResponse();
-//                    }
-//                }
+                if (error != null) {
+                    if (error == APIError.NO_RESPONSE)
+                        view.noResponse();
+                }
             }
         });
     }
@@ -90,14 +86,6 @@ public class TripResultsPresenter {
         view.setLoadedTrips(trips);
         view.showTrips();
         view.loadMore();
-    }
-
-    private APIError checkForErrorType(List<APIError> errors) {
-        List<APIError> apiErrors = removeDuplicates(errors);
-        if (apiErrors.size() == 1) {
-            return apiErrors.get(0);
-        } else
-            return null;
     }
 
     public void filterChosen(SortFilterType sortFilterType) {
@@ -123,7 +111,7 @@ public class TripResultsPresenter {
 
                 @Override
                 public void onFail() {
-
+                    view.showNoResponseToast();
                 }
             });
         } else {
@@ -137,7 +125,7 @@ public class TripResultsPresenter {
 
                 @Override
                 public void onFail() {
-
+                    view.showNoResponseToast();
                 }
             });
         }

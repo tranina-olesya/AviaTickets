@@ -11,6 +11,7 @@ import ru.vsu.aviatickets.R;
 import ru.vsu.aviatickets.api.entities.SearchHistoryEntry;
 import ru.vsu.aviatickets.api.entities.tripmodels.FlightType;
 import ru.vsu.aviatickets.api.entities.tripmodels.SearchData;
+import ru.vsu.aviatickets.api.providers.APIError;
 import ru.vsu.aviatickets.api.providers.TripAPIProvider;
 
 public class SearchFormPresenter {
@@ -72,15 +73,15 @@ public class SearchFormPresenter {
                 }
 
                 @Override
-                public void onFail(/*APIError error*/) {
-//                    switch (error) {
-//                        case NO_RESPONSE:
-//                            view.noResponse();
-//                            break;
-//                        case CITY_NOT_FOUND:
-//                            view.cityNotFound();
-//                            break;
-//                    }
+                public void onFail(APIError error) {
+                    switch (error) {
+                        case NO_RESPONSE:
+                            view.noResponse();
+                            break;
+                        case CITY_NOT_FOUND:
+                            view.cityNotFound();
+                            break;
+                    }
                     view.hideProgress();
                 }
             });

@@ -22,6 +22,5 @@ public class SearchFormModel {
 
     public void searchCities(SearchData searchData, TripAPIProvider.CityCallback callback) {
         tripAPIProvider.getCityCode(searchData.getOrigin().getName(), searchData.getDestination().getName(), callback);
-//        iataProviderAPI.getCityCodes(searchData.getOrigin().getName(), searchData.getDestination().getName(), callback);
     }
 }

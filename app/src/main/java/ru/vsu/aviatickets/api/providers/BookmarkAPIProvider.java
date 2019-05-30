@@ -86,7 +86,7 @@ public class BookmarkAPIProvider extends ProviderAPI<BookmarkAPI> {
             public void onResponse(Call<BookmarkRoute> call, Response<BookmarkRoute> response) {
                 if (callback != null) {
                     BookmarkRoute body = response.body();
-                    if (body != null)
+                    if (body != null && !body.checkAllNull())
                         callback.onComplete(body);
                     else
                         callback.onFail();

@@ -143,4 +143,10 @@ public class BookmarkRoute {
     public int hashCode() {
         return Objects.hash(origin, destination, adultCount, childCount, infantCount, flightType, transfers, classType);
     }
+
+    public boolean checkAllNull() {
+        return this.id == null && this.adultCount == null && this.childCount == null && this.userCode == null
+                && this.infantCount == null && this.origin == null && this.destination == null
+                && this.transfers == null && this.classType == null && this.flightType == null;
+    }
 }

@@ -56,4 +56,7 @@
     <string name="moneySymbol">₽</string>
     <string name="AdultCountFill">1</string>
     <string name="ChildrenCountFill">0</string>
+    <string name="loadingSearchHistoryText">Идет поиск истории…</string>
+    <string name="update">Обновить</string>
+    <string name="loadingBookmarksText">Идет поиск закладок…</string>
 </resources>

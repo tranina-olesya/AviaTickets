@@ -27,21 +27,32 @@ public class BookmarksRoutePresenter {
     }
 
     public void loadBookmarks() {
+        view.hideEmptyMessage();
+        view.hideBookmarkList();
+        view.showLoading();
         model.outBookmarksRoute(new BookmarkAPIProvider.BookmarksCallback() {
             @Override
             public void onComplete(List<BookmarkRoute> bookmarkRoutes) {
-                if (bookmarkRoutes == null || bookmarkRoutes.isEmpty())
+                if (bookmarkRoutes == null || bookmarkRoutes.isEmpty()) {
+                    view.hideBookmarkList();
                     view.showEmptyMessage();
+                }
                 else {
                     view.hideEmptyMessage();
+                    view.showBookmarkList();
                     BookmarksRoutePresenter.bookmarkRoutes = bookmarkRoutes;
                     view.setAdapter(bookmarkRoutes);
                 }
+                view.hideUpdateButton();
+                view.hideLoading();
             }
 
             @Override
             public void onFail() {
-
+                view.hideLoading();
+                view.showEmptyMessage();
+                view.showUpdateButton();
+                view.showNoResponseToast();
             }
         });
     }
@@ -55,13 +66,14 @@ public class BookmarksRoutePresenter {
                 bookmarkRoutes.remove(index);
                 view.itemRemoved(index);
                 if (bookmarkRoutes.isEmpty()) {
+                    view.hideBookmarkList();
                     view.showEmptyMessage();
                 }
             }
 
             @Override
             public void onFail() {
-
+                view.showNoResponseToast();
             }
         });
     }

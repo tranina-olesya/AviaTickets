@@ -36,4 +36,6 @@ public interface TripResultsContractView {
     void setLoadedTrips(List<Trip> loadedTrips);
 
     void loadMore();
+
+    void showNoResponseToast();
 }

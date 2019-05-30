@@ -17,4 +17,18 @@ public interface SearchHistoryContractView {
     void showEmptyMessage();
 
     void hideEmptyMessage();
+
+    void showSearchHistoryList();
+
+    void hideSearchHistoryList();
+
+    void showNoResponseToast();
+
+    void showLoading();
+
+    void hideLoading();
+
+    void showUpdateButton();
+
+    void hideUpdateButton();
 }
