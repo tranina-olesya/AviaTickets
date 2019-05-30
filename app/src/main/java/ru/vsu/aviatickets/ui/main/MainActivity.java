@@ -1,5 +1,6 @@
 package ru.vsu.aviatickets.ui.main;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,12 +11,21 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
+import ru.vsu.aviatickets.App;
 import ru.vsu.aviatickets.R;
 import ru.vsu.aviatickets.api.entities.tripmodels.SearchData;
 import ru.vsu.aviatickets.ui.bookmarks.BookmarksRouteFragment;
 import ru.vsu.aviatickets.ui.searchform.SearchFormFragment;
 import ru.vsu.aviatickets.ui.searchhistory.SearchHistoryFragment;
+import ru.vsu.aviatickets.ui.signin.SignInActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
 
     private BottomNavigationView navigation;
+
+    private GoogleSignInClient googleSignInClient;
 
     private SearchFormFragment searchFormFragment = new SearchFormFragment();
     private BookmarksRouteFragment bookmarksRouteFragment = new BookmarksRouteFragment();
@@ -82,6 +94,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        googleSignInClient = GoogleSignIn.getClient(this, gso);
+
         fragmentManager = getSupportFragmentManager();
         fragmentManager.addOnBackStackChangedListener(onBackStackChangedListener);
 
@@ -105,9 +123,29 @@ public class MainActivity extends AppCompatActivity {
                 saveHistorySettings(!checked);
                 item.setChecked(!checked);
                 return true;
+            case R.id.signInSettings:
+                startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                return true;
+            case R.id.signOutSettings:
+                signOut();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void signOut() {
+        googleSignInClient.signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast toast = Toast.makeText(MainActivity.this, R.string.successfullySignedOut, Toast.LENGTH_SHORT);
+                        toast.setMargin(0, 0.1f);
+                        toast.show();
+                        invalidateOptionsMenu();
+                        startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                    }
+                });
     }
 
     public void setSearchFormFragmentWithSearchData(SearchData searchData) {
@@ -119,6 +157,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
+        if (App.getUserCode() == null) {
+            menu.findItem(R.id.signInSettings).setVisible(true);
+            menu.findItem(R.id.signOutSettings).setVisible(false);
+        } else {
+            menu.findItem(R.id.signInSettings).setVisible(false);
+            menu.findItem(R.id.signOutSettings).setVisible(true);
+        }
         return true;
     }
 

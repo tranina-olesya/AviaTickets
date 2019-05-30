@@ -68,4 +68,7 @@
     <string name="goToSignIn"><u>Перейти ко входу</u></string>
     <string name="loginTextSearchHistory">Чтобы просматривать сохраненную историю войдите с помощью Google Account</string>
     <string name="loginTextBookmarks">Чтобы иметь возможность добавлять закладки войдите с помощью Google Account</string>
+    <string name="signInSettings">Войти в Google Account</string>
+    <string name="signOutSettings">Выйти из Google Account</string>
+    <string name="successfullySignedOut">Вы вышли из аккаунта</string>
 </resources>

@@ -6,4 +6,14 @@
         android:title="@string/searchHistorySettings"
         android:checkable="true"
         app:showAsAction="never"/>
+    <item
+        android:id="@+id/signInSettings"
+        android:title="@string/signInSettings"
+        android:visible="false"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/signOutSettings"
+        android:title="@string/signOutSettings"
+        android:visible="false"
+        app:showAsAction="never"/>
 </menu>
