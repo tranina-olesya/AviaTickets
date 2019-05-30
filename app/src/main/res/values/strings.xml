@@ -59,4 +59,13 @@
     <string name="loadingSearchHistoryText">Идет поиск истории…</string>
     <string name="update">Обновить</string>
     <string name="loadingBookmarksText">Идет поиск закладок…</string>
+    <string name="loginText">Войдите с помощью Google Account, чтобы иметь больше возможностей.</string>
+    <string name="cancel"><u>Отмена</u></string>
+    <string name="signInActivityTitle">Вход в Google Account</string>
+    <string name="signIn">Войти</string>
+    <string name="failedToSignIn">Не удалось войти</string>
+    <string name="notSignedIn">Войдите в аккаунт</string>
+    <string name="goToSignIn"><u>Перейти ко входу</u></string>
+    <string name="loginTextSearchHistory">Чтобы просматривать сохраненную историю войдите с помощью Google Account</string>
+    <string name="loginTextBookmarks">Чтобы иметь возможность добавлять закладки войдите с помощью Google Account</string>
 </resources>

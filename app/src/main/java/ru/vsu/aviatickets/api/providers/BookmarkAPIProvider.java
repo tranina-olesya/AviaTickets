@@ -20,8 +20,8 @@ public class BookmarkAPIProvider extends ProviderAPI<BookmarkAPI> {
         return retrofit.create(BookmarkAPI.class);
     }
 
-    public void getBookmarks(BookmarksCallback callback) {
-        getApi().getBookmarks(App.getUserCode()).enqueue(new Callback<List<BookmarkRoute>>() {
+    public void getBookmarks(String userCode, BookmarksCallback callback) {
+        getApi().getBookmarks(userCode).enqueue(new Callback<List<BookmarkRoute>>() {
             @Override
             public void onResponse(Call<List<BookmarkRoute>> call, Response<List<BookmarkRoute>> response) {
                 if (callback != null) {
@@ -57,8 +57,8 @@ public class BookmarkAPIProvider extends ProviderAPI<BookmarkAPI> {
         });
     }
 
-    public void addBookmark(BookmarkRoute bookmarkRoute, CompleteCallback callback) {
-        BookmarkRequestDTO bookmarkRequestDTO = new BookmarkRequestDTO(App.getUserCode(), bookmarkRoute.getOrigin(),
+    public void addBookmark(String userCode,BookmarkRoute bookmarkRoute, CompleteCallback callback) {
+        BookmarkRequestDTO bookmarkRequestDTO = new BookmarkRequestDTO(userCode, bookmarkRoute.getOrigin(),
                 bookmarkRoute.getDestination(), bookmarkRoute.getAdultCount(), bookmarkRoute.getChildCount(),
                 bookmarkRoute.getInfantCount(), bookmarkRoute.getFlightType(), bookmarkRoute.isTransfers(),
                 bookmarkRoute.getClassType());

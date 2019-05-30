@@ -1,7 +1,9 @@
 package ru.vsu.aviatickets.ui.bookmarks;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +19,7 @@ import ru.vsu.aviatickets.R;
 import ru.vsu.aviatickets.api.entities.BookmarkRoute;
 import ru.vsu.aviatickets.api.entities.tripmodels.SearchData;
 import ru.vsu.aviatickets.ui.main.MainActivity;
+import ru.vsu.aviatickets.ui.signin.SignInActivity;
 
 
 public class BookmarksRouteFragment extends Fragment implements BookmarksContractView {
@@ -25,7 +28,8 @@ public class BookmarksRouteFragment extends Fragment implements BookmarksContrac
     private BookmarksAdapter adapter;
     private TextView noBookmarksTextView;
     private ProgressBar progressBar;
-    private View view;
+    private TextView signInText;
+    private Button singInButton;
     private TextView loadingBookmarkText;
     private Button updateButton;
 
@@ -42,12 +46,22 @@ public class BookmarksRouteFragment extends Fragment implements BookmarksContrac
         noBookmarksTextView = view.findViewById(R.id.noBookmarks);
         progressBar = view.findViewById(R.id.progress);
         updateButton = view.findViewById(R.id.updateButton);
-        this.view = view.findViewById(R.id.view);
+        signInText = view.findViewById(R.id.signInText);
+        singInButton = view.findViewById(R.id.signInButton);
         loadingBookmarkText = view.findViewById(R.id.loadingText);
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.loadBookmarks();
+            }
+        });
+        singInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentActivity activity = getActivity();
+                if (activity != null) {
+                    startActivity(new Intent(activity, SignInActivity.class));
+                }
             }
         });
         BookmarksRouteModel model = new BookmarksRouteModel();
@@ -99,6 +113,7 @@ public class BookmarksRouteFragment extends Fragment implements BookmarksContrac
     public void hideBookmarkList() {
         recyclerView.setVisibility(View.GONE);
     }
+
     @Override
     public void showNoResponseToast() {
         if (getActivity() != null) {
@@ -111,14 +126,12 @@ public class BookmarksRouteFragment extends Fragment implements BookmarksContrac
     @Override
     public void showLoading() {
         progressBar.setVisibility(View.VISIBLE);
-        view.setVisibility(View.VISIBLE);
         loadingBookmarkText.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoading() {
         progressBar.setVisibility(View.GONE);
-        view.setVisibility(View.GONE);
         loadingBookmarkText.setVisibility(View.GONE);
     }
 
@@ -130,5 +143,17 @@ public class BookmarksRouteFragment extends Fragment implements BookmarksContrac
     @Override
     public void hideUpdateButton() {
         updateButton.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showSignInButton() {
+        singInButton.setVisibility(View.VISIBLE);
+        signInText.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideSignInButton() {
+        signInText.setVisibility(View.GONE);
+        singInButton.setVisibility(View.GONE);
     }
 }

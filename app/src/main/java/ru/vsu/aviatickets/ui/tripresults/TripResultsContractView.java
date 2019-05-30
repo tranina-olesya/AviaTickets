@@ -38,4 +38,6 @@ public interface TripResultsContractView {
     void loadMore();
 
     void showNoResponseToast();
+
+    void showSignInErrorToast();
 }

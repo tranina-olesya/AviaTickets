@@ -29,4 +29,8 @@ public interface BookmarksContractView {
     void showUpdateButton();
 
     void hideUpdateButton();
+
+    void showSignInButton();
+
+    void hideSignInButton();
 }

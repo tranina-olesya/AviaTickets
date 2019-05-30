@@ -7,7 +7,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import ru.vsu.aviatickets.App;
 import ru.vsu.aviatickets.api.CompleteCallback;
 import ru.vsu.aviatickets.api.entities.SearchHistoryEntry;
 import ru.vsu.aviatickets.api.entities.dto.request.SearchHistoryEntryRequestDTO;
@@ -20,8 +19,8 @@ public class SearchHistoryAPIProvider extends ProviderAPI<SearchHistoryAPI> {
         return retrofit.create(SearchHistoryAPI.class);
     }
 
-    public void getSearchHistory(SearchHistoryCallback callback) {
-        getApi().getSearchHistory(App.getUserCode()).enqueue(new Callback<List<SearchHistoryEntry>>() {
+    public void getSearchHistory(String userCode, SearchHistoryCallback callback) {
+        getApi().getSearchHistory(userCode).enqueue(new Callback<List<SearchHistoryEntry>>() {
             @Override
             public void onResponse(Call<List<SearchHistoryEntry>> call, Response<List<SearchHistoryEntry>> response) {
                 if (callback != null) {
@@ -42,8 +41,8 @@ public class SearchHistoryAPIProvider extends ProviderAPI<SearchHistoryAPI> {
         });
     }
 
-    public void deleteSearchHistoryEntry(Long searchHistoryEntryId, CompleteCallback callback) {
-        getApi().deleteSearchHistoryEntry(App.getUserCode(), searchHistoryEntryId).enqueue(new Callback<ResponseBody>() {
+    public void deleteSearchHistoryEntry(String userCode, Long searchHistoryEntryId, CompleteCallback callback) {
+        getApi().deleteSearchHistoryEntry(userCode, searchHistoryEntryId).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (callback != null)
@@ -58,8 +57,8 @@ public class SearchHistoryAPIProvider extends ProviderAPI<SearchHistoryAPI> {
         });
     }
 
-    public void deleteAllSearchHistory(CompleteCallback callback) {
-        getApi().deleteAllSearchHistory(App.getUserCode()).enqueue(new Callback<ResponseBody>() {
+    public void deleteAllSearchHistory(String userCode, CompleteCallback callback) {
+        getApi().deleteAllSearchHistory(userCode).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (callback != null)
@@ -74,8 +73,8 @@ public class SearchHistoryAPIProvider extends ProviderAPI<SearchHistoryAPI> {
         });
     }
 
-    public void addSearchHistoryEntry(SearchHistoryEntry searchHistoryEntry, CompleteCallback callback) {
-        SearchHistoryEntryRequestDTO searchHistoryEntryRequestDTO = new SearchHistoryEntryRequestDTO(App.getUserCode(),
+    public void addSearchHistoryEntry(String userCode, SearchHistoryEntry searchHistoryEntry, CompleteCallback callback) {
+        SearchHistoryEntryRequestDTO searchHistoryEntryRequestDTO = new SearchHistoryEntryRequestDTO(userCode,
                 searchHistoryEntry.getOrigin(), searchHistoryEntry.getDestination(), searchHistoryEntry.getOutboundDate(),
                 searchHistoryEntry.getInboundDate(), searchHistoryEntry.getAdultsCount(), searchHistoryEntry.getChildrenCount(),
                 searchHistoryEntry.getInfantsCount(), searchHistoryEntry.getFlightType(), searchHistoryEntry.getTransfers(),

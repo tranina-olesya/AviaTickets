@@ -11,15 +11,15 @@ public class SearchHistoryModel {
         this.searchHistoryAPIProvider = new SearchHistoryAPIProvider();
     }
 
-    public void removeItem(Long id, CompleteCallback callback) {
-        searchHistoryAPIProvider.deleteSearchHistoryEntry(id, callback);
+    public void removeItem(String userCode, Long id, CompleteCallback callback) {
+        searchHistoryAPIProvider.deleteSearchHistoryEntry(userCode, id, callback);
     }
 
-    public void removeAll(CompleteCallback callback) {
-        searchHistoryAPIProvider.deleteAllSearchHistory(callback);
+    public void removeAll(String userCode, CompleteCallback callback) {
+        searchHistoryAPIProvider.deleteAllSearchHistory(userCode, callback);
     }
 
-    public void getAll(SearchHistoryAPIProvider.SearchHistoryCallback callback) {
-        searchHistoryAPIProvider.getSearchHistory(callback);
+    public void getAll(String userCode, SearchHistoryAPIProvider.SearchHistoryCallback callback) {
+        searchHistoryAPIProvider.getSearchHistory(userCode, callback);
     }
 }

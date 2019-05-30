@@ -31,4 +31,8 @@ public interface SearchHistoryContractView {
     void showUpdateButton();
 
     void hideUpdateButton();
+
+    void showSignInButton();
+
+    void hideSignInButton();
 }

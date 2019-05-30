@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 
+import ru.vsu.aviatickets.App;
 import ru.vsu.aviatickets.api.CompleteCallback;
 import ru.vsu.aviatickets.api.entities.BookmarkRoute;
 import ru.vsu.aviatickets.api.entities.tripmodels.SearchData;
@@ -14,9 +15,9 @@ import ru.vsu.aviatickets.api.providers.TripAPIProvider;
 import ru.vsu.aviatickets.ticketssearch.sort.SortFilterType;
 
 public class TripResultsPresenter {
-    private TripResultsContractView view;
     private final TripResultsModel model;
     private final BookmarkAdditionModel modelAddition;
+    private TripResultsContractView view;
     private BookmarkRoute savedBookmark;
 
     private List<Trip> lastFoundTrips;
@@ -39,19 +40,21 @@ public class TripResultsPresenter {
     }
 
     private void checkIfBookmarkExists(SearchData searchData) {
-        modelAddition.findBookmark(searchData, new BookmarkAPIProvider.BookmarkCallback() {
-            @Override
-            public void onComplete(BookmarkRoute bookmarkRoute) {
-                savedBookmark = bookmarkRoute;
-                if (savedBookmark != null)
-                    view.bookmarkAdded();
-            }
+        String userCode = App.getUserCode();
+        if (userCode != null)
+            modelAddition.findBookmark(userCode, searchData, new BookmarkAPIProvider.BookmarkCallback() {
+                @Override
+                public void onComplete(BookmarkRoute bookmarkRoute) {
+                    savedBookmark = bookmarkRoute;
+                    if (savedBookmark != null)
+                        view.bookmarkAdded();
+                }
 
-            @Override
-            public void onFail() {
+                @Override
+                public void onFail() {
 //                view.showNoResponseToast();
-            }
-        });
+                }
+            });
     }
 
     public void loadData(SearchData searchData) {
@@ -98,36 +101,41 @@ public class TripResultsPresenter {
     }
 
     public void bookmarkButtonClicked() {
-        view.disableBookmarksButton();
-        if (savedBookmark == null) {
-            BookmarkRoute bookmarkRoute = view.addBookmarkRouteData();
-            modelAddition.addBookmarkRoute(bookmarkRoute, new CompleteCallback() {
-                @Override
-                public void onComplete() {
-                    checkIfBookmarkExists(view.getSearchData());
-                    view.bookmarkAdded();
-                    view.enableBookmarksButton();
-                }
+        String userCode = App.getUserCode();
+        if (userCode != null) {
+            view.disableBookmarksButton();
+            if (savedBookmark == null) {
+                BookmarkRoute bookmarkRoute = view.addBookmarkRouteData();
+                modelAddition.addBookmarkRoute(userCode, bookmarkRoute, new CompleteCallback() {
+                    @Override
+                    public void onComplete() {
+                        checkIfBookmarkExists(view.getSearchData());
+                        view.bookmarkAdded();
+                        view.enableBookmarksButton();
+                    }
 
-                @Override
-                public void onFail() {
-                    view.showNoResponseToast();
-                }
-            });
+                    @Override
+                    public void onFail() {
+                        view.showNoResponseToast();
+                    }
+                });
+            } else {
+                modelAddition.deleteBookmarkRoute(savedBookmark, new CompleteCallback() {
+                    @Override
+                    public void onComplete() {
+                        savedBookmark = null;
+                        view.bookmarkDeleted();
+                        view.enableBookmarksButton();
+                    }
+
+                    @Override
+                    public void onFail() {
+                        view.showNoResponseToast();
+                    }
+                });
+            }
         } else {
-            modelAddition.deleteBookmarkRoute(savedBookmark, new CompleteCallback() {
-                @Override
-                public void onComplete() {
-                    savedBookmark = null;
-                    view.bookmarkDeleted();
-                    view.enableBookmarksButton();
-                }
-
-                @Override
-                public void onFail() {
-                    view.showNoResponseToast();
-                }
-            });
+            view.showSignInErrorToast();
         }
     }
 

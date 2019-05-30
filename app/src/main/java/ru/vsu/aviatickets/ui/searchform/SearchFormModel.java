@@ -16,8 +16,8 @@ public class SearchFormModel {
         this.searchHistoryAPIProvider = new SearchHistoryAPIProvider();
     }
 
-    public void addSearchData(SearchHistoryEntry searchHistoryEntry, CompleteCallback callback) {
-        searchHistoryAPIProvider.addSearchHistoryEntry(searchHistoryEntry, callback);
+    public void addSearchData(String userCode, SearchHistoryEntry searchHistoryEntry, CompleteCallback callback) {
+        searchHistoryAPIProvider.addSearchHistoryEntry(userCode, searchHistoryEntry, callback);
     }
 
     public void searchCities(SearchData searchData, TripAPIProvider.CityCallback callback) {

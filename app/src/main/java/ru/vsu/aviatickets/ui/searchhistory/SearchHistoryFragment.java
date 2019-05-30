@@ -1,8 +1,10 @@
 package ru.vsu.aviatickets.ui.searchhistory;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +20,7 @@ import ru.vsu.aviatickets.R;
 import ru.vsu.aviatickets.api.entities.SearchHistoryEntry;
 import ru.vsu.aviatickets.api.entities.tripmodels.SearchData;
 import ru.vsu.aviatickets.ui.main.MainActivity;
+import ru.vsu.aviatickets.ui.signin.SignInActivity;
 
 public class SearchHistoryFragment extends Fragment implements SearchHistoryContractView {
 
@@ -27,9 +30,10 @@ public class SearchHistoryFragment extends Fragment implements SearchHistoryCont
     private SearchHistoryAdapter adapter;
     private TextView noSearchHistoryTextView;
     private ProgressBar progressBar;
-    private View view;
     private TextView loadingHistoryText;
     private Button updateButton;
+    private TextView signInText;
+    private Button singInButton;
 
     public SearchHistoryFragment() {
     }
@@ -44,8 +48,10 @@ public class SearchHistoryFragment extends Fragment implements SearchHistoryCont
         noSearchHistoryTextView = view.findViewById(R.id.noSearchHistory);
         progressBar = view.findViewById(R.id.progress);
         updateButton = view.findViewById(R.id.updateButton);
-        this.view = view.findViewById(R.id.view);
         loadingHistoryText = view.findViewById(R.id.loadingText);
+        signInText = view.findViewById(R.id.signInText);
+        singInButton = view.findViewById(R.id.signInButton);
+
         clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,6 +66,15 @@ public class SearchHistoryFragment extends Fragment implements SearchHistoryCont
             }
         });
 
+        singInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentActivity activity = getActivity();
+                if (activity != null) {
+                    startActivity(new Intent(activity, SignInActivity.class));
+                }
+            }
+        });
         presenter = new SearchHistoryPresenter(new SearchHistoryModel());
         presenter.attachView(this);
         presenter.viewIsReady();
@@ -128,14 +143,12 @@ public class SearchHistoryFragment extends Fragment implements SearchHistoryCont
     @Override
     public void showLoading() {
         progressBar.setVisibility(View.VISIBLE);
-        view.setVisibility(View.VISIBLE);
         loadingHistoryText.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoading() {
         progressBar.setVisibility(View.GONE);
-        view.setVisibility(View.GONE);
         loadingHistoryText.setVisibility(View.GONE);
     }
 
@@ -147,5 +160,17 @@ public class SearchHistoryFragment extends Fragment implements SearchHistoryCont
     @Override
     public void hideUpdateButton() {
         updateButton.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showSignInButton() {
+        singInButton.setVisibility(View.VISIBLE);
+        signInText.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideSignInButton() {
+        signInText.setVisibility(View.GONE);
+        singInButton.setVisibility(View.GONE);
     }
 }

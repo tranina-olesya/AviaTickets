@@ -67,8 +67,11 @@ public class SearchFormPresenter {
                     view.hideProgress();
                     searchData.getOrigin().setCode(originCode);
                     searchData.getDestination().setCode(destinationCode);
-                    if (view.isSavingHistoryEnabled())
-                        model.addSearchData(new SearchHistoryEntry(App.getUserCode(), searchData), null);
+                    String userCode = App.getUserCode();
+                    if (view.isSavingHistoryEnabled()) {
+                        if (userCode != null)
+                            model.addSearchData(userCode, new SearchHistoryEntry(userCode, searchData), null);
+                    }
                     view.showSearchResults(searchData);
                 }
 

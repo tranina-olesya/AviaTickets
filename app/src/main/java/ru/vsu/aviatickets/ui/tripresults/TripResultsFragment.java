@@ -329,4 +329,13 @@ public class TripResultsFragment extends Fragment implements TripResultsContract
             toast.show();
         }
     }
+
+    @Override
+    public void showSignInErrorToast() {
+        if (getActivity() != null) {
+            Toast toast = Toast.makeText(getContext(), R.string.notSignedIn, Toast.LENGTH_LONG);
+            toast.setMargin(0, 0.1f);
+            toast.show();
+        }
+    }
 }
