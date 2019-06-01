@@ -71,4 +71,6 @@
     <string name="signInSettings">Войти в Google Account</string>
     <string name="signOutSettings">Выйти из Google Account</string>
     <string name="successfullySignedOut">Вы вышли из аккаунта</string>
+    <string name="errorEmptyOrigin">Введите город отправления</string>
+    <string name="errorEmptyDestination">Введите город назначения</string>
 </resources>

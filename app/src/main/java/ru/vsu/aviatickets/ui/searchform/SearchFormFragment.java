@@ -381,4 +381,26 @@ public class SearchFormFragment extends Fragment implements SearchFormContractVi
         toast.setMargin(0, 0.1f);
         toast.show();
     }
+
+    @Override
+    public void errorOrigin(int resId) {
+        editTextOrigin.requestFocus();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Drawable drawable = getContext().getDrawable(R.drawable.alert_circle_outline);
+            drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+            editTextOrigin.setError(getString(resId), drawable);
+        } else
+            editTextOrigin.setError(getString(resId));
+    }
+
+    @Override
+    public void errorDestination(int resId) {
+        editTextDestination.requestFocus();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Drawable drawable = getContext().getDrawable(R.drawable.alert_circle_outline);
+            drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+            editTextDestination.setError(getString(resId), drawable);
+        } else
+            editTextDestination.setError(getString(resId));
+    }
 }

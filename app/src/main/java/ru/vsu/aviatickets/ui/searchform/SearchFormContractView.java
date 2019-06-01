@@ -40,4 +40,8 @@ public interface SearchFormContractView {
     void hideProgress();
 
     void noResponse();
+
+    void errorDestination(int resId);
+
+    void errorOrigin(int resId);
 }

@@ -27,7 +27,7 @@ public class TripAPIProvider extends ProviderAPI<TripAPI> {
             public void onResponse(Call<Route> call, Response<Route> response) {
                 if (callback != null) {
                     Route body = response.body();
-                    if (body != null)
+                    if (body != null && body.getOrigin() != null && body.getDestination() != null)
                         callback.onComplete(body.getOrigin().getIata(), body.getDestination().getIata());
                     else
                         callback.onFail(APIError.CITY_NOT_FOUND);

@@ -119,6 +119,14 @@ public class SearchFormPresenter {
                 return false;
             }
         }
+        if (searchData.getOrigin().getName() == null || searchData.getOrigin().getName().isEmpty()) {
+            view.errorOrigin(R.string.errorEmptyOrigin);
+            return false;
+        } else if (searchData.getDestination().getName() == null || searchData.getDestination().getName().isEmpty()) {
+            view.errorDestination(R.string.errorEmptyDestination);
+            return false;
+        }
+
         return true;
     }
 
