@@ -53,7 +53,7 @@ public class SearchFormCitiesLoadingTest {
     }
 
     @Test
-    public void mainActivityTest() {
+    public void searchFormCitiesLoadingTest() {
         ViewInteraction appCompatEditText = onView(withId(R.id.cityFrom));
         appCompatEditText.perform(replaceText("Лондон"), closeSoftKeyboard());
 
