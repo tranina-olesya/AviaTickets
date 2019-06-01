@@ -38,67 +38,20 @@ public class SearchFormDatePickerTest {
 
     @Test
     public void searchFormDateFromTest() {
-        ViewInteraction appCompatEditText = onView(
-                allOf(withId(R.id.dateFrom),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.support.constraint.ConstraintLayout")),
-                                        0),
-                                21),
-                        isDisplayed()));
+        ViewInteraction appCompatEditText = onView(withId(R.id.dateFrom));
         appCompatEditText.perform(longClick());
 
-        ViewInteraction frameLayout = onView(
-                allOf(withId(android.R.id.content),
-                        childAtPosition(
-                                childAtPosition(
-                                        IsInstanceOf.<View>instanceOf(android.widget.FrameLayout.class),
-                                        0),
-                                0),
-                        isDisplayed()));
+        ViewInteraction frameLayout = onView(withId(android.R.id.content));
         frameLayout.check(matches(isDisplayed()));
     }
 
 
     @Test
     public void searchFormDateToTest() {
-        ViewInteraction appCompatEditText = onView(
-                allOf(withId(R.id.dateTo),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.support.constraint.ConstraintLayout")),
-                                        0),
-                                22),
-                        isDisplayed()));
+        ViewInteraction appCompatEditText = onView(withId(R.id.dateTo));
         appCompatEditText.perform(longClick());
 
-        ViewInteraction frameLayout = onView(
-                allOf(withId(android.R.id.content),
-                        childAtPosition(
-                                childAtPosition(
-                                        IsInstanceOf.<View>instanceOf(android.widget.FrameLayout.class),
-                                        0),
-                                0),
-                        isDisplayed()));
+        ViewInteraction frameLayout = onView(withId(android.R.id.content));
         frameLayout.check(matches(isDisplayed()));
-    }
-
-    private static Matcher<View> childAtPosition(
-            final Matcher<View> parentMatcher, final int position) {
-
-        return new TypeSafeMatcher<View>() {
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("Child at position " + position + " in parent ");
-                parentMatcher.describeTo(description);
-            }
-
-            @Override
-            public boolean matchesSafely(View view) {
-                ViewParent parent = view.getParent();
-                return parent instanceof ViewGroup && parentMatcher.matches(parent)
-                        && view.equals(((ViewGroup) parent).getChildAt(position));
-            }
-        };
     }
 }

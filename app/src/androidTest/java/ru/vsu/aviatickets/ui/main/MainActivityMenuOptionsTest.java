@@ -1,6 +1,7 @@
 package ru.vsu.aviatickets.ui.main;
 
 
+import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
@@ -18,6 +19,7 @@ import static android.support.test.espresso.Espresso.openActionBarOverflowOrOpti
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 
 @LargeTest
@@ -31,9 +33,11 @@ public class MainActivityMenuOptionsTest {
     public void mainActivityMenuOptionsTest() {
         openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
 
-        ViewInteraction linearLayout = onView(
-                allOf(withId(R.id.content),
-                        isDisplayed()));
-        linearLayout.check(matches(isDisplayed()));
+        ViewInteraction textView = onView(
+                allOf(withId(R.id.title), withText(InstrumentationRegistry
+                        .getInstrumentation()
+                        .getTargetContext()
+                        .getString(R.string.searchHistorySettings))));
+        textView.check(matches(isDisplayed()));
     }
 }

@@ -40,85 +40,24 @@ public class SearchFormChangeCitiesTest {
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
-    private static Matcher<View> childAtPosition(
-            final Matcher<View> parentMatcher, final int position) {
-
-        return new TypeSafeMatcher<View>() {
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("Child at position " + position + " in parent ");
-                parentMatcher.describeTo(description);
-            }
-
-            @Override
-            public boolean matchesSafely(View view) {
-                ViewParent parent = view.getParent();
-                return parent instanceof ViewGroup && parentMatcher.matches(parent)
-                        && view.equals(((ViewGroup) parent).getChildAt(position));
-            }
-        };
-    }
-
     @Test
     public void searchFormChangeCitiesTest() {
-        ViewInteraction bottomNavigationItemView = onView(
-                allOf(withId(R.id.navigation_search), withContentDescription("Поиск"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.navigation),
-                                        0),
-                                0),
-                        isDisplayed()));
+        ViewInteraction bottomNavigationItemView = onView(withId(R.id.navigation_search));
         bottomNavigationItemView.perform(click());
 
-        ViewInteraction appCompatEditText = onView(
-                allOf(withId(R.id.cityFrom),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.support.constraint.ConstraintLayout")),
-                                        0),
-                                9),
-                        isDisplayed()));
+        ViewInteraction appCompatEditText = onView(withId(R.id.cityFrom));
         appCompatEditText.perform(replaceText("Москва"), closeSoftKeyboard());
 
-        ViewInteraction appCompatEditText2 = onView(
-                allOf(withId(R.id.cityTo),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.support.constraint.ConstraintLayout")),
-                                        0),
-                                14),
-                        isDisplayed()));
+        ViewInteraction appCompatEditText2 = onView(withId(R.id.cityTo));
         appCompatEditText2.perform(replaceText("Лондон"), closeSoftKeyboard());
 
-        ViewInteraction appCompatImageButton = onView(
-                allOf(withId(R.id.changeCities),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.support.constraint.ConstraintLayout")),
-                                        0),
-                                13),
-                        isDisplayed()));
+        ViewInteraction appCompatImageButton = onView(withId(R.id.changeCities));
         appCompatImageButton.perform(click());
 
-        ViewInteraction editText = onView(
-                allOf(withId(R.id.cityFrom),
-                        childAtPosition(
-                                childAtPosition(
-                                        IsInstanceOf.<View>instanceOf(android.view.ViewGroup.class),
-                                        0),
-                                9),
-                        isDisplayed()));
+        ViewInteraction editText = onView(withId(R.id.cityFrom));
         editText.check(matches(withText("Лондон")));
 
-        ViewInteraction editText2 = onView(
-                allOf(withId(R.id.cityTo),
-                        childAtPosition(
-                                childAtPosition(
-                                        IsInstanceOf.<View>instanceOf(android.view.ViewGroup.class),
-                                        0),
-                                14),
-                        isDisplayed()));
+        ViewInteraction editText2 = onView(withId(R.id.cityTo));
         editText2.check(matches(withText("Москва")));
     }
 }
