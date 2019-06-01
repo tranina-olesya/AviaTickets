@@ -43,25 +43,6 @@ public class SearchFormCitiesLoadingTest {
     private String dateFrom;
     private String dateTo;
 
-    private static Matcher<View> childAtPosition(
-            final Matcher<View> parentMatcher, final int position) {
-
-        return new TypeSafeMatcher<View>() {
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("Child at position " + position + " in parent ");
-                parentMatcher.describeTo(description);
-            }
-
-            @Override
-            public boolean matchesSafely(View view) {
-                ViewParent parent = view.getParent();
-                return parent instanceof ViewGroup && parentMatcher.matches(parent)
-                        && view.equals(((ViewGroup) parent).getChildAt(position));
-            }
-        };
-    }
-
     @Before
     public void initDate() {
         Calendar c = Calendar.getInstance();
@@ -73,54 +54,19 @@ public class SearchFormCitiesLoadingTest {
 
     @Test
     public void mainActivityTest() {
-        ViewInteraction appCompatEditText = onView(
-                allOf(withId(R.id.cityFrom),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.support.constraint.ConstraintLayout")),
-                                        0),
-                                9),
-                        isDisplayed()));
+        ViewInteraction appCompatEditText = onView(withId(R.id.cityFrom));
         appCompatEditText.perform(replaceText("Лондон"), closeSoftKeyboard());
 
-        ViewInteraction appCompatEditText2 = onView(
-                allOf(withId(R.id.cityTo),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.support.constraint.ConstraintLayout")),
-                                        0),
-                                14),
-                        isDisplayed()));
+        ViewInteraction appCompatEditText2 = onView(withId(R.id.cityTo));
         appCompatEditText2.perform(replaceText("Москва"), closeSoftKeyboard());
 
-        ViewInteraction appCompatEditText3 = onView(
-                allOf(withId(R.id.dateFrom),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.support.constraint.ConstraintLayout")),
-                                        0),
-                                21),
-                        isDisplayed()));
+        ViewInteraction appCompatEditText3 = onView(withId(R.id.dateFrom));
         appCompatEditText3.perform(replaceText(dateFrom), closeSoftKeyboard());
 
-        ViewInteraction appCompatEditText4 = onView(
-                allOf(withId(R.id.dateTo),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.support.constraint.ConstraintLayout")),
-                                        0),
-                                22),
-                        isDisplayed()));
+        ViewInteraction appCompatEditText4 = onView(withId(R.id.dateTo));
         appCompatEditText4.perform(replaceText(dateTo), closeSoftKeyboard());
 
-        ViewInteraction appCompatButton = onView(
-                allOf(withId(R.id.buttonSearch), withText("Поиск билетов"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.support.constraint.ConstraintLayout")),
-                                        0),
-                                23),
-                        isDisplayed()));
+        ViewInteraction appCompatButton = onView(withId(R.id.buttonSearch));
         appCompatButton.perform(click());
 
         ViewInteraction progressBar = onView(withId(R.id.progressCityFrom));
