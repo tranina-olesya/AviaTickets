@@ -45,7 +45,7 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Book
     public void onBindViewHolder(@NonNull BookmarksViewHolder bookmarksViewHolder, int index) {
         BookmarkRoute bookmarkRoute = searchDataList.get(index);
         bookmarksViewHolder.route.setText(String.format("%s - %s", bookmarkRoute.getOrigin(), bookmarkRoute.getDestination()));
-        bookmarksViewHolder.cabinClass.setText(bookmarkRoute.getClassType().equals(CabinClass.BUSINESS.toString()) ?
+        bookmarksViewHolder.cabinClass.setText(bookmarkRoute.getClassType().equals(CabinClass.BUSINESS) ?
                 context.getString(R.string.spinnerCabinClassBusiness) :
                 context.getString(R.string.spinnerCabinClassEconomy));
         bookmarksViewHolder.adultsCount.setText(String.valueOf(bookmarkRoute.getAdultCount()));
@@ -54,7 +54,7 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Book
         bookmarksViewHolder.transfersImage.setImageDrawable(bookmarkRoute.isTransfers() ?
                 context.getDrawable(R.drawable.has_transfers_gray) :
                 context.getDrawable(R.drawable.no_transfers_gray));
-        bookmarksViewHolder.flightTypeImage.setImageDrawable(bookmarkRoute.getFlightType().equals(FlightType.ROUND.toString()) ?
+        bookmarksViewHolder.flightTypeImage.setImageDrawable(bookmarkRoute.getFlightType().equals(FlightType.ROUND) ?
                 context.getDrawable(R.drawable.flight_type_round) :
                 context.getDrawable(R.drawable.flight_type_oneway));
 
@@ -64,7 +64,7 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Book
         TooltipCompat.setTooltipText(bookmarksViewHolder.transfersImage, bookmarkRoute.isTransfers() ?
                 context.getString(R.string.hasTransfers) :
                 context.getString(R.string.noTransfers));
-        TooltipCompat.setTooltipText(bookmarksViewHolder.flightTypeImage, bookmarkRoute.getFlightType().equals(FlightType.ROUND.toString()) ?
+        TooltipCompat.setTooltipText(bookmarksViewHolder.flightTypeImage, bookmarkRoute.getFlightType().equals(FlightType.ROUND) ?
                 context.getString(R.string.spinnerFlightTypeRound) :
                 context.getString(R.string.spinnerFlightTypeOneway));
 
