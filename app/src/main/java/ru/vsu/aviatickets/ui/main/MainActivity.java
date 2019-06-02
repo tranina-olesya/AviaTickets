@@ -160,9 +160,11 @@ public class MainActivity extends AppCompatActivity {
         if (App.getUserCode() == null) {
             menu.findItem(R.id.signInSettings).setVisible(true);
             menu.findItem(R.id.signOutSettings).setVisible(false);
+            menu.findItem(R.id.searchHistorySettings).setEnabled(false);
         } else {
             menu.findItem(R.id.signInSettings).setVisible(false);
             menu.findItem(R.id.signOutSettings).setVisible(true);
+            menu.findItem(R.id.searchHistorySettings).setEnabled(true);
         }
         return true;
     }

@@ -44,7 +44,7 @@ public class TripAPIProvider extends ProviderAPI<TripAPI> {
     public void getTrips(SearchData searchData, TripsCallback callback) {
         getApi().getTrips(searchData.getOrigin().getCode(), searchData.getOrigin().getName(),
                 searchData.getDestination().getCode(), searchData.getDestination().getName(),
-                convertDate(searchData.getOutboundDate()), convertDate(searchData.getInboundDate()),
+                convertDate(searchData.getOutboundDate()),convertDate(searchData.getInboundDate()),
                 searchData.getAdultsCount(), searchData.getChildrenCount(), searchData.getInfantsCount(),
                 searchData.getFlightType(), searchData.getCabinClass(), searchData.getTransfers()).enqueue(new Callback<List<Trip>>() {
             @Override

@@ -76,10 +76,12 @@ public class TripResultsPresenter {
             @Override
             public void onFail(APIError error) {
                 view.hideProgress();
-                view.showGroupTripResults();
+                view.hideGroupTripResults();
                 if (error != null) {
                     if (error == APIError.NO_RESPONSE)
                         view.noResponse();
+                    else if (error == APIError.TICKETS_NOT_FOUND)
+                        view.ticketsNotFound();
                 }
             }
         });
