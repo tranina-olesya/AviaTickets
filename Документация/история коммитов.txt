@@ -1,0 +1,107 @@
+Копылова Анастасия:
+	Техническое задание:
+https://github.com/tranina-olesya/AviaTickets/commit/6cb6924afc50f4ceaeebc4e13b5be42c3afa5643#diff-3d300329be2a963d8f95b23c95c406c9
+https://github.com/tranina-olesya/AviaTickets/commit/11acd3a33de482d771066997bfa4f1d6e4890f6a#diff-3d300329be2a963d8f95b23c95c406c9
+	
+	Отчет по курсовому проекту:
+https://github.com/tranina-olesya/AviaTickets/commit/1dcef8515d7b6317049f5a638b7cec2949b5fc2d#diff-3d300329be2a963d8f95b23c95c406c9
+https://github.com/tranina-olesya/AviaTickets/commit/e4ca6d48ad5496c57c1c05a47b783d2bbf4a09f7#diff-3d300329be2a963d8f95b23c95c406c9
+https://github.com/tranina-olesya/AviaTickets/commit/5ef775d2769fe9d9b1893eeb76815fcf33216ec7#diff-3d300329be2a963d8f95b23c95c406c9
+https://github.com/tranina-olesya/AviaTickets/commit/cd791ced8863195b28f94377161a518524af7101#diff-3d300329be2a963d8f95b23c95c406c9
+https://github.com/tranina-olesya/AviaTickets/commit/8baf01c302d3e811421144e5169f2d94a007df00#diff-3d300329be2a963d8f95b23c95c406c9
+https://github.com/tranina-olesya/AviaTickets/commit/469a19dcbfec5b715a390b47292738f4e131794c#diff-3d300329be2a963d8f95b23c95c406c9
+https://github.com/tranina-olesya/AviaTickets/commit/118b2a76f43f0d86ca03b4f94c865248e63f0ed3#diff-3d300329be2a963d8f95b23c95c406c9
+https://github.com/tranina-olesya/AviaTickets/commit/c0cd3e2c13ccfae04cc5ae3d6f7f86b39b554705#diff-3d300329be2a963d8f95b23c95c406c9
+https://github.com/tranina-olesya/AviaTickets/commit/3cd0b9cea16444ef0430617db440e2482c7ce369#diff-3d300329be2a963d8f95b23c95c406c9
+https://github.com/tranina-olesya/AviaTickets/commit/e066c63733545483b7b2cd1499c6fccdaf51c724#diff-3d300329be2a963d8f95b23c95c406c9
+https://github.com/tranina-olesya/AviaTickets/commit/75e1d93da29e243e54a410bafc6bae3c03581349#diff-3d300329be2a963d8f95b23c95c406c9
+
+	Диаграммы UML (активности, прецедентов, состояний, объектов,
+	коммуникаций, развертывания, последовательностей)
+https://github.com/tranina-olesya/AviaTickets/commit/02fd5c5a5e78a975d840fd1e26673ba38378a3a8#diff-3d300329be2a963d8f95b23c95c406c9
+https://github.com/tranina-olesya/AviaTickets/commit/191b356c57af142538bb277a0c7ca3b47b3a9fad#diff-3d300329be2a963d8f95b23c95c406c9
+https://github.com/tranina-olesya/AviaTickets/commit/ef3c7998bcf2fdb60bc68d37c136293f5cf0cedb#diff-3d300329be2a963d8f95b23c95c406c9
+https://github.com/tranina-olesya/AviaTickets/commit/4cc0d1e75446a8bbcbf323d92c97aa800a3f9f33#diff-3d300329be2a963d8f95b23c95c406c9
+https://github.com/tranina-olesya/AviaTickets/commit/afba0645a82bb4a5b1e29f17caf6d7d55afead06#diff-3d300329be2a963d8f95b23c95c406c9
+https://github.com/tranina-olesya/AviaTickets/commit/9eb8bc41e0f06fcda5c0c146270b12d108115c53#diff-3d300329be2a963d8f95b23c95c406c9
+https://github.com/tranina-olesya/AviaTickets/commit/952d41a923def4cbe5bf00022827420946907a46#diff-3d300329be2a963d8f95b23c95c406c9
+https://github.com/tranina-olesya/AviaTickets/commit/1292292d9cb1388462e46010560f3790e7cde17d#diff-3d300329be2a963d8f95b23c95c406c9
+https://github.com/tranina-olesya/AviaTickets/commit/be03762c5d401ff8c5c8f0f4320dc55c77df7378#diff-3d300329be2a963d8f95b23c95c406c9
+https://github.com/tranina-olesya/AviaTickets/commit/93a3845bd5a4204f9c504c677d8097c8a3fab239#diff-3d300329be2a963d8f95b23c95c406c9
+https://github.com/tranina-olesya/AviaTickets/commit/d4f1f7a3a1859002260e8e120f42c3375aa3a31a#diff-3d300329be2a963d8f95b23c95c406c9
+https://github.com/tranina-olesya/AviaTickets/commit/44c384949cc35b2aba1fe735781d7c2be2914022#diff-3d300329be2a963d8f95b23c95c406c9
+https://github.com/tranina-olesya/AviaTickets/commit/b39c1e6f91f979109a22d7206d91aa868df540d7#diff-3d300329be2a963d8f95b23c95c406c9
+https://github.com/tranina-olesya/AviaTickets/commit/5c424c402572800f8fd4a74241fa4239dbeadfac#diff-3d300329be2a963d8f95b23c95c406c9
+https://github.com/tranina-olesya/AviaTickets/commit/51371505f09875efdc78d9ba6b0ab6a9ccbb8714#diff-3d300329be2a963d8f95b23c95c406c9
+https://github.com/tranina-olesya/AviaTickets/commit/05419ac91ee04e834670304de1022951b02d6a25#diff-3d300329be2a963d8f95b23c95c406c9
+https://github.com/tranina-olesya/AviaTickets/commit/88bf8092b1255c597a9ab250d9af08cb39db23bd#diff-3d300329be2a963d8f95b23c95c406c9
+https://github.com/tranina-olesya/AviaTickets/commit/950217eb1a9b16739fe78e1c07b4acb7f6bbc4c2#diff-3d300329be2a963d8f95b23c95c406c9
+
+	Архитектурная схема
+https://github.com/tranina-olesya/AviaTickets/commit/80775afec8bac5023da95ce830463a784a7a5634#diff-3d300329be2a963d8f95b23c95c406c9
+https://github.com/tranina-olesya/AviaTickets/commit/f83d98c5b44d7b651f4386d23c167e72520c9a9f#diff-3d300329be2a963d8f95b23c95c406c9
+
+	Ручное тестирование
+https://github.com/tranina-olesya/AviaTickets/commit/783994df2e9898b3f89843e55fde947e1cea535e#diff-3d300329be2a963d8f95b23c95c406c9
+https://github.com/tranina-olesya/AviaTickets/commit/28e54a9c01e5ed5a2c3c17a89dec1640260b1805#diff-3d300329be2a963d8f95b23c95c406c9
+https://github.com/tranina-olesya/AviaTickets/commit/19b0e3ffddb8761196e21f72f75f46f5827f9f3d#diff-3d300329be2a963d8f95b23c95c406c9
+https://github.com/tranina-olesya/AviaTickets/commit/17861ef473219d485594c3c0dc389b1bbee0bce3#diff-3d300329be2a963d8f95b23c95c406c9
+
+
+Транина Олеся:
+
+	Диаграмма классов
+https://github.com/tranina-olesya/AviaTickets/commit/716e2d26526a0dc371cb43e591534ab1b689251a#diff-3e41d9d7bd425e5a8b6c57348f8a5bd5
+https://github.com/tranina-olesya/AviaTickets/commit/125070bdd43735221aa22bc20ec89bd2b76ed2b4#diff-3e41d9d7bd425e5a8b6c57348f8a5bd5
+https://github.com/tranina-olesya/AviaTickets/commit/7c4a21cd8b07bd2e59c1eb1612b6fdd1bb2db4fe#diff-3e41d9d7bd425e5a8b6c57348f8a5bd5
+
+	Разработка модуля поиска билетов
+https://github.com/tranina-olesya/AviaTickets/commit/ca3569a081d3f2e77fb96608185b3f600e5a8d24
+https://github.com/tranina-olesya/AviaTickets/commit/14f8e0dcd401fb6acc8f005dfda058a8277daf86
+https://github.com/tranina-olesya/AviaTickets/commit/a53d931075b3bba5b54277c08b7149a771fa7a21
+https://github.com/tranina-olesya/AviaTickets/commit/88fb7e9da19459ce8c94442761f38a12535a9a74
+https://github.com/tranina-olesya/AviaTickets/commit/4c604641df8bd5f3c1b47ac699798f75e028d3ed
+https://github.com/tranina-olesya/AviaTickets/commit/b8067c35571c482262fcc822ec899eaf07375be5
+https://github.com/tranina-olesya/AviaTickets/commit/767689f81c828b8b2a61eeb94e8fecb53b8888d5
+https://github.com/tranina-olesya/AviaTickets/commit/0ac9e28f79716a72179a745765df14060daf57bc
+https://github.com/tranina-olesya/AviaTickets/commit/09bfca521bea935dc63e90aa2ea754a1ddc192e3
+потом код был перенесен на AviaTicketsBackEnd
+https://github.com/tranina-olesya/AviaTicketsBackEnd/commit/e67e614e026d23f85eca8b74129bfa28db4aae1c
+
+	Разработка модуля работы с БД
+https://github.com/tranina-olesya/AviaTicketsBackEnd/commit/e67e614e026d23f85eca8b74129bfa28db4aae1c
+https://github.com/tranina-olesya/AviaTicketsBackEnd/commit/915a41013898e43683598feb1e7c6a4544fa9112
+https://github.com/tranina-olesya/AviaTicketsBackEnd/commit/53a4d8552dfb2b4eee6310e78c8572e31023264f
+https://github.com/tranina-olesya/AviaTicketsBackEnd/commit/5832e1880c9445295e8bf56fcad89142081c130f
+https://github.com/tranina-olesya/AviaTicketsBackEnd/commit/29edcdfac348c6a0b583cf4b66cf3cf779f3fa06
+https://github.com/tranina-olesya/AviaTicketsBackEnd/commit/49108d913eb9c2ff9675e0963de05890c610ce3f
+https://github.com/tranina-olesya/AviaTicketsBackEnd/commit/d1ee8976db18ca09ff4cf81aff75d00af8772f34
+
+	Код для предоставления API на серверной части 
+https://github.com/tranina-olesya/AviaTicketsBackEnd/commit/e67e614e026d23f85eca8b74129bfa28db4aae1c
+
+	Интеграция клиентской и серверной частей
+https://github.com/tranina-olesya/AviaTickets/commit/4ee96227bc9ff842eeae34790ec9a69c8fc13ffb
+
+	Разработка модуля авторизации на клиентской части
+https://github.com/tranina-olesya/AviaTickets/commit/1724bea1d852358441e073f7e76f383ddff2842e
+https://github.com/tranina-olesya/AviaTickets/commit/d3106772e062fd7f7bb0b3f112fb09fe197bb45e
+
+	Отображение пользовательского интерфейса
+	коммиты ветки ui
+https://github.com/tranina-olesya/AviaTickets/commits/ui
+
+	Автоматическое тестирование
+	бэк
+https://github.com/tranina-olesya/AviaTicketsBackEnd/commit/9127f0bd44bbf8be774e1c2b3e7d0beb44b1de06
+https://github.com/tranina-olesya/AviaTicketsBackEnd/commit/177a9700aae1d47a5921940a884b30efca383602
+https://github.com/tranina-olesya/AviaTicketsBackEnd/commit/d2375e962f24a6261bd28677160769899b4e0940
+	фронт 
+https://github.com/tranina-olesya/AviaTickets/commit/1d297a0d07a791d23b4d5e25fce596ea53466f74
+https://github.com/tranina-olesya/AviaTickets/commit/b18b878b96514be4f5c602f94a64e61e26542b97
+https://github.com/tranina-olesya/AviaTickets/commit/612b62e5d38bd2165ec53de63715a565c7e0cdf9
+https://github.com/tranina-olesya/AviaTickets/commit/62b39f6bb4803c05de46a1d01c7e512088b7a630
+https://github.com/tranina-olesya/AviaTickets/commit/bcb899620406f1936252432f06d95b447c74bd78
+https://github.com/tranina-olesya/AviaTickets/commit/12cd863c7b782e5d2da25c7b5a2ac378deeafcb7
+https://github.com/tranina-olesya/AviaTickets/commit/f3f2c753f806508136197c093bb1cf6282c64310
+https://github.com/tranina-olesya/AviaTickets/commit/b5f7238a2a0664151419c556ebd1cc9a3e88ff13
