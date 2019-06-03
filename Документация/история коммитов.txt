@@ -15,6 +15,7 @@ https://github.com/tranina-olesya/AviaTickets/commit/c0cd3e2c13ccfae04cc5ae3d6f7
 https://github.com/tranina-olesya/AviaTickets/commit/3cd0b9cea16444ef0430617db440e2482c7ce369#diff-3d300329be2a963d8f95b23c95c406c9
 https://github.com/tranina-olesya/AviaTickets/commit/e066c63733545483b7b2cd1499c6fccdaf51c724#diff-3d300329be2a963d8f95b23c95c406c9
 https://github.com/tranina-olesya/AviaTickets/commit/75e1d93da29e243e54a410bafc6bae3c03581349#diff-3d300329be2a963d8f95b23c95c406c9
+https://github.com/tranina-olesya/AviaTickets/commit/0dfe81e0750fbe6288eeae4885d799f9f579afd3
 
 	Диаграммы UML (активности, прецедентов, состояний, объектов,
 	коммуникаций, развертывания, последовательностей)
