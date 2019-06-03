@@ -41,8 +41,8 @@ public class BookmarkAPIProvider extends ProviderAPI<BookmarkAPI> {
         });
     }
 
-    public void deleteBookmark(Long bookmarkId, CompleteCallback callback) {
-        getApi().deleteBookmark(bookmarkId).enqueue(new Callback<ResponseBody>() {
+    public void deleteBookmark(String userCode, Long bookmarkId, CompleteCallback callback) {
+        getApi().deleteBookmark(userCode, bookmarkId).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (callback != null)

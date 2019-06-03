@@ -23,12 +23,12 @@ public interface BookmarkAPI {
     @POST("/bookmarks")
     Call<Long> createBookmark(@Body BookmarkRequestDTO bookmarkRequestDTO);
 
-    @DELETE("/bookmarks/{bookmarkId}")
-    Call<ResponseBody> deleteBookmark(@Path("bookmarkId") Long bookmarkId);
+    @DELETE("/bookmarks/{userCode}/{bookmarkId}")
+    Call<ResponseBody> deleteBookmark(@Path("userCode") String userCode, @Path("bookmarkId") Long bookmarkId);
 
     @GET("/bookmarks/find")
     Call<BookmarkRoute> findBookmark(@Query("userCode") String userCode, @Query("origin") String origin, @Query("destination") String destination,
-                                     @Query("adultCount") Integer adultCount, @Query("childrenCount") Integer childrenCount,
-                                     @Query("infantsCount") Integer infantsCount, @Query("flightType") FlightType flightType,
+                                     @Query("adultCount") Integer adultCount, @Query("childCount") Integer childrenCount,
+                                     @Query("infantCount") Integer infantsCount, @Query("flightType") FlightType flightType,
                                      @Query("classType") CabinClass cabinClass, @Query("transfers") boolean transfers);
 }

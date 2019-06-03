@@ -122,7 +122,7 @@ public class TripResultsPresenter {
                     }
                 });
             } else {
-                modelAddition.deleteBookmarkRoute(savedBookmark, new CompleteCallback() {
+                modelAddition.deleteBookmarkRoute(userCode, savedBookmark, new CompleteCallback() {
                     @Override
                     public void onComplete() {
                         savedBookmark = null;

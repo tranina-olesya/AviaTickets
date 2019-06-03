@@ -15,8 +15,8 @@ public class BookmarksRouteModel {
         bookmarkAPIProvider.getBookmarks(userCode, callback);
     }
 
-    public void deleteBookmarkRoute(BookmarkRoute value, CompleteCallback callback) {
-        bookmarkAPIProvider.deleteBookmark(value.getId(), callback);
+    public void deleteBookmarkRoute(String userCode, BookmarkRoute value, CompleteCallback callback) {
+        bookmarkAPIProvider.deleteBookmark(userCode, value.getId(), callback);
     }
 
 }

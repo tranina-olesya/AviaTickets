@@ -65,23 +65,26 @@ public class BookmarksRoutePresenter {
 
 
     public void delete(int index) {
-        BookmarkRoute bookmarkRoute = bookmarkRoutes.get(index);
-        model.deleteBookmarkRoute(bookmarkRoute, new CompleteCallback() {
-            @Override
-            public void onComplete() {
-                bookmarkRoutes.remove(index);
-                view.itemRemoved(index);
-                if (bookmarkRoutes.isEmpty()) {
-                    view.hideBookmarkList();
-                    view.showEmptyMessage();
+        String userCode = App.getUserCode();
+        if (userCode != null) {
+            BookmarkRoute bookmarkRoute = bookmarkRoutes.get(index);
+            model.deleteBookmarkRoute(userCode, bookmarkRoute, new CompleteCallback() {
+                @Override
+                public void onComplete() {
+                    bookmarkRoutes.remove(index);
+                    view.itemRemoved(index);
+                    if (bookmarkRoutes.isEmpty()) {
+                        view.hideBookmarkList();
+                        view.showEmptyMessage();
+                    }
                 }
-            }
 
-            @Override
-            public void onFail() {
-                view.showNoResponseToast();
-            }
-        });
+                @Override
+                public void onFail() {
+                    view.showNoResponseToast();
+                }
+            });
+        }
     }
 
     public void itemChosen(SearchData searchData) {
